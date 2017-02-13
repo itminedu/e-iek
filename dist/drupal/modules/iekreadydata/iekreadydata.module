@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains iekreadydata.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function iekreadydata_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the iekreadydata module.
+    case 'help.page.iekreadydata':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Data Avaialble from MySchool System') . '</p>';
+      return $output;
+
+    default:
+  }
+}

@@ -1,0 +1,35 @@
+entity.eiek_admin_area.add_form:
+  route_name: entity.eiek_admin_area.add_form
+  title: 'Add Eiek admin area'
+  appears_on:
+    - entity.eiek_admin_area.collection
+entity.eiek_specialty.add_form:
+  route_name: entity.eiek_specialty.add_form
+  title: 'Add Eiek specialty'
+  appears_on:
+    - entity.eiek_specialty.collection
+entity.eiek_prefecture.add_form:
+  route_name: entity.eiek_prefecture.add_form
+  title: 'Add Eiek prefecture'
+  appears_on:
+    - entity.eiek_prefecture.collection
+entity.eiek_region.add_form:
+  route_name: entity.eiek_region.add_form
+  title: 'Add Eiek region'
+  appears_on:
+    - entity.eiek_region.collection
+entity.eiek_school.add_form:
+  route_name: entity.eiek_school.add_form
+  title: 'Add Eiek school'
+  appears_on:
+    - entity.eiek_school.collection
+entity.eiek_specialties_in_iek.add_form:
+  route_name: entity.eiek_specialties_in_iek.add_form
+  title: 'Add Eiek specialties in iek'
+  appears_on:
+    - entity.eiek_specialties_in_iek.collection
+entity.eiek_sectors.add_form:
+  route_name: entity.eiek_sectors.add_form
+  title: 'Add Eiek sectors'
+  appears_on:
+    - entity.eiek_sectors.collection

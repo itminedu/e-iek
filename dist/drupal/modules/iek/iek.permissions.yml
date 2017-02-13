@@ -1,0 +1,110 @@
+add iek student entities:
+  title: 'Create new IEK Student entities'
+
+administer iek student entities:
+  title: 'Administer IEK Student entities'
+  description: 'Allow to access the administration form to configure IEK Student entities.'
+  restrict access: true
+
+delete iek student entities:
+  title: 'Delete IEK Student entities'
+
+edit iek student entities:
+  title: 'Edit IEK Student entities'
+
+access iek student overview:
+  title: 'Access the IEK Student overview page'
+
+view published iek student entities:
+  title: 'View published IEK Student entities'
+
+view unpublished iek student entities:
+  title: 'View unpublished IEK Student entities'
+add iek student class entities:
+  title: 'Create new IEK Student Class entities'
+
+administer iek student class entities:
+  title: 'Administer IEK Student Class entities'
+  description: 'Allow to access the administration form to configure IEK Student Class entities.'
+  restrict access: true
+
+delete iek student class entities:
+  title: 'Delete IEK Student Class entities'
+
+edit iek student class entities:
+  title: 'Edit IEK Student Class entities'
+
+access iek student class overview:
+  title: 'Access the IEK Student Class overview page'
+
+view published iek student class entities:
+  title: 'View published IEK Student Class entities'
+
+view unpublished iek student class entities:
+  title: 'View unpublished IEK Student Class entities'
+add iek student iek chosen entities:
+  title: 'Create new Epal student iek chosen entities'
+
+administer iek student iek chosen entities:
+  title: 'Administer Epal student iek chosen entities'
+  description: 'Allow to access the administration form to configure Epal student iek chosen entities.'
+  restrict access: true
+
+delete iek student iek chosen entities:
+  title: 'Delete Epal student iek chosen entities'
+
+edit iek student iek chosen entities:
+  title: 'Edit Epal student iek chosen entities'
+
+access iek student iek chosen overview:
+  title: 'Access the Epal student iek chosen overview page'
+
+view published iek student iek chosen entities:
+  title: 'View published Epal student iek chosen entities'
+
+view unpublished iek student iek chosen entities:
+  title: 'View unpublished Epal student iek chosen entities'
+add iek student course field entities:
+  title: 'Create new Epal student course field entities'
+
+administer iek student course field entities:
+  title: 'Administer Epal student course field entities'
+  description: 'Allow to access the administration form to configure Epal student course field entities.'
+  restrict access: true
+
+delete iek student course field entities:
+  title: 'Delete Epal student course field entities'
+
+edit iek student course field entities:
+  title: 'Edit Epal student course field entities'
+
+access iek student course field overview:
+  title: 'Access the Epal student course field overview page'
+
+view published iek student course field entities:
+  title: 'View published Epal student course field entities'
+
+view unpublished iek student course field entities:
+  title: 'View unpublished Epal student course field entities'
+add iek users entities:
+  title: 'Create new Epal users entities'
+
+administer iek users entities:
+  title: 'Administer Epal users entities'
+  description: 'Allow to access the administration form to configure Epal users entities.'
+  restrict access: true
+
+delete iek users entities:
+  title: 'Delete Epal users entities'
+
+edit iek users entities:
+  title: 'Edit Epal users entities'
+
+access iek users overview:
+  title: 'Access the Epal users overview page'
+
+view published iek users entities:
+  title: 'View published Epal users entities'
+
+view unpublished iek users entities:
+  title: 'View unpublished Epal users entities'

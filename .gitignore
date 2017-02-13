@@ -1,0 +1,13 @@
+source/**/*.js
+source/**/*.js.map
+node_modules
+jspm_packages
+bower_components
+aot/*
+
+!/dist/
+/dist/*
+!/dist/drupal/
+/dist/drupal/*
+!/dist/drupal/themes/
+!/dist/drupal/modules/

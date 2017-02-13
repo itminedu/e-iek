@@ -1,0 +1,70 @@
+
+# IEK Student menu items definition
+entity.iek_student.collection:
+  title: 'IEK Student list'
+  route_name: entity.iek_student.collection
+  description: 'List IEK Student entities'
+  parent: system.admin_iek
+  weight: 100
+
+iek_student.admin.structure.settings:
+  title: IEK Student settings
+  description: 'Configure IEK Student entities'
+  route_name: iek_student.settings
+  parent: system.admin_structure
+
+# IEK Student Class menu items definition
+entity.iek_student_class.collection:
+  title: 'IEK Student Class list'
+  route_name: entity.iek_student_class.collection
+  description: 'List IEK Student Class entities'
+  parent: system.admin_iek
+  weight: 100
+
+iek_student_class.admin.structure.settings:
+  title: IEK Student Class settings
+  description: 'Configure IEK Student Class entities'
+  route_name: iek_student_class.settings
+  parent: system.admin_structure
+
+# Epal student iek chosen menu items definition
+entity.iek_student_iek_chosen.collection:
+  title: 'Epal student iek chosen list'
+  route_name: entity.iek_student_iek_chosen.collection
+  description: 'List Epal student iek chosen entities'
+  parent: system.admin_structure
+  weight: 100
+
+iek_student_iek_chosen.admin.structure.settings:
+  title: Epal student iek chosen settings
+  description: 'Configure Epal student iek chosen entities'
+  route_name: iek_student_iek_chosen.settings
+  parent: system.admin_structure
+
+# Epal student course field menu items definition
+entity.iek_student_course_field.collection:
+  title: 'Epal student course field list'
+  route_name: entity.iek_student_course_field.collection
+  description: 'List Epal student course field entities'
+  parent: system.admin_structure
+  weight: 100
+
+iek_student_course_field.admin.structure.settings:
+  title: Epal student course field settings
+  description: 'Configure Epal student course field entities'
+  route_name: iek_student_course_field.settings
+  parent: system.admin_structure
+
+# Epal users menu items definition
+entity.iek_users.collection:
+  title: 'Epal users list'
+  route_name: entity.iek_users.collection
+  description: 'List Epal users entities'
+  parent: system.admin_structure
+  weight: 100
+
+iek_users.admin.structure.settings:
+  title: Epal users settings
+  description: 'Configure Epal users entities'
+  route_name: iek_users.settings
+  parent: system.admin_structure

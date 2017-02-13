@@ -1,0 +1,25 @@
+entity.iek_student.add_form:
+  route_name: entity.iek_student.add_form
+  title: 'Add IEK Student'
+  appears_on:
+    - entity.iek_student.collection
+entity.iek_student_class.add_form:
+  route_name: entity.iek_student_class.add_form
+  title: 'Add IEK Student Class'
+  appears_on:
+    - entity.iek_student_class.collection
+entity.iek_student_iek_chosen.add_form:
+  route_name: entity.iek_student_iek_chosen.add_form
+  title: 'Add Epal student iek chosen'
+  appears_on:
+    - entity.iek_student_iek_chosen.collection
+entity.iek_student_course_field.add_form:
+  route_name: entity.iek_student_course_field.add_form
+  title: 'Add Epal student course field'
+  appears_on:
+    - entity.iek_student_course_field.collection
+entity.iek_users.add_form:
+  route_name: entity.iek_users.add_form
+  title: 'Add Epal users'
+  appears_on:
+    - entity.iek_users.collection

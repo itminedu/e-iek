@@ -1,0 +1,154 @@
+# Eiek admin area routing definition
+eiek_admin_area.settings_tab:
+  route_name: eiek_admin_area.settings
+  title: 'Settings'
+  base_route: eiek_admin_area.settings
+
+entity.eiek_admin_area.canonical:
+  route_name: entity.eiek_admin_area.canonical
+  base_route: entity.eiek_admin_area.canonical
+  title: 'View'
+
+entity.eiek_admin_area.edit_form:
+  route_name: entity.eiek_admin_area.edit_form
+  base_route: entity.eiek_admin_area.canonical
+  title: 'Edit'
+
+entity.eiek_admin_area.delete_form:
+  route_name:  entity.eiek_admin_area.delete_form
+  base_route:  entity.eiek_admin_area.canonical
+  title: Delete
+  weight: 10
+
+# Eiek specialty routing definition
+eiek_specialty.settings_tab:
+  route_name: eiek_specialty.settings
+  title: 'Settings'
+  base_route: eiek_specialty.settings
+
+entity.eiek_specialty.canonical:
+  route_name: entity.eiek_specialty.canonical
+  base_route: entity.eiek_specialty.canonical
+  title: 'View'
+
+entity.eiek_specialty.edit_form:
+  route_name: entity.eiek_specialty.edit_form
+  base_route: entity.eiek_specialty.canonical
+  title: 'Edit'
+
+entity.eiek_specialty.delete_form:
+  route_name:  entity.eiek_specialty.delete_form
+  base_route:  entity.eiek_specialty.canonical
+  title: Delete
+  weight: 10
+
+# Eiek prefecture routing definition
+eiek_prefecture.settings_tab:
+  route_name: eiek_prefecture.settings
+  title: 'Settings'
+  base_route: eiek_prefecture.settings
+
+entity.eiek_prefecture.canonical:
+  route_name: entity.eiek_prefecture.canonical
+  base_route: entity.eiek_prefecture.canonical
+  title: 'View'
+
+entity.eiek_prefecture.edit_form:
+  route_name: entity.eiek_prefecture.edit_form
+  base_route: entity.eiek_prefecture.canonical
+  title: 'Edit'
+
+entity.eiek_prefecture.delete_form:
+  route_name:  entity.eiek_prefecture.delete_form
+  base_route:  entity.eiek_prefecture.canonical
+  title: Delete
+  weight: 10
+
+# Eiek region routing definition
+eiek_region.settings_tab:
+  route_name: eiek_region.settings
+  title: 'Settings'
+  base_route: eiek_region.settings
+
+entity.eiek_region.canonical:
+  route_name: entity.eiek_region.canonical
+  base_route: entity.eiek_region.canonical
+  title: 'View'
+
+entity.eiek_region.edit_form:
+  route_name: entity.eiek_region.edit_form
+  base_route: entity.eiek_region.canonical
+  title: 'Edit'
+
+entity.eiek_region.delete_form:
+  route_name:  entity.eiek_region.delete_form
+  base_route:  entity.eiek_region.canonical
+  title: Delete
+  weight: 10
+
+# Eiek school routing definition
+eiek_school.settings_tab:
+  route_name: eiek_school.settings
+  title: 'Settings'
+  base_route: eiek_school.settings
+
+entity.eiek_school.canonical:
+  route_name: entity.eiek_school.canonical
+  base_route: entity.eiek_school.canonical
+  title: 'View'
+
+entity.eiek_school.edit_form:
+  route_name: entity.eiek_school.edit_form
+  base_route: entity.eiek_school.canonical
+  title: 'Edit'
+
+entity.eiek_school.delete_form:
+  route_name:  entity.eiek_school.delete_form
+  base_route:  entity.eiek_school.canonical
+  title: Delete
+  weight: 10
+
+# Eiek specialties in iek routing definition
+eiek_specialties_in_iek.settings_tab:
+  route_name: eiek_specialties_in_iek.settings
+  title: 'Settings'
+  base_route: eiek_specialties_in_iek.settings
+
+entity.eiek_specialties_in_iek.canonical:
+  route_name: entity.eiek_specialties_in_iek.canonical
+  base_route: entity.eiek_specialties_in_iek.canonical
+  title: 'View'
+
+entity.eiek_specialties_in_iek.edit_form:
+  route_name: entity.eiek_specialties_in_iek.edit_form
+  base_route: entity.eiek_specialties_in_iek.canonical
+  title: 'Edit'
+
+entity.eiek_specialties_in_iek.delete_form:
+  route_name:  entity.eiek_specialties_in_iek.delete_form
+  base_route:  entity.eiek_specialties_in_iek.canonical
+  title: Delete
+  weight: 10
+
+# Eiek sectors routing definition
+eiek_sectors.settings_tab:
+  route_name: eiek_sectors.settings
+  title: 'Settings'
+  base_route: eiek_sectors.settings
+
+entity.eiek_sectors.canonical:
+  route_name: entity.eiek_sectors.canonical
+  base_route: entity.eiek_sectors.canonical
+  title: 'View'
+
+entity.eiek_sectors.edit_form:
+  route_name: entity.eiek_sectors.edit_form
+  base_route: entity.eiek_sectors.canonical
+  title: 'Edit'
+
+entity.eiek_sectors.delete_form:
+  route_name:  entity.eiek_sectors.delete_form
+  base_route:  entity.eiek_sectors.canonical
+  title: Delete
+  weight: 10
+

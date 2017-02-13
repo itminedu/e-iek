@@ -1,0 +1,154 @@
+add eiek admin area entities:
+  title: 'Create new Eiek admin area entities'
+
+administer eiek admin area entities:
+  title: 'Administer Eiek admin area entities'
+  description: 'Allow to access the administration form to configure Eiek admin area entities.'
+  restrict access: true
+
+delete eiek admin area entities:
+  title: 'Delete Eiek admin area entities'
+
+edit eiek admin area entities:
+  title: 'Edit Eiek admin area entities'
+
+access eiek admin area overview:
+  title: 'Access the Eiek admin area overview page'
+
+view published eiek admin area entities:
+  title: 'View published Eiek admin area entities'
+
+view unpublished eiek admin area entities:
+  title: 'View unpublished Eiek admin area entities'
+add eiek specialty entities:
+  title: 'Create new Eiek specialty entities'
+
+administer eiek specialty entities:
+  title: 'Administer Eiek specialty entities'
+  description: 'Allow to access the administration form to configure Eiek specialty entities.'
+  restrict access: true
+
+delete eiek specialty entities:
+  title: 'Delete Eiek specialty entities'
+
+edit eiek specialty entities:
+  title: 'Edit Eiek specialty entities'
+
+access eiek specialty overview:
+  title: 'Access the Eiek specialty overview page'
+
+view published eiek specialty entities:
+  title: 'View published Eiek specialty entities'
+
+view unpublished eiek specialty entities:
+  title: 'View unpublished Eiek specialty entities'
+add eiek prefecture entities:
+  title: 'Create new Eiek prefecture entities'
+
+administer eiek prefecture entities:
+  title: 'Administer Eiek prefecture entities'
+  description: 'Allow to access the administration form to configure Eiek prefecture entities.'
+  restrict access: true
+
+delete eiek prefecture entities:
+  title: 'Delete Eiek prefecture entities'
+
+edit eiek prefecture entities:
+  title: 'Edit Eiek prefecture entities'
+
+access eiek prefecture overview:
+  title: 'Access the Eiek prefecture overview page'
+
+view published eiek prefecture entities:
+  title: 'View published Eiek prefecture entities'
+
+view unpublished eiek prefecture entities:
+  title: 'View unpublished Eiek prefecture entities'
+add eiek region entities:
+  title: 'Create new Eiek region entities'
+
+administer eiek region entities:
+  title: 'Administer Eiek region entities'
+  description: 'Allow to access the administration form to configure Eiek region entities.'
+  restrict access: true
+
+delete eiek region entities:
+  title: 'Delete Eiek region entities'
+
+edit eiek region entities:
+  title: 'Edit Eiek region entities'
+
+access eiek region overview:
+  title: 'Access the Eiek region overview page'
+
+view published eiek region entities:
+  title: 'View published Eiek region entities'
+
+view unpublished eiek region entities:
+  title: 'View unpublished Eiek region entities'
+add eiek school entities:
+  title: 'Create new Eiek school entities'
+
+administer eiek school entities:
+  title: 'Administer Eiek school entities'
+  description: 'Allow to access the administration form to configure Eiek school entities.'
+  restrict access: true
+
+delete eiek school entities:
+  title: 'Delete Eiek school entities'
+
+edit eiek school entities:
+  title: 'Edit Eiek school entities'
+
+access eiek school overview:
+  title: 'Access the Eiek school overview page'
+
+view published eiek school entities:
+  title: 'View published Eiek school entities'
+
+view unpublished eiek school entities:
+  title: 'View unpublished Eiek school entities'
+add eiek specialties in iek entities:
+  title: 'Create new Eiek specialties in iek entities'
+
+administer eiek specialties in iek entities:
+  title: 'Administer Eiek specialties in iek entities'
+  description: 'Allow to access the administration form to configure Eiek specialties in iek entities.'
+  restrict access: true
+
+delete eiek specialties in iek entities:
+  title: 'Delete Eiek specialties in iek entities'
+
+edit eiek specialties in iek entities:
+  title: 'Edit Eiek specialties in iek entities'
+
+access eiek specialties in iek overview:
+  title: 'Access the Eiek specialties in iek overview page'
+
+view published eiek specialties in iek entities:
+  title: 'View published Eiek specialties in iek entities'
+
+view unpublished eiek specialties in iek entities:
+  title: 'View unpublished Eiek specialties in iek entities'
+add eiek sectors entities:
+  title: 'Create new Eiek sectors entities'
+
+administer eiek sectors entities:
+  title: 'Administer Eiek sectors entities'
+  description: 'Allow to access the administration form to configure Eiek sectors entities.'
+  restrict access: true
+
+delete eiek sectors entities:
+  title: 'Delete Eiek sectors entities'
+
+edit eiek sectors entities:
+  title: 'Edit Eiek sectors entities'
+
+access eiek sectors overview:
+  title: 'Access the Eiek sectors overview page'
+
+view published eiek sectors entities:
+  title: 'View published Eiek sectors entities'
+
+view unpublished eiek sectors entities:
+  title: 'View unpublished Eiek sectors entities'
