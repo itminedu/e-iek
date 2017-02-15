@@ -1,6 +1,9 @@
 # iek_test_skeleton
 
 
+Οδηγός εγκατάστασης έργου ΙΕΚ για ανάπτυξη (development)
+
+
 
 1. git clone https://github.com/plirof2/iek_test_skeleton.git
  
@@ -12,7 +15,7 @@
 
     4. κανεις npm install
 
-    5. k;aneis npm start
+    5. κάνεις npm start
 
     6. σερφαρεις στο localhost/dist
 
