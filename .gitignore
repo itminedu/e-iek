@@ -7,7 +7,11 @@ aot/*
 
 !/dist/
 /dist/*
-!/dist/drupal/
-/dist/drupal/*
-!/dist/drupal/themes/
-!/dist/drupal/modules/
+!/dist/iekserver/
+/dist/iekserver/*
+!/dist/iekserver/themes/
+!/dist/iekserver/modules/
+/dist/iekserver/modules/*
+!/dist/iekserver/modules/custom/
+!/dist/iekserver/modules/ready/
+
