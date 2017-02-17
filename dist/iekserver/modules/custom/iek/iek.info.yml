@@ -1,7 +1,0 @@
-name: iek
-type: module
-description: IEK Registration
-core: 8.x
-package: IEK
-dependencies:
-  - iekreadydata
