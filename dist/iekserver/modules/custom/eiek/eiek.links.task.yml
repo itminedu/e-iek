@@ -1,0 +1,126 @@
+# Student entity routing definition
+student_entity.settings_tab:
+  route_name: student_entity.settings
+  title: 'Settings'
+  base_route: student_entity.settings
+
+entity.student_entity.canonical:
+  route_name: entity.student_entity.canonical
+  base_route: entity.student_entity.canonical
+  title: 'View'
+
+entity.student_entity.edit_form:
+  route_name: entity.student_entity.edit_form
+  base_route: entity.student_entity.canonical
+  title: 'Edit'
+
+entity.student_entity.version_history:
+  route_name: entity.student_entity.version_history
+  base_route: entity.student_entity.canonical
+  title: 'Revisions'
+
+entity.student_entity.delete_form:
+  route_name:  entity.student_entity.delete_form
+  base_route:  entity.student_entity.canonical
+  title: Delete
+  weight: 10
+
+
+# Eidikotita entity routing definition
+eidikotita_entity.settings_tab:
+  route_name: eidikotita_entity.settings
+  title: 'Settings'
+  base_route: eidikotita_entity.settings
+
+entity.eidikotita_entity.canonical:
+  route_name: entity.eidikotita_entity.canonical
+  base_route: entity.eidikotita_entity.canonical
+  title: 'View'
+
+entity.eidikotita_entity.edit_form:
+  route_name: entity.eidikotita_entity.edit_form
+  base_route: entity.eidikotita_entity.canonical
+  title: 'Edit'
+
+entity.eidikotita_entity.version_history:
+  route_name: entity.eidikotita_entity.version_history
+  base_route: entity.eidikotita_entity.canonical
+  title: 'Revisions'
+
+entity.eidikotita_entity.delete_form:
+  route_name:  entity.eidikotita_entity.delete_form
+  base_route:  entity.eidikotita_entity.canonical
+  title: Delete
+  weight: 10
+
+# Aitisi entity routing definition
+aitisi_entity.settings_tab:
+  route_name: aitisi_entity.settings
+  title: 'Settings'
+  base_route: aitisi_entity.settings
+
+entity.aitisi_entity.canonical:
+  route_name: entity.aitisi_entity.canonical
+  base_route: entity.aitisi_entity.canonical
+  title: 'View'
+
+entity.aitisi_entity.edit_form:
+  route_name: entity.aitisi_entity.edit_form
+  base_route: entity.aitisi_entity.canonical
+  title: 'Edit'
+
+entity.aitisi_entity.version_history:
+  route_name: entity.aitisi_entity.version_history
+  base_route: entity.aitisi_entity.canonical
+  title: 'Revisions'
+
+entity.aitisi_entity.delete_form:
+  route_name:  entity.aitisi_entity.delete_form
+  base_route:  entity.aitisi_entity.canonical
+  title: Delete
+  weight: 10
+
+# Region entity routing definition
+region_entity.settings_tab:
+  route_name: region_entity.settings
+  title: 'Settings'
+  base_route: region_entity.settings
+
+entity.region_entity.canonical:
+  route_name: entity.region_entity.canonical
+  base_route: entity.region_entity.canonical
+  title: 'View'
+
+entity.region_entity.edit_form:
+  route_name: entity.region_entity.edit_form
+  base_route: entity.region_entity.canonical
+  title: 'Edit'
+
+entity.region_entity.delete_form:
+  route_name:  entity.region_entity.delete_form
+  base_route:  entity.region_entity.canonical
+  title: Delete
+  weight: 10
+
+# School entity routing definition
+school_entity.settings_tab:
+  route_name: school_entity.settings
+  title: 'Settings'
+  base_route: school_entity.settings
+
+entity.school_entity.canonical:
+  route_name: entity.school_entity.canonical
+  base_route: entity.school_entity.canonical
+  title: 'View'
+
+entity.school_entity.edit_form:
+  route_name: entity.school_entity.edit_form
+  base_route: entity.school_entity.canonical
+  title: 'Edit'
+
+entity.school_entity.delete_form:
+  route_name:  entity.school_entity.delete_form
+  base_route:  entity.school_entity.canonical
+  title: Delete
+  weight: 10
+

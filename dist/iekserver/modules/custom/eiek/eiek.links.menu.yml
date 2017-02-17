@@ -1,0 +1,71 @@
+
+# Student entity menu items definition
+entity.student_entity.collection:
+  title: 'Student entity list'
+  route_name: entity.student_entity.collection
+  description: 'List Student entity entities'
+  parent: system.admin_structure
+  weight: 100
+
+student_entity.admin.structure.settings:
+  title: Student entity settings
+  description: 'Configure Student entity entities'
+  route_name: student_entity.settings
+  parent: system.admin_structure
+
+
+# Eidikotita entity menu items definition
+entity.eidikotita_entity.collection:
+  title: 'Eidikotita entity list'
+  route_name: entity.eidikotita_entity.collection
+  description: 'List Eidikotita entity entities'
+  parent: system.admin_structure
+  weight: 100
+
+eidikotita_entity.admin.structure.settings:
+  title: Eidikotita entity settings
+  description: 'Configure Eidikotita entity entities'
+  route_name: eidikotita_entity.settings
+  parent: system.admin_structure
+
+# Aitisi entity menu items definition
+entity.aitisi_entity.collection:
+  title: 'Aitisi entity list'
+  route_name: entity.aitisi_entity.collection
+  description: 'List Aitisi entity entities'
+  parent: system.admin_structure
+  weight: 100
+
+aitisi_entity.admin.structure.settings:
+  title: Aitisi entity settings
+  description: 'Configure Aitisi entity entities'
+  route_name: aitisi_entity.settings
+  parent: system.admin_structure
+
+# Region entity menu items definition
+entity.region_entity.collection:
+  title: 'Region entity list'
+  route_name: entity.region_entity.collection
+  description: 'List Region entity entities'
+  parent: system.admin_structure
+  weight: 100
+
+region_entity.admin.structure.settings:
+  title: Region entity settings
+  description: 'Configure Region entity entities'
+  route_name: region_entity.settings
+  parent: system.admin_structure
+
+# School entity menu items definition
+entity.school_entity.collection:
+  title: 'School entity list'
+  route_name: entity.school_entity.collection
+  description: 'List School entity entities'
+  parent: system.admin_structure
+  weight: 100
+
+school_entity.admin.structure.settings:
+  title: School entity settings
+  description: 'Configure School entity entities'
+  route_name: school_entity.settings
+  parent: system.admin_structure

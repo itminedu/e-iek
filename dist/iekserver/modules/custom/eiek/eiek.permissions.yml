@@ -1,0 +1,176 @@
+add student entity entities:
+  title: 'Create new Student entity entities'
+
+administer student entity entities:
+  title: 'Administer Student entity entities'
+  description: 'Allow to access the administration form to configure Student entity entities.'
+  restrict access: true
+
+delete student entity entities:
+  title: 'Delete Student entity entities'
+
+edit student entity entities:
+  title: 'Edit Student entity entities'
+
+access student entity overview:
+  title: 'Access the Student entity overview page'
+
+view published student entity entities:
+  title: 'View published Student entity entities'
+
+view unpublished student entity entities:
+  title: 'View unpublished Student entity entities'
+
+view all student entity revisions:
+  title: 'View all Student entity revisions'
+
+revert all student entity revisions:
+  title: 'Revert all Student entity revisions'
+  description: 'Role requires permission <em>view Student entity revisions</em> and <em>edit rights</em> for student entity entities in question or <em>administer student entity entities</em>.'
+
+delete all student entity revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Student entity revisions</em> and <em>delete rights</em> for student entity entities in question or <em>administer student entity entities</em>.'
+add request entity entities:
+  title: 'Create new Request entity entities'
+
+administer request entity entities:
+  title: 'Administer Request entity entities'
+  description: 'Allow to access the administration form to configure Request entity entities.'
+  restrict access: true
+
+delete request entity entities:
+  title: 'Delete Request entity entities'
+
+edit request entity entities:
+  title: 'Edit Request entity entities'
+
+access request entity overview:
+  title: 'Access the Request entity overview page'
+
+view published request entity entities:
+  title: 'View published Request entity entities'
+
+view unpublished request entity entities:
+  title: 'View unpublished Request entity entities'
+
+view all request entity revisions:
+  title: 'View all Request entity revisions'
+
+revert all request entity revisions:
+  title: 'Revert all Request entity revisions'
+  description: 'Role requires permission <em>view Request entity revisions</em> and <em>edit rights</em> for request entity entities in question or <em>administer request entity entities</em>.'
+
+delete all request entity revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Request entity revisions</em> and <em>delete rights</em> for request entity entities in question or <em>administer request entity entities</em>.'
+add eidikotita entity entities:
+  title: 'Create new Eidikotita entity entities'
+
+administer eidikotita entity entities:
+  title: 'Administer Eidikotita entity entities'
+  description: 'Allow to access the administration form to configure Eidikotita entity entities.'
+  restrict access: true
+
+delete eidikotita entity entities:
+  title: 'Delete Eidikotita entity entities'
+
+edit eidikotita entity entities:
+  title: 'Edit Eidikotita entity entities'
+
+access eidikotita entity overview:
+  title: 'Access the Eidikotita entity overview page'
+
+view published eidikotita entity entities:
+  title: 'View published Eidikotita entity entities'
+
+view unpublished eidikotita entity entities:
+  title: 'View unpublished Eidikotita entity entities'
+
+view all eidikotita entity revisions:
+  title: 'View all Eidikotita entity revisions'
+
+revert all eidikotita entity revisions:
+  title: 'Revert all Eidikotita entity revisions'
+  description: 'Role requires permission <em>view Eidikotita entity revisions</em> and <em>edit rights</em> for eidikotita entity entities in question or <em>administer eidikotita entity entities</em>.'
+
+delete all eidikotita entity revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Eidikotita entity revisions</em> and <em>delete rights</em> for eidikotita entity entities in question or <em>administer eidikotita entity entities</em>.'
+add aitisi entity entities:
+  title: 'Create new Aitisi entity entities'
+
+administer aitisi entity entities:
+  title: 'Administer Aitisi entity entities'
+  description: 'Allow to access the administration form to configure Aitisi entity entities.'
+  restrict access: true
+
+delete aitisi entity entities:
+  title: 'Delete Aitisi entity entities'
+
+edit aitisi entity entities:
+  title: 'Edit Aitisi entity entities'
+
+access aitisi entity overview:
+  title: 'Access the Aitisi entity overview page'
+
+view published aitisi entity entities:
+  title: 'View published Aitisi entity entities'
+
+view unpublished aitisi entity entities:
+  title: 'View unpublished Aitisi entity entities'
+
+view all aitisi entity revisions:
+  title: 'View all Aitisi entity revisions'
+
+revert all aitisi entity revisions:
+  title: 'Revert all Aitisi entity revisions'
+  description: 'Role requires permission <em>view Aitisi entity revisions</em> and <em>edit rights</em> for aitisi entity entities in question or <em>administer aitisi entity entities</em>.'
+
+delete all aitisi entity revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Aitisi entity revisions</em> and <em>delete rights</em> for aitisi entity entities in question or <em>administer aitisi entity entities</em>.'
+add region entity entities:
+  title: 'Create new Region entity entities'
+
+administer region entity entities:
+  title: 'Administer Region entity entities'
+  description: 'Allow to access the administration form to configure Region entity entities.'
+  restrict access: true
+
+delete region entity entities:
+  title: 'Delete Region entity entities'
+
+edit region entity entities:
+  title: 'Edit Region entity entities'
+
+access region entity overview:
+  title: 'Access the Region entity overview page'
+
+view published region entity entities:
+  title: 'View published Region entity entities'
+
+view unpublished region entity entities:
+  title: 'View unpublished Region entity entities'
+add school entity entities:
+  title: 'Create new School entity entities'
+
+administer school entity entities:
+  title: 'Administer School entity entities'
+  description: 'Allow to access the administration form to configure School entity entities.'
+  restrict access: true
+
+delete school entity entities:
+  title: 'Delete School entity entities'
+
+edit school entity entities:
+  title: 'Edit School entity entities'
+
+access school entity overview:
+  title: 'Access the School entity overview page'
+
+view published school entity entities:
+  title: 'View published School entity entities'
+
+view unpublished school entity entities:
+  title: 'View unpublished School entity entities'

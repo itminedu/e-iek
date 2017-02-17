@@ -1,0 +1,14 @@
+{
+  "name": "drupal/eiek",
+  "type": "drupal-module",
+  "description": "My Entities module",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/eiek",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/eiek",
+    "source": "http://cgit.drupalcode.org/eiek"
+  },
+  "require": { }
+}
