@@ -1,0 +1,24 @@
+special_page:
+  label: Front special
+  category: bc
+  template: layouts/front_special/front-special
+  css: layouts/front_special/layout.css
+  regions:
+    header_left:
+      label: Header Left
+    header_right:
+      label: Header Right
+    highlight: 
+      label: Highlighted
+    body_left:
+      label: Body Left
+    body_right:
+      label: Body Right
+    body_col1: 
+      label: Body Column 1
+    body_col2:
+      label: Body Column 2
+    body_col3:
+      label: Body Column 3
+      
+      
