@@ -9,6 +9,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 /**
  * Implements hook_entity_base_field_info().
  */
@@ -168,15 +169,15 @@ function entitychanger_install() {
   //-------------------------------CREATE SCHOOL(IEK) ENTITIES------------------------------------------//
   //------------------------------------------------------------------------------------------------//
   $arr_iek = array();
-  $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'ΣΙΒΙΤΑΝΙΔΕΙΟΣ', 'iek_code'=>'00530', 'type' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'Ο.Α.Ε.Δ. - ΥΜΗΤΤΟΥ', 'iek_code'=>'00506', 'type' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'TechnoGrafico', 'iek_code'=>'01002', 'type' => 'private');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[8], 'name'=> 'Ο.Α.Ε.Δ. - ΗΡΑΚΛΕΙΟΥ ΚΡΗΤΗΣ', 'iek_code'=>'01701', 'type' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[1], 'name'=> 'ΧΙΟΥ', 'iek_code'=>'00075', 'type' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[11], 'name'=> 'ΣΠΑΡΤΗΣ', 'iek_code'=>'00058', 'type' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[12],'name'=> 'ΧΑΛΚΙΔΑΣ', 'iek_code'=>'00049', 'type' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[11], 'name'=> 'ΠΥΡΓΟΥ', 'iek_code'=>'00054', 'type' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[10], 'name'=> 'ΚΕΡΚΥΡΑΣ', 'iek_code'=>'00052', 'type' => 'public');
+  $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'ΣΙΒΙΤΑΝΙΔΕΙΟΣ', 'iekcode'=>'00530', 'iektype' => 'public');
+  $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'Ο.Α.Ε.Δ. - ΥΜΗΤΤΟΥ', 'iekcode'=>'00506', 'iektype' => 'public');
+  $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'TechnoGrafico', 'iekcode'=>'01002', 'iektype' => 'private');
+  $arr_iek[] = array('region_id'=> $created_regions_ids[8], 'name'=> 'Ο.Α.Ε.Δ. - ΗΡΑΚΛΕΙΟΥ ΚΡΗΤΗΣ', 'iekcode'=>'01701', 'iektype' => 'public');
+  $arr_iek[] = array('region_id'=> $created_regions_ids[1], 'name'=> 'ΧΙΟΥ', 'iekcode'=>'00075', 'iektype' => 'public');
+  $arr_iek[] = array('region_id'=> $created_regions_ids[11], 'name'=> 'ΣΠΑΡΤΗΣ', 'iekcode'=>'00058', 'iektype' => 'public');
+  $arr_iek[] = array('region_id'=> $created_regions_ids[12],'name'=> 'ΧΑΛΚΙΔΑΣ', 'iekcode'=>'00049', 'iektype' => 'public');
+  $arr_iek[] = array('region_id'=> $created_regions_ids[11], 'name'=> 'ΠΥΡΓΟΥ', 'iekcode'=>'00054', 'iektype' => 'public');
+  $arr_iek[] = array('region_id'=> $created_regions_ids[10], 'name'=> 'ΚΕΡΚΥΡΑΣ', 'iekcode'=>'00052', 'iektype' => 'public');
 
 
   //save iek entities
@@ -246,4 +247,31 @@ function entitychanger_uninstall() {
 
 
   
+}
+
+/*
+ * Implements hook_user_login().
+ */
+function entitychanger_user_login($account){
+
+
+  // Get User Role(s).
+  $roles  = $account->getRoles();
+  if(isset($roles) && is_array($roles)) {
+    if(in_array('diaxeiristis_iek', $roles)) {
+    $path ='aitiseis';
+  } else if(in_array('diaxeiristis_eoppep', $roles)) {
+    $path = 'node/51';
+  } else if(in_array('aiton', $roles)) {
+    $path = 'node/7';
+  }
+
+   $url_object = \Drupal::service('path.validator')->getUrlIfValid($path);
+   $url_object->setAbsolute();
+   $url = $url_object->toString();
+   $response = new RedirectResponse($url);
+   $response->send();
+  }
+  
+
 }

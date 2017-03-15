@@ -2,10 +2,7 @@
 
 namespace Drupal\eiek\Entity;
 
-use Drupal\Core\Entity\RevisionLogInterface;
-use Drupal\Core\Entity\RevisionableInterface;
-use Drupal\Component\Utility\Xss;
-use Drupal\Core\Url;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\user\EntityOwnerInterface;
 
@@ -14,7 +11,7 @@ use Drupal\user\EntityOwnerInterface;
  *
  * @ingroup eiek
  */
-interface EidikotitaEntityInterface extends RevisionableInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
+interface EidikotitaEntityInterface extends  ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
 
   // Add get/set methods for your configuration properties here.
 
@@ -37,6 +34,15 @@ interface EidikotitaEntityInterface extends RevisionableInterface, RevisionLogIn
    */
   public function setName($name);
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getEidcode();
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setEidcode($eidcode);
   /**
    * Gets the Eidikotita entity creation timestamp.
    *
@@ -76,43 +82,5 @@ interface EidikotitaEntityInterface extends RevisionableInterface, RevisionLogIn
    *   The called Eidikotita entity entity.
    */
   public function setPublished($published);
-
-  /**
-   * Gets the Eidikotita entity revision creation timestamp.
-   *
-   * @return int
-   *   The UNIX timestamp of when this revision was created.
-   */
-  public function getRevisionCreationTime();
-
-  /**
-   * Sets the Eidikotita entity revision creation timestamp.
-   *
-   * @param int $timestamp
-   *   The UNIX timestamp of when this revision was created.
-   *
-   * @return \Drupal\eiek\Entity\EidikotitaEntityInterface
-   *   The called Eidikotita entity entity.
-   */
-  public function setRevisionCreationTime($timestamp);
-
-  /**
-   * Gets the Eidikotita entity revision author.
-   *
-   * @return \Drupal\user\UserInterface
-   *   The user entity for the revision author.
-   */
-  public function getRevisionUser();
-
-  /**
-   * Sets the Eidikotita entity revision author.
-   *
-   * @param int $uid
-   *   The user ID of the revision author.
-   *
-   * @return \Drupal\eiek\Entity\EidikotitaEntityInterface
-   *   The called Eidikotita entity entity.
-   */
-  public function setRevisionUserId($uid);
 
 }

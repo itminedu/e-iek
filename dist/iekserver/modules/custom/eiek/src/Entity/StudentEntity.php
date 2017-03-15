@@ -4,7 +4,7 @@ namespace Drupal\eiek\Entity;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Entity\RevisionableContentEntityBase;
+use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
@@ -18,7 +18,6 @@ use Drupal\user\UserInterface;
  *   id = "student_entity",
  *   label = @Translation("Student entity"),
  *   handlers = {
- *     "storage" = "Drupal\eiek\StudentEntityStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\eiek\StudentEntityListBuilder",
  *     "views_data" = "Drupal\eiek\Entity\StudentEntityViewsData",
@@ -35,12 +34,9 @@ use Drupal\user\UserInterface;
  *     },
  *   },
  *   base_table = "student_entity",
- *   revision_table = "student_entity_revision",
- *   revision_data_table = "student_entity_field_revision",
  *   admin_permission = "administer student entity entities",
  *   entity_keys = {
  *     "id" = "id",
- *     "revision" = "vid",
  *     "label" = "last",
  *     "uuid" = "uuid",
  *     "uid" = "user_id",
@@ -52,15 +48,12 @@ use Drupal\user\UserInterface;
  *     "add-form" = "/admin/structure/student_entity/add",
  *     "edit-form" = "/admin/structure/student_entity/{student_entity}/edit",
  *     "delete-form" = "/admin/structure/student_entity/{student_entity}/delete",
- *     "version-history" = "/admin/structure/student_entity/{student_entity}/revisions",
- *     "revision" = "/admin/structure/student_entity/{student_entity}/revisions/{student_entity_revision}/view",
- *     "revision_delete" = "/admin/structure/student_entity/{student_entity}/revisions/{student_entity_revision}/delete",
  *     "collection" = "/admin/structure/student_entity",
  *   },
  *   field_ui_base_route = "student_entity.settings"
  * )
  */
-class StudentEntity extends RevisionableContentEntityBase implements StudentEntityInterface {
+class StudentEntity extends ContentEntityBase implements StudentEntityInterface {
 
   use EntityChangedTrait;
 
@@ -72,28 +65,6 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
     $values += array(
       'user_id' => \Drupal::currentUser()->id(),
     );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function preSave(EntityStorageInterface $storage) {
-    parent::preSave($storage);
-
-    foreach (array_keys($this->getTranslationLanguages()) as $langcode) {
-      $translation = $this->getTranslation($langcode);
-
-      // If no owner has been set explicitly, make the anonymous user the owner.
-      if (!$translation->getOwner()) {
-        $translation->setOwnerId(0);
-      }
-    }
-
-    // If no revision author has been set explicitly, make the student_entity owner the
-    // revision author.
-    if (!$this->getRevisionUser()) {
-      $this->setRevisionUserId($this->getOwnerId());
-    }
   }
 
   /**
@@ -155,6 +126,113 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
     $this->set('mname', $mname);
     return $this;
   }
+
+      /**
+   * {@inheritdoc}
+   */
+  public function getIdno() {
+    return $this->get('idno')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setIdno($idno) {
+    $this->set('idno', $idno);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSex() {
+    return $this->get('sex')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSex($sex) {
+    $this->set('sex', $sex);
+    return $this;
+  }
+
+    /**
+   * {@inheritdoc}
+   */
+  public function getBirthdate() {
+    return $this->get('birthdate')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setBirthdate($birthdate) {
+    $this->set('birthdate', $birthdate);
+    return $this;
+  }
+
+    /**
+   * {@inheritdoc}
+   */
+  public function getBirthplace() {
+    return $this->get('birthplace')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setBirthplace($birthplace) {
+    $this->set('birthplace', $birthplace);
+    return $this;
+  }
+
+    /**
+   * {@inheritdoc}
+   */
+  public function getEmail() {
+    return $this->get('email')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setEmail($email) {
+    $this->set('email', $email);
+    return $this;
+  }
+
+    /**
+   * {@inheritdoc}
+   */
+  public function getTelephone() {
+    return $this->get('telephone')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setTelephone($telephone) {
+    $this->set('telephone', $telephone);
+    return $this;
+  }
+
+    /**
+   * {@inheritdoc}
+   */
+  public function getAfm() {
+    return $this->get('afm')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setAfm($afm) {
+    $this->set('afm', $afm);
+    return $this;
+  }
+
+
 
 
 
@@ -221,36 +299,6 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
   /**
    * {@inheritdoc}
    */
-  public function getRevisionCreationTime() {
-    return $this->get('revision_timestamp')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setRevisionCreationTime($timestamp) {
-    $this->set('revision_timestamp', $timestamp);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getRevisionUser() {
-    return $this->get('revision_uid')->entity;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setRevisionUserId($uid) {
-    $this->set('revision_uid', $uid);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
@@ -282,7 +330,7 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
     $fields['last'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Last Name'))
       ->setDescription(t('The last name of the Student entity entity.'))
-      ->setRevisionable(TRUE)
+      ->setRequired(TRUE)
       ->setSettings(array(
         'max_length' => 60,
         'text_processing' => 0,
@@ -304,7 +352,7 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
     $fields['first'] = BaseFieldDefinition::create('string')
       ->setLabel(t('First Name'))
       ->setDescription(t('The first name of the Student entity entity.'))
-      ->setRevisionable(TRUE)
+      ->setRequired(TRUE)
       ->setSettings(array(
         'max_length' => 60,
         'text_processing' => 0,
@@ -326,7 +374,7 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
       $fields['fname'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Father Name'))
       ->setDescription(t('The father name of the Student entity entity.'))
-      ->setRevisionable(TRUE)
+      ->setRequired(TRUE)
       ->setSettings(array(
         'max_length' => 60,
         'text_processing' => 0,
@@ -347,7 +395,7 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
     $fields['mname'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Mother Name'))
       ->setDescription(t('The father name of the Student entity entity.'))
-      ->setRevisionable(TRUE)
+      ->setRequired(TRUE)
       ->setSettings(array(
         'max_length' => 60,
         'text_processing' => 0,
@@ -368,7 +416,6 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
   $fields['idno'] = BaseFieldDefinition::create('string')
       ->setLabel(t('ID NO'))
       ->setDescription(t('The id of student'))
-      ->setRevisionable(TRUE)
       ->setSettings(array(
         'max_length' => 8,
         'text_processing' => 0,
@@ -389,6 +436,7 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
   $fields['sex'] = BaseFieldDefinition::create('list_string')
       ->setLabel(t('Φυλο'))
       ->setDescription(t('Φυλο'))
+      ->setRequired(TRUE)
       ->setSettings(array(
         'allowed_values' => array(
           'female' => 'female',
@@ -420,7 +468,6 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
     $fields['birthplace'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Τόπος Γέννησης'))
       ->setDescription(t('Τόπος Γέννησης'))
-      ->setRevisionable(TRUE)
       ->setSettings(array(
         'max_length' => 100,
         'text_processing' => 0,
@@ -466,7 +513,6 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
     $fields['afm'] = BaseFieldDefinition::create('string')
       ->setLabel(t('ΑΦΜ'))
       ->setDescription(t('ΑΦΜ'))
-      ->setRevisionable(TRUE)
       ->setSettings(array(
         'max_length' => 30,
         'text_processing' => 0,
@@ -488,7 +534,6 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
       ->setDescription(t('A boolean indicating whether the Student entity is published.'))
-      ->setRevisionable(TRUE)
       ->setDefaultValue(TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')
@@ -498,26 +543,6 @@ class StudentEntity extends RevisionableContentEntityBase implements StudentEnti
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the entity was last edited.'));
-
-    $fields['revision_timestamp'] = BaseFieldDefinition::create('created')
-      ->setLabel(t('Revision timestamp'))
-      ->setDescription(t('The time that the current revision was created.'))
-      ->setQueryable(FALSE)
-      ->setRevisionable(TRUE);
-
-    $fields['revision_uid'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Revision user ID'))
-      ->setDescription(t('The user ID of the author of the current revision.'))
-      ->setSetting('target_type', 'user')
-      ->setQueryable(FALSE)
-      ->setRevisionable(TRUE);
-
-    $fields['revision_translation_affected'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Revision translation affected'))
-      ->setDescription(t('Indicates if the last edit of a translation belongs to current revision.'))
-      ->setReadOnly(TRUE)
-      ->setRevisionable(TRUE)
-      ->setTranslatable(TRUE);
 
     return $fields;
   }

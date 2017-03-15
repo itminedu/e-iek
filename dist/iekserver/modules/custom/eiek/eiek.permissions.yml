@@ -21,51 +21,8 @@ view published student entity entities:
 view unpublished student entity entities:
   title: 'View unpublished Student entity entities'
 
-view all student entity revisions:
-  title: 'View all Student entity revisions'
-
-revert all student entity revisions:
-  title: 'Revert all Student entity revisions'
-  description: 'Role requires permission <em>view Student entity revisions</em> and <em>edit rights</em> for student entity entities in question or <em>administer student entity entities</em>.'
-
-delete all student entity revisions:
-  title: 'Delete all revisions'
-  description: 'Role requires permission to <em>view Student entity revisions</em> and <em>delete rights</em> for student entity entities in question or <em>administer student entity entities</em>.'
 add request entity entities:
   title: 'Create new Request entity entities'
-
-administer request entity entities:
-  title: 'Administer Request entity entities'
-  description: 'Allow to access the administration form to configure Request entity entities.'
-  restrict access: true
-
-delete request entity entities:
-  title: 'Delete Request entity entities'
-
-edit request entity entities:
-  title: 'Edit Request entity entities'
-
-access request entity overview:
-  title: 'Access the Request entity overview page'
-
-view published request entity entities:
-  title: 'View published Request entity entities'
-
-view unpublished request entity entities:
-  title: 'View unpublished Request entity entities'
-
-view all request entity revisions:
-  title: 'View all Request entity revisions'
-
-revert all request entity revisions:
-  title: 'Revert all Request entity revisions'
-  description: 'Role requires permission <em>view Request entity revisions</em> and <em>edit rights</em> for request entity entities in question or <em>administer request entity entities</em>.'
-
-delete all request entity revisions:
-  title: 'Delete all revisions'
-  description: 'Role requires permission to <em>view Request entity revisions</em> and <em>delete rights</em> for request entity entities in question or <em>administer request entity entities</em>.'
-add eidikotita entity entities:
-  title: 'Create new Eidikotita entity entities'
 
 administer eidikotita entity entities:
   title: 'Administer Eidikotita entity entities'
@@ -86,19 +43,6 @@ view published eidikotita entity entities:
 
 view unpublished eidikotita entity entities:
   title: 'View unpublished Eidikotita entity entities'
-
-view all eidikotita entity revisions:
-  title: 'View all Eidikotita entity revisions'
-
-revert all eidikotita entity revisions:
-  title: 'Revert all Eidikotita entity revisions'
-  description: 'Role requires permission <em>view Eidikotita entity revisions</em> and <em>edit rights</em> for eidikotita entity entities in question or <em>administer eidikotita entity entities</em>.'
-
-delete all eidikotita entity revisions:
-  title: 'Delete all revisions'
-  description: 'Role requires permission to <em>view Eidikotita entity revisions</em> and <em>delete rights</em> for eidikotita entity entities in question or <em>administer eidikotita entity entities</em>.'
-add aitisi entity entities:
-  title: 'Create new Aitisi entity entities'
 
 administer aitisi entity entities:
   title: 'Administer Aitisi entity entities'
@@ -174,3 +118,5 @@ view published school entity entities:
 
 view unpublished school entity entities:
   title: 'View unpublished School entity entities'
+add test entity entities:
+  title: 'Create new Test entity entities'
