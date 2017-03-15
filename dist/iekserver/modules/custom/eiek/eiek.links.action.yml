@@ -1,0 +1,25 @@
+entity.student_entity.add_form:
+  route_name: entity.student_entity.add_form
+  title: 'Add Student entity'
+  appears_on:
+    - entity.student_entity.collection
+entity.eidikotita_entity.add_form:
+  route_name: entity.eidikotita_entity.add_form
+  title: 'Add Eidikotita entity'
+  appears_on:
+    - entity.eidikotita_entity.collection
+entity.aitisi_entity.add_form:
+  route_name: entity.aitisi_entity.add_form
+  title: 'Add Aitisi entity'
+  appears_on:
+    - entity.aitisi_entity.collection
+entity.region_entity.add_form:
+  route_name: entity.region_entity.add_form
+  title: 'Add Region entity'
+  appears_on:
+    - entity.region_entity.collection
+entity.school_entity.add_form:
+  route_name: entity.school_entity.add_form
+  title: 'Add School entity'
+  appears_on:
+    - entity.school_entity.collection

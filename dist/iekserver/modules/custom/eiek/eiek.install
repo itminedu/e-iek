@@ -1,0 +1,114 @@
+<?php
+
+use Drupal\Core\Database\Database;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\field\FieldStorageConfigInterface;
+/**
+ * Add a new test able
+ */
+/* 
+function eiek_update_8210(&$sandbox) {
+
+ $spec = array(
+    'type' => 'varchar',
+    'description' => "New Col",
+    'length' => 20,
+    'not null' => FALSE,
+  ); 
+ $schema = Database::getConnection()->schema();
+ $schema->addField('student_entity', 'iekbek', $spec);
+
+}
+*/
+
+/*
+  $edum = \Drupal::entityDefinitionUpdateManager();
+  $em = \Drupal::entityManager();
+
+
+  $field_iekbek = BaseFieldDefinition::create('string')
+      ->setLabel(t('IEK BEK'))
+      ->setDescription(t('The IEK that created the BEK'))
+      ->setRevisionable(TRUE)
+      ->setSettings(array(
+        'max_length' => 30,
+        'text_processing' => 0,
+      ))
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', array(
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -4,
+      ))
+      ->setDisplayOptions('form', array(
+        'type' => 'string_textfield',
+        'weight' => -4,
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+      $edum->installFieldStorageDefinition('iekbek','student_entity','eiek',$field_iekbek);
+    //  $edum->installFieldStorageDefinition($field_iekbek);
+
+//}
+/* $spec = array(
+    'description' => 'My description',
+    'fields' => array(
+      'myfield1' => array(
+        'description' => 'Myfield1 description.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'myfield2' => array(
+        'description' => 'Myfield2 description',
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('myfield1'),
+  ); 
+ $schema = Database::getConnection()->schema();
+ $schema->createTable('mytable2', $spec);*/
+//}
+
+
+//function eiek_update_8202() {
+/*
+ $database = \Drupal::database();
+  // Retrieve existing field data.
+  $entity_type = 'student_entity';
+  $field = 'iekbek';
+
+
+
+  $field_storage_configs = \Drupal::entityTypeManager()->getStorage('field_storage_config')
+    ->loadByProperties([
+      'field_name' => $field,
+    ]);
+  foreach ($field_storage_configs as $field_storage) {
+    $new_field_storage = $field_storage->toArray();
+    $new_field_storage['settings']['max_length'] = 100;
+
+    $new_field_storage = FieldStorageConfig::create($new_field_storage);
+    $new_field_storage->original = $new_field_storage;
+    $new_field_storage->enforceIsNew(FALSE);
+
+    $new_field_storage->save();
+  }
+*/
+//}
+
+//function eiek_update_8208() {
+  // Update definitions and schema.
+ // $manager = \Drupal::entityDefinitionUpdateManager();
+  //$storage_definition = $manager->getFieldStorageDefinition('iekbek', 'student_entity');
+  
+ // $manager->updateFieldStorageDefinition($storage_definition);
+
+
+//}
+
+
+
+
