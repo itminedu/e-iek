@@ -21,7 +21,6 @@ class StudentEntityListBuilder extends EntityListBuilder {
    */
   public function buildHeader() {
     $header['id'] = $this->t('Student entity ID');
-  //  $header['name'] = $this->t('Name');
     return $header + parent::buildHeader();
   }
 

@@ -96,22 +96,64 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
     }
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  /*
-  public function getName() {
-    return $this->get('name')->value;
-  }*/
 
-  /**
-   * {@inheritdoc}
-   */
-  /*
-  public function setName($name) {
-    $this->set('name', $name);
+  public function getStudent_id() {
+    return $this->get('student_id')->value;
+  }
+
+  public function setStudent_id($student_id) {
+    $this->set('student_id', $student_id);
     return $this;
-  }*/
+  }
+
+
+  public function getEidikotita_id() {
+    return $this->get('eidikotita_id')->value;
+  }
+
+  public function setEidikotita_id($eidikotita_id) {
+    $this->set('eidikotita_id', $eidikotita_id);
+    return $this;
+  }
+
+  public function getPrabek() {
+    return $this->get('prabek')->value;
+  }
+
+  public function setPrabek($prabek) {
+    $this->set('prabek', $prabek);
+    return $this;
+  }
+
+  public function getNumbek() {
+    return $this->get('numbek')->value;
+  }
+
+  public function setNumbek($numbek) {
+    $this->set('numbek', $numbek);
+    return $this;
+  }
+
+  public function getRegno() {
+    return $this->get('regno')->value;
+  }
+
+  public function setRegno($regno) {
+    $this->set('regno', $regno);
+    return $this;
+  }
+
+  public function getRegion_id() {
+    return $this->get('region_id')->value;
+  }
+
+  public function setRegion_id($region_id) {
+    $this->set('region_id', $region_id);
+    return $this;
+  }
+
+
+
 
   /**
    * {@inheritdoc}
@@ -237,6 +279,7 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
     $fields['student_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Σπουδαστής'))
       ->setDescription(t('Στοιχεία αποφοίτου'))
+      ->setRequired(TRUE)
       ->setSetting('target_type', 'student_entity')
       ->setSetting('handler', 'default')
       ->setDisplayOptions('view', array(
@@ -259,6 +302,7 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
       $fields['eidikotita_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Ειδικότητα'))
       ->setDescription(t('Ειδικότητα'))
+      ->setRequired(TRUE)
       ->setSetting('target_type', 'eidikotita_entity')
       ->setSetting('handler', 'default')
       ->setDisplayOptions('view', array(
@@ -281,6 +325,7 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
      $fields['prabek'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Πράξη ΒΕΚ'))
       ->setDescription(t('Πράξη ΒΕΚ'))
+      ->setRequired(TRUE)
       ->setRevisionable(TRUE)
       ->setSettings(array(
         'max_length' => 50,
@@ -302,6 +347,7 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
       $fields['iek_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('ΙΕΚ αποφοίτησης'))
       ->setDescription(t('ΙΕΚ αποφοίτησης'))
+      ->setRequired(TRUE)
       ->setSetting('target_type', 'school_entity')
       ->setSetting('handler', 'default')
       ->setDisplayOptions('view', array(
@@ -324,6 +370,7 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
       $fields['numbek'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Αριθμός ΒΕΚ'))
       ->setDescription(t('Αριθμός ΒΕΚ'))
+      ->setRequired(TRUE)
       ->setRevisionable(TRUE)
       ->setSettings(array(
         'max_length' => 50,
@@ -345,6 +392,7 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
      $fields['regno'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Αριθμός Μητρωου Καταρτιζομένου ΙΕΚ'))
       ->setDescription(t('Αριθμός Μητρώου Καταρτιζομένου'))
+      ->setRequired(TRUE)
       ->setRevisionable(TRUE)
       ->setSettings(array(
         'max_length' => 50,
@@ -375,15 +423,10 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
       ))
       ->setDisplayOptions('form', array(
         'type' => 'entity_reference_autocomplete',
-        'settings' => array(
-          'match_operator' => 'CONTAINS',
-          'size' => 60,
-          'placeholder' => '',
-        ),
-        'weight' => -3,
       ))
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
+
 
 
 

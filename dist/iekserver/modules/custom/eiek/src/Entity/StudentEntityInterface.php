@@ -2,10 +2,7 @@
 
 namespace Drupal\eiek\Entity;
 
-use Drupal\Core\Entity\RevisionLogInterface;
-use Drupal\Core\Entity\RevisionableInterface;
-use Drupal\Component\Utility\Xss;
-use Drupal\Core\Url;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\user\EntityOwnerInterface;
 
@@ -14,29 +11,8 @@ use Drupal\user\EntityOwnerInterface;
  *
  * @ingroup eiek
  */
-interface StudentEntityInterface extends RevisionableInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
-
+interface StudentEntityInterface extends  ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
   // Add get/set methods for your configuration properties here.
-
-  /**
-   * Gets the Student entity name.
-   *
-   * @return string
-   *   Name of the Student entity.
-   */
-  //public function getName();
-
-  /**
-   * Sets the Student entity name.
-   *
-   * @param string $name
-   *   The Student entity name.
-   *
-   * @return \Drupal\eiek\Entity\StudentEntityInterface
-   *   The called Student entity entity.
-   */
-  //public function setName($name);
-
 
 
   public function getFirst();
@@ -50,6 +26,35 @@ interface StudentEntityInterface extends RevisionableInterface, RevisionLogInter
 
   public function getMname();
   public function setMname($mname);
+
+  public function getIdno();
+
+  public function setIdno($idno);
+
+  public function getSex();
+
+  public function setSex($sex);
+
+  public function getBirthdate();
+
+  public function setBirthdate($birthdate);
+
+  public function getBirthplace();
+
+  public function setBirthplace($birthplace);
+
+  public function getEmail();
+
+  public function setEmail($email);
+
+  public function getTelephone();
+
+  public function setTelephone($telephone);
+
+  public function getAfm();
+
+  public function setAfm($afm);
+
 
   /**
    * Gets the Student entity creation timestamp.
@@ -90,43 +95,5 @@ interface StudentEntityInterface extends RevisionableInterface, RevisionLogInter
    *   The called Student entity entity.
    */
   public function setPublished($published);
-
-  /**
-   * Gets the Student entity revision creation timestamp.
-   *
-   * @return int
-   *   The UNIX timestamp of when this revision was created.
-   */
-  public function getRevisionCreationTime();
-
-  /**
-   * Sets the Student entity revision creation timestamp.
-   *
-   * @param int $timestamp
-   *   The UNIX timestamp of when this revision was created.
-   *
-   * @return \Drupal\eiek\Entity\StudentEntityInterface
-   *   The called Student entity entity.
-   */
-  public function setRevisionCreationTime($timestamp);
-
-  /**
-   * Gets the Student entity revision author.
-   *
-   * @return \Drupal\user\UserInterface
-   *   The user entity for the revision author.
-   */
-  public function getRevisionUser();
-
-  /**
-   * Sets the Student entity revision author.
-   *
-   * @param int $uid
-   *   The user ID of the revision author.
-   *
-   * @return \Drupal\eiek\Entity\StudentEntityInterface
-   *   The called Student entity entity.
-   */
-  public function setRevisionUserId($uid);
 
 }

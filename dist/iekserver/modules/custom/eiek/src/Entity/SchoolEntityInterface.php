@@ -35,6 +35,35 @@ interface SchoolEntityInterface extends  ContentEntityInterface, EntityChangedIn
   public function setName($name);
 
   /**
+   * {@inheritdoc}
+   */
+  public function getIekcode();
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setIekcode($iek_code);
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRegion_id();
+  /**
+   * {@inheritdoc}
+   */
+  public function setRegion_id($region_id);
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getIektype();
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setIektype($iektype);
+
+  /**
    * Gets the School entity creation timestamp.
    *
    * @return int

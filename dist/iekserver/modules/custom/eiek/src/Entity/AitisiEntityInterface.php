@@ -18,24 +18,24 @@ interface AitisiEntityInterface extends RevisionableInterface, RevisionLogInterf
 
   // Add get/set methods for your configuration properties here.
 
-  /**
-   * Gets the Aitisi entity name.
-   *
-   * @return string
-   *   Name of the Aitisi entity.
-   */
-  //public function getName();
 
-  /**
-   * Sets the Aitisi entity name.
-   *
-   * @param string $name
-   *   The Aitisi entity name.
-   *
-   * @return \Drupal\eiek\Entity\AitisiEntityInterface
-   *   The called Aitisi entity entity.
-   */
-  //public function setName($name);
+  public function getStudent_id();
+  public function setStudent_id($student_id);
+
+  public function getEidikotita_id();
+  public function setEidikotita_id($eidikotita_id);
+
+  public function getPrabek();
+  public function setPrabek($prabek);
+
+  public function getNumbek();
+  public function setNumbek($numbek);
+
+  public function getRegno();
+  public function setRegno($regno);
+
+  public function getRegion_id();
+  public function setRegion_id($region_id);
 
   /**
    * Gets the Aitisi entity creation timestamp.

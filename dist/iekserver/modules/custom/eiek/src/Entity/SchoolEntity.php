@@ -38,6 +38,7 @@ use Drupal\user\UserInterface;
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "name",
+ *     "iekcode" = "iekcode",
  *     "uuid" = "uuid",
  *     "uid" = "user_id",
  *     "langcode" = "langcode",
@@ -79,6 +80,53 @@ class SchoolEntity extends ContentEntityBase implements SchoolEntityInterface {
    */
   public function setName($name) {
     $this->set('name', $name);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getIekcode() {
+    return $this->get('iek_code')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setIekcode($iekcode) {
+    $this->set('iekcode', $iekcode);
+    return $this;
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRegion_id() {
+    return $this->get('region_id')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRegion_id($region_id) {
+    $this->set('region_id', $region_id);
+    return $this;
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getIektype() {
+    return $this->get('iektype')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setIektype($iektype) {
+    $this->set('iektype', $iektype);
     return $this;
   }
 
@@ -193,7 +241,7 @@ class SchoolEntity extends ContentEntityBase implements SchoolEntityInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['iek_code'] = BaseFieldDefinition::create('string')
+    $fields['iekcode'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Κωδικός ΙΕΚ'))
       ->setDescription(t('Κωδικός ΙΕΚ'))
       ->setSettings(array(
@@ -235,7 +283,7 @@ class SchoolEntity extends ContentEntityBase implements SchoolEntityInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-     $fields['type'] = BaseFieldDefinition::create('list_string')
+     $fields['iektype'] = BaseFieldDefinition::create('list_string')
       ->setLabel(t('Τυπος ΙΕΚ'))
       ->setDescription(t('Τυπος ΙΕΚ Δημόσιο ή Ιδιωτικό'))
       ->setSettings(array(
