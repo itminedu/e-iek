@@ -1,13 +1,14 @@
 import { ISectorFields, ISectorField } from './sectorfields.types';
-import { INITIAL_STATE } from './sectorfields.initial-state';
+import { SECTOR_FIELDS_INITIAL_STATE } from './sectorfields.initial-state';
 import { Seq } from 'immutable';
 
 import {
   SECTORFIELDS_RECEIVED,
-  SECTORFIELDS_SELECTED_SAVE
+  SECTORFIELDS_SELECTED_SAVE,
+  SECTORFIELDS_INIT
 } from '../../constants';
 
-export function sectorFieldsReducer(state: ISectorFields = INITIAL_STATE, action): ISectorFields {
+export function sectorFieldsReducer(state: ISectorFields = SECTOR_FIELDS_INITIAL_STATE, action): ISectorFields {
   switch (action.type) {
     case SECTORFIELDS_RECEIVED:
         let newSectorFields = Array<ISectorField>();
@@ -25,6 +26,8 @@ export function sectorFieldsReducer(state: ISectorFields = INITIAL_STATE, action
             ind++;
         });
         return Seq(selectedSectorFields).map(n => n).toList();
+    case SECTORFIELDS_INIT:
+        return SECTOR_FIELDS_INITIAL_STATE;
     default: return state;
   }
 };

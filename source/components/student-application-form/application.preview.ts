@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { BehaviorSubject, Subscription } from 'rxjs/Rx';
 import { Injectable } from "@angular/core";
 import { NgRedux, select } from 'ng2-redux';
 import { IAppState } from '../../store/store';
@@ -8,155 +8,230 @@ import { SectorFieldsActions } from '../../actions/sectorfields.actions';
 import { SectorCoursesActions } from '../../actions/sectorcourses.actions';
 import { RegionSchoolsActions } from '../../actions/regionschools.actions';
 import { StudentDataFieldsActions } from '../../actions/studentdatafields.actions';
+import { EpalClassesActions } from '../../actions/epalclass.actions';
 import { ISectorFields } from '../../store/sectorfields/sectorfields.types';
 import { ISectors } from '../../store/sectorcourses/sectorcourses.types';
 import { IRegions } from '../../store/regionschools/regionschools.types';
 import { IStudentDataFields } from '../../store/studentdatafields/studentdatafields.types';
+import { IEpalClasses } from '../../store/epalclasses/epalclasses.types';
 import {AppSettings} from '../../app.settings';
+import { REGION_SCHOOLS_INITIAL_STATE } from '../../store/regionschools/regionschools.initial-state';
+import { EPALCLASSES_INITIAL_STATE } from '../../store/epalclasses/epalclasses.initial-state';
+import { SECTOR_COURSES_INITIAL_STATE } from '../../store/sectorcourses/sectorcourses.initial-state';
+import { SECTOR_FIELDS_INITIAL_STATE } from '../../store/sectorfields/sectorfields.initial-state';
+import { STUDENT_DATA_FIELDS_INITIAL_STATE } from '../../store/studentdatafields/studentdatafields.initial-state';
+
+
 
 @Component({
     selector: 'application-preview-select',
     template: `
+        <div *ngFor="let epalclass$ of epalclasses$ | async;">
         <h4 style="margin-top: 20px; line-height: 2em; ">Οι επιλογές μου</h4>
-
-        <div class="row">
-        <div class="btn-group inline pull-center">
-            <button type="button" class="btn-primary btn-md pull-center" (click)="defineSector()">
-            O τομέας μου<span class="glyphicon glyphicon-menu-right"></span>
-            </button>
-        </div>
-        </div>
-        <ul class="list-group" style="margin-bottom: 20px;">
-            <div *ngFor="let sectorField$ of sectorFields$ | async;">
-                <li class="list-group-item" *ngIf="sectorField$.selected === true" >
-                    {{sectorField$.name}}
+        <ul class="list-group left-side-view" style="margin-bottom: 20px;">
+                <li class="list-group-item active">
+                    Τάξη εισαγωγής
                 </li>
-            </div>
-        </ul>
+                <li class="list-group-item">
+                    {{epalclass$.name  }}
+                </li>
 
-        <div class="row">
-        <div class="btn-group inline pull-center">
-            <button type="button" class="btn-primary btn-md pull-center" (click)="defineCourse()">
-            Η ειδικότητά μου<span class="glyphicon glyphicon-menu-right"></span>
-            </button>
+        </ul>
         </div>
+
+        <div *ngFor="let sectorField$ of sectorFields$ | async">
+        <ul class="list-group left-side-view">
+            <li class="list-group-item active" *ngIf="sectorField$.selected === true" >
+                {{sectorField$.name}}
+            </li>
+            </ul>
         </div>
-        <ul class="list-group" style="margin-bottom: 20px;">
-              <div *ngFor="let sector$ of sectors$ | async;">
-                <div *ngFor="let course$ of sector$.courses;" >
+
+
+    <div *ngFor="let sector$ of sectors$  | async;">
+            <ul class="list-group left-side-view" style="margin-bottom: 20px;" *ngIf="sector$.sector_selected === true">
+                <li class="list-group-item active" *ngIf="sector$.sector_selected === true" >
+                    {{sector$.sector_name }}
+                </li>
+        <div *ngFor="let course$ of sector$.courses;" >
+
                 <li class="list-group-item" *ngIf="course$.selected === true">
-                    {{course$.course_name}}
+                    {{course$.course_name   }}
                 </li>
-            </div>
-            </div>
-        </ul>
 
-        <div class="row">
-        <div class="btn-group inline pull-center">
-            <button type="button" class="btn-primary btn-md pull-center" (click)="defineSchools()">
-            Τα σχολεία μου<span class="glyphicon glyphicon-menu-right"></span>
-            </button>
         </div>
+            </ul>
         </div>
-        <ul class="list-group" style="margin-bottom: 20px;">
+
+
+
+
+
+        <ul class="list-group left-side-view" style="margin-bottom: 20px;">
               <div *ngFor="let region$ of regions$ | async;">
-                <div *ngFor="let iek$ of region$.ieks; " >
-                <li class="list-group-item" *ngIf="iek$.selected === true">
-                    {{iek$.iek_name}}
+
+                <div *ngFor="let epal$ of region$.epals; " >
+
+                <li class="list-group-item" *ngIf="epal$.selected === true && epal$.order_id === 1">
+                    Προτίμηση {{epal$.order_id}}: {{epal$.epal_name}}
                 </li>
+                  <li class="list-group-item" *ngIf="epal$.selected === true && epal$.order_id === 0">
+                      {{epal$.epal_name   }}
+                  </li>
+
+                <li class="list-group-item" *ngIf="epal$.selected === true && epal$.order_id === 2">
+                    Προτίμηση {{epal$.order_id}}: {{epal$.epal_name   }}
+                </li>
+
+                <li class="list-group-item" *ngIf="epal$.selected === true && epal$.order_id === 3">
+                    Προτίμηση {{epal$.order_id}}: {{epal$.epal_name   }}
+                </li>
+              </div>
             </div>
-            </div>
+<!--            <div class="btn-group inline pull-right">
+              <button type="button" class="btn-primary btn-sm pull-right" (click)="defineOrder()"
+              [hidden] = "numSelectedSchools <= 1 ">> Σειρά προτίμησης</button>
+            </div> -->
         </ul>
 
-        <div class="row">
-        <div class="btn-group inline pull-center">
-            <button type="button" class="btn-primary btn-md pull-center" (click)="definePersonalData()">
-            Τα στοιχεία μου<span class="glyphicon glyphicon-menu-right"></span>
-            </button>
-        </div>
-        </div>
-        <ul class="list-group" style="margin-bottom: 20px;">
+
+
+
+
+
               <div *ngFor="let studentDataField$ of studentDataFields$ | async;">
+              <ul class="list-group left-side-view" style="margin-bottom: 20px;">
+              <li class="list-group-item active">
+                  Στοιχεία μαθητή
+              </li>
                 <li class="list-group-item">
-                    Όνομα μαθητή: {{studentDataField$.studentFirstname}}
+                    {{studentDataField$.name  }}
                 </li>
                 <li class="list-group-item">
-                    Επώνυμο μαθητή: {{studentDataField$.studentSurname}}
+                    {{studentDataField$.studentsurname  }}
                 </li>
-                <li class="list-group-item">
-                    AMKA μαθητή: {{studentDataField$.studentAmka}}
-                </li>
+                </ul>
             </div>
-        </ul>
+<!--            <div *ngFor="let selectedAmkaFill$ of selectedAmkaFills$ | async;">
+              <li class="list-group-item">
+                  AMKA μαθητή: {{selectedAmkaFill$.name}}
+              </li>
+          </div>  -->
+
   `
 })
 
 @Injectable() export default class ApplicationPreview implements OnInit {
-    private sectors$: Observable<ISectors>;
-    private regions$: Observable<IRegions>;
-    private sectorFields$: Observable<ISectorFields>;
-    private studentDataFields$: Observable<IStudentDataFields>;
+    private sectors$: BehaviorSubject<ISectors>;
+    private regions$: BehaviorSubject<IRegions>;
+    private sectorFields$: BehaviorSubject<ISectorFields>;
+    private studentDataFields$: BehaviorSubject<IStudentDataFields>;
+    private epalclasses$: BehaviorSubject<IEpalClasses>;
+    private sectorsSub: Subscription;
+    private regionsSub: Subscription;
+    private sectorFieldsSub: Subscription;
+    private studentDataFieldsSub: Subscription;
+    private epalclassesSub: Subscription;
+    private courseActive = "-1";
+    private numSelectedSchools = <number>0;
+    private numSelectedOrder = <number>0;
+    private classSelected = 0;
 
-    constructor(private _rsa: SectorCoursesActions,
-                private _rsb: RegionSchoolsActions,
-                private _rsc: SectorFieldsActions,
-                private _rsd: StudentDataFieldsActions,
-                private _ngRedux: NgRedux<IAppState>,
-                private router: Router
-            ) {
+    constructor(private _ngRedux: NgRedux<IAppState>,
+        private router: Router
+    ) {
+
+        this.regions$ = new BehaviorSubject(REGION_SCHOOLS_INITIAL_STATE);
+        this.epalclasses$ = new BehaviorSubject(EPALCLASSES_INITIAL_STATE);
+        this.sectors$ = new BehaviorSubject(SECTOR_COURSES_INITIAL_STATE);
+        this.sectorFields$ = new BehaviorSubject(SECTOR_FIELDS_INITIAL_STATE);
+        this.studentDataFields$ = new BehaviorSubject(STUDENT_DATA_FIELDS_INITIAL_STATE);
     };
 
     ngOnInit() {
-        this._rsa.getSectorCourses();
-        this.sectors$ = this._ngRedux.select(state => {
-            state.sectors.reduce((prevSector, sector) =>{
-                sector.courses.reduce((prevCourse, course) =>{
+        this.sectorsSub = this._ngRedux.select(state => {
+            state.sectors.reduce((prevSector, sector) => {
+                sector.courses.reduce((prevCourse, course) => {
+                    if (course.selected === true) {
+                        this.courseActive = course.course_id;
+                    }
+
                     return course;
                 }, {});
                 return sector;
             }, {});
+            //this.numSelectedCourses = numsel;
             return state.sectors;
-        });
+        }).subscribe(this.sectors$);
 
-        this._rsb.getRegionSchools();
-        this.regions$ = this._ngRedux.select(state => {
-            state.regions.reduce((prevRegion, region) =>{
-                region.ieks.reduce((prevSchool, school) =>{
-                    return school;
+        this.regionsSub = this._ngRedux.select(state => {
+            let numsel = 0, numsel2 = 0;
+            state.regions.reduce((prevRegion, region) => {
+                region.epals.reduce((prevEpal, epal) => {
+                    if (epal.selected === true) {
+                        numsel++;
+                    }
+                    if (epal.order_id !== 0) {
+                        numsel2++;
+                    }
+                    return epal;
                 }, {});
                 return region;
             }, {});
+            this.numSelectedSchools = numsel;
+            this.numSelectedOrder = numsel2;
             return state.regions;
-        });
+        }).subscribe(this.regions$);
 
-        this._rsc.getSectorFields();
-        this.sectorFields$ = this._ngRedux.select(state => {
-            state.sectorFields.reduce(({}, sectorField) =>{
+        this.sectorFieldsSub = this._ngRedux.select(state => {
+            state.sectorFields.reduce(({}, sectorField) => {
                 return sectorField;
             }, {});
             return state.sectorFields;
-        });
+        }).subscribe(this.sectorFields$);
 
-        this.studentDataFields$ = this._ngRedux.select(state => {
-            state.studentDataFields.reduce(({}, studentDataField) =>{
+        this.studentDataFieldsSub = this._ngRedux.select(state => {
+            state.studentDataFields.reduce(({}, studentDataField) => {
                 return studentDataField;
             }, {});
             return state.studentDataFields;
-        });
+        }).subscribe(this.studentDataFields$);
+
+/*        this.selectedAmkaFills$ = this._ngRedux.select(state => {
+            state.amkafills.reduce(({}, selectedAmkaFill) => {
+                return selectedAmkaFill;
+            }, {});
+            return state.amkafills;
+        }); */
+
+        this._ngRedux.select(state => {
+            state.epalclasses.reduce(({}, epalclass) => {
+                if (epalclass.name === "Α' Λυκείου")
+                    this.classSelected = 1;
+                else if (epalclass.name === "Β' Λυκείου")
+                    this.classSelected = 2;
+                else if (epalclass.name === "Γ' Λυκείου")
+                    this.classSelected = 3;
+                return epalclass;
+            }, {});
+            return state.epalclasses;
+        }).subscribe(this.epalclasses$);
 
     }
 
-    defineSector() {
-        this.router.navigate(['/sector-fields-select']);
+    ngOnDestroy() {
+        this.regionsSub.unsubscribe();
+        this.epalclassesSub.unsubscribe();
+        this.sectorsSub.unsubscribe();
+        this.sectorFieldsSub.unsubscribe();
+        this.studentDataFieldsSub.unsubscribe();
     }
-    defineCourse() {
-        this.router.navigate(['/sectorcourses-fields-select']);
-    }
-    defineSchools() {
-        this.router.navigate(['/region-schools-select']);
-    }
-    definePersonalData() {
-        this.router.navigate(['/student-application-form-main']);
+
+    showValues() {
+        console.log(this.epalclasses$);
+        console.log(this.studentDataFields$);
+        console.log(this.regions$);
+        console.log(this.sectors$);
     }
 
 }

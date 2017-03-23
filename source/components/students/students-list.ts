@@ -34,7 +34,7 @@ import {AppSettings} from '../../app.settings';
             address: {
                 title: 'Διεύθυνση'
             },
-            iekstudentclass_id: {
+            epalstudentclass_id: {
                 title: 'Τμήμα'
             }
         }
@@ -52,7 +52,7 @@ import {AppSettings} from '../../app.settings';
         //    this.http.get('http://eduslim2.minedu.gov.gr/drupal/students/list')
          this.data = new ServerDataSource(http, { endPoint: `${AppSettings.API_ENDPOINT}/students/list` });
 //        this.data = new ServerDataSource(http, {endPoint: 'http://eduslim2.minedu.gov.gr/drupal/students/list'});
-        /*    this.http.get('http://eiek.dev/drupal/students/list')
+        /*    this.http.get('http://eepal.dev/drupal/students/list')
               // Call map on the response observable to get the parsed people object
               .map(response => <Student[]>response.json())
                     .subscribe(data => DataSource.load(this.data = data), // put the data returned from the server in our variable

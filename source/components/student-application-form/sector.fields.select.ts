@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { BehaviorSubject, Subscription } from 'rxjs/Rx';
 import { Injectable } from "@angular/core";
 import { SectorFieldsActions } from '../../actions/sectorfields.actions';
 import { NgRedux, select } from 'ng2-redux';
 import { ISectorFields } from '../../store/sectorfields/sectorfields.types';
 import { IAppState } from '../../store/store';
-
-//import ApplicationPreview from './application.preview';
+import { SECTOR_FIELDS_INITIAL_STATE } from '../../store/sectorfields/sectorfields.initial-state';
 
 import {
     FormBuilder,
@@ -19,94 +18,97 @@ import {AppSettings} from '../../app.settings';
 
 @Component({
     selector: 'sector-fields-select',
-    //declarations: [
-    //  ApplicationPreview,
-    //] ,
-
-    //directives:[ApplicationPreview],
     template: `
-    <div class="row equal">
-     <div class="col-md-8">
+     <div class = "loading" *ngIf="(sectorFields$ | async).size === 0">
+    </div>
        <form [formGroup]="formGroup">
         <div formArrayName="formArray">
-            <div *ngFor="let sectorField$ of sectorFields$ | async; let i=index">
-                <li class="list-group-item" (click)="setActiveSector(i)" [style.background-color]="toggleBackgroundColor(i)">
+            <ul class="list-group main-view">
+            <div *ngFor="let sectorField$ of sectorFields$ | async; let i=index; let isOdd=odd; let isEven=even">
+                <li class="list-group-item  isclickable" (click)="setActiveSectorAndSave(i)" [class.oddout]="isOdd" [class.evenout]="isEven" [class.selectedout]="sectorActive === i">
                     <h5>{{sectorField$.name}}</h5>
                 </li>
             </div>
+            </ul>
+
         </div>
-        <div class="row">
-        <div class="col-md-2 col-md-offset-5">
-            <button type="button" class="btn-primary btn-lg pull-center" (click)="saveSelected()" [disabled]="sectorActive === -1"	>
-            Συνέχεια<span class="glyphicon glyphicon-menu-right"></span>
+
+        <div class="row" style="margin-top: 20px;" *ngIf="(sectorFields$ | async).size > 0">
+        <div class="col-md-6">
+            <button type="button" class="btn-primary btn-lg pull-left" (click)="router.navigate(['/epal-class-select']);" >
+          <i class="fa fa-backward"></i>
+            </button>
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn-primary btn-lg pull-right" (click)="navigateToSchools()" [disabled]="sectorActive === -1"  >
+          <i class="fa fa-forward"></i>
             </button>
         </div>
         </div>
-      </form>
-    </div>
 
-   <div class="col-md-4">
-     <application-preview-select></application-preview-select>
-   </div>
-  </div>
+      </form>
   `
 
 })
 @Injectable() export default class SectorFieldsSelect implements OnInit {
-    private sectorFields$: Observable<ISectorFields>;
-
+    private sectorFields$: BehaviorSubject<ISectorFields>;
+    private sectorFieldsSub: Subscription;
     public formGroup: FormGroup;
     public cfs = new FormArray([]);
-
     private sectorActive = <number>-1;
 
     constructor(private fb: FormBuilder,
                 private _cfa: SectorFieldsActions,
                 private _ngRedux: NgRedux<IAppState>,
                 private router: Router) {
+        this.sectorFields$ = new BehaviorSubject(SECTOR_FIELDS_INITIAL_STATE);
+
         this.formGroup = this.fb.group({
             formArray: this.cfs
         });
     };
 
     ngOnInit() {
-        this._cfa.getSectorFields();
-
-        this.sectorFields$ = this._ngRedux.select(state => {
+        this._cfa.getSectorFields(false);
+        this.sectorFieldsSub = this._ngRedux.select(state => {
             state.sectorFields.reduce(({}, sectorField) =>{
                 this.cfs.push(new FormControl(sectorField.selected, []));
-                this.retrieveCheck();
+                //in case we want to retrieve last check when we return to the form
+
+                if (sectorField.selected === true) {
+                  this.sectorActive = sectorField.id - 1;
+                }
+
                 return sectorField;
             }, {});
             return state.sectorFields;
-        });
+        }).subscribe(this.sectorFields$);
 
     }
 
-    saveSelected() {
-        for (let i = 0; i < this.formGroup.value.formArray.length; i++)
-          this.formGroup.value.formArray[i] = false;
-        if (this.sectorActive != -1)
-          this.formGroup.value.formArray[this.sectorActive] = true;
-        this._cfa.saveSectorFieldsSelected(this.formGroup.value.formArray);
+    ngOnDestroy() {
+        if (this.sectorFieldsSub) this.sectorFieldsSub.unsubscribe();
+    }
+
+    navigateToSchools() {
+        //this.saveSelected();
         this.router.navigate(['/region-schools-select']);
     }
 
-    setActiveSector(ind) {
-        this.sectorActive = ind;
-    }
-
-    toggleBackgroundColor(ind) {
-        return ((this.sectorActive === ind) ? "cyan" : "#eeeeee");
-    }
-
-    retrieveCheck()  {
+    saveSelected() {
       for (let i = 0; i < this.formGroup.value.formArray.length; i++)
-        if (this.formGroup.value.formArray[i] === true) {
-          this.sectorActive = i;
-          return i;
-        }
-        return -1;
+        this.formGroup.value.formArray[i] = false;
+      if (this.sectorActive != -1)
+        this.formGroup.value.formArray[this.sectorActive] = true;
+
+      this._cfa.saveSectorFieldsSelected(this.formGroup.value.formArray);
+    }
+
+    setActiveSectorAndSave(ind) {
+        if (ind === this.sectorActive)
+          ind = -1;
+        this.sectorActive = ind;
+        this.saveSelected();
     }
 
 }

@@ -1,50 +1,38 @@
-<div class="row equal">
- <div class="col-md-8">
-  <form novalidate [formGroup]="studentDataGroup">
-    <div *ngFor="let studentDataField$ of studentDataFields$ | async; "> </div>
+<div class = "loading" *ngIf="(criteria$ | async).size === 0"></div>
+
+  <form novalidate  [formGroup]="studentDataGroup" #form>
+    <form [formGroup]="applicantDataGroup">
+      <table>
+        <tr><td>
+          <div class="form-group">
+            <label for="guardianfirstname">Όνομα κηδεμόνα</label><input class="form-control" type="text" formControlName="guardianfirstname" disabled = "true">
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <label for="guardiansurname">Επώνυμο κηδεμόνα</label><input class="form-control" type="text" formControlName="guardiansurname" disabled = "true">
+          </div>
+        </td></tr>
+      </table>
+    </form>
 
     <div class="form-group">
-        <label for="studentAmka">ΑΜΚΑ μαθητή</label><input class="form-control" type="text" formControlName="studentAmka">
+        <label for="name">Όνομα μαθητή</label><input class="form-control" type="text" formControlName="name">
     </div>
-
-    <div class="form-group">
-        <label for="studentFirstname">Όνομα μαθητή</label><input class="form-control" type="text" formControlName="studentFirstname">
-    </div>
-    <div class="alert alert-danger" *ngIf="studentDataGroup.get('studentFirstname').touched && studentDataGroup.get('studentFirstname').hasError('required')">
+    <div class="alert alert-danger" *ngIf="studentDataGroup.get('name').touched && studentDataGroup.get('name').hasError('required')">
         Το πεδίο δεν μπορεί να αφεθεί κενό!
     </div>
-    <div class="alert alert-danger" *ngIf="studentDataGroup.get('studentFirstname').touched && studentDataGroup.get('studentFirstname').hasError('pattern')">
+    <div class="alert alert-danger" *ngIf="studentDataGroup.get('name').dirty && studentDataGroup.get('name').hasError('pattern')">
         Δεν επιτρέπονται ψηφία ή άλλοι μη έγκυροι χαρακτήρες σε αυτό το πεδίο!
     </div>
 
     <div class="form-group">
-        <label for="studentSurname">Επώνυμο μαθητή</label><input class="form-control" type="text" formControlName="studentSurname">
+        <label for="studentsurname">Επώνυμο μαθητή</label><input class="form-control" type="text" formControlName="studentsurname">
     </div>
-    <div class="alert alert-danger" *ngIf="studentDataGroup.get('studentSurname').touched && studentDataGroup.get('studentSurname').hasError('required')">
+    <div class="alert alert-danger" *ngIf="studentDataGroup.get('studentsurname').touched && studentDataGroup.get('studentsurname').hasError('required')">
         Το πεδίο δεν μπορεί να αφεθεί κενό!
     </div>
-    <div class="alert alert-danger" *ngIf="studentDataGroup.get('studentSurname').touched && studentDataGroup.get('studentSurname').hasError('pattern')">
-        Δεν επιτρέπονται ψηφία ή άλλοι μη έγκυροι χαρακτήρες σε αυτό το πεδίο!
-    </div>
-
-    <div class="form-group">
-        <label for="guardianFirstname">Όνομα κηδεμόνα</label><input class="form-control" type="text" formControlName="guardianFirstname">
-    </div>
-    <div class="alert alert-danger" *ngIf="studentDataGroup.get('guardianFirstname').touched && studentDataGroup.get('guardianFirstname').hasError('required')">
-        Το πεδίο δεν μπορεί να αφεθεί κενό!
-    </div>
-    <div class="alert alert-danger" *ngIf="studentDataGroup.get('guardianFirstname').touched && studentDataGroup.get('guardianFirstname').hasError('pattern')">
-        Δεν επιτρέπονται ψηφία ή άλλοι μη έγκυροι χαρακτήρες σε αυτό το πεδίο!
-    </div>
-
-    <div class="form-group">
-        <label for="guardianSurname">Επώνυμο κηδεμόνα</label>
-        <input class="form-control" type="text" formControlName="guardianSurname">
-    </div>
-    <div class="alert alert-danger" *ngIf="studentDataGroup.get('guardianSurname').touched && studentDataGroup.get('guardianSurname').hasError('required')">
-        Το πεδίο δεν μπορεί να αφεθεί κενό!
-    </div>
-    <div class="alert alert-danger" *ngIf="studentDataGroup.get('guardianSurname').touched && studentDataGroup.get('guardianSurname').hasError('pattern')">
+    <div class="alert alert-danger" *ngIf="studentDataGroup.get('studentsurname').dirty && studentDataGroup.get('studentsurname').hasError('pattern')">
         Δεν επιτρέπονται ψηφία ή άλλοι μη έγκυροι χαρακτήρες σε αυτό το πεδίο!
     </div>
 
@@ -52,62 +40,147 @@
         <tr>
             <td>
                 <div class="form-group">
-                    <label for="regionAddress">Διεύθυνση κατοικίας</label><input class="form-control" type="text" formControlName="regionAddress">
+                    <label for="regionaddress">Διεύθυνση κατοικίας</label><input class="form-control" type="text" formControlName="regionaddress">
+                </div>
+                <div class="alert alert-danger" *ngIf="studentDataGroup.get('regionaddress').touched && studentDataGroup.get('regionaddress').hasError('required')">
+                    Το πεδίο δεν μπορεί να αφεθεί κενό!
+                </div>
+                <div class="alert alert-danger" *ngIf="studentDataGroup.get('regionaddress').dirty && studentDataGroup.get('regionaddress').hasError('pattern')">
+                    Δεν επιτρέπονται μη έγκυροι χαρακτήρες σε αυτό το πεδίο!
                 </div>
             </td>
             <td>
                 <div class="form-group">
-                    <label for="regionTK">TK </label><input class="form-control" type="text" formControlName="regionTK">
+                    <label for="regiontk">TK </label><input class="form-control" type="text" formControlName="regiontk">
+                </div>
+                <div class="alert alert-danger" *ngIf="studentDataGroup.get('regiontk').touched && studentDataGroup.get('regiontk').hasError('required')">
+                    Το πεδίο δεν μπορεί να αφεθεί κενό!
+                </div>
+                <div class="alert alert-danger" *ngIf="studentDataGroup.get('regiontk').dirty && studentDataGroup.get('regiontk').hasError('pattern')">
+                    Δεν επιτρέπονται γράμματα αλφαβήτου ή μη έγκυροι χαρακτήρες σε αυτό το πεδίο!
                 </div>
             </td>
             <td>
                 <div class="form-group">
-                    <label for="regionArea">Πόλη/Περιοχή</label><input class="form-control" type="text" formControlName="regionArea">
+                    <label for="regionarea">Πόλη/Περιοχή</label><input class="form-control" type="text" formControlName="regionarea">
+                </div>
+                <div class="alert alert-danger" *ngIf="studentDataGroup.get('regionarea').touched && studentDataGroup.get('regionarea').hasError('required')">
+                    Το πεδίο δεν μπορεί να αφεθεί κενό!
+                </div>
+                <div class="alert alert-danger" *ngIf="studentDataGroup.get('regionarea').dirty && studentDataGroup.get('regionarea').hasError('pattern')">
+                    Δεν επιτρέπονται μη έγκυροι χαρακτήρες σε αυτό το πεδίο!
                 </div>
             </td>
         </tr>
     </table>
 
     <div class="form-group">
-        <label for="certificateType">Τύπος απολυτηρίου</label><br/>
-        <select class="form-control" formControlName="certificateType">
-        <option value="">Παρακαλώ επιλέξτε..</option>
+        <label for="certificatetype">Τύπος απολυτηρίου</label><br/>
+        <select class="form-control" formControlName="certificatetype">
+        <option value="noincomecriterio">Παρακαλώ επιλέξτε..</option>
         <option value="Απολυτήριο Γυμνασίου">Απολυτήριο Γυμνασίου</option>
         <option value="Απολυτήριο Λυκείου">Απολυτήριο Λυκείου</option>
     </select>
     </div>
-    <div class="alert alert-danger" *ngIf="studentDataGroup.get('certificateType').touched && studentDataGroup.get('certificateType').hasError('required')">
+    <div class="alert alert-danger" *ngIf="studentDataGroup.get('certificatetype').dirty && studentDataGroup.get('certificatetype').hasError('status')">
         Η επιλογή από αυτή τη λίστα είναι απαραίτητη!
     </div>
 
     <div class="form-group">
-        <label for="relationToStudent">Η αίτηση γίνεται από:</label><br/>
-        <select class="form-control" formControlName="relationToStudent">
-        <option value="">Παρακαλώ επιλέξτε..</option>
+        <label for="relationtostudent">Η αίτηση γίνεται από:</label><br/>
+        <select class="form-control" formControlName="relationtostudent">
+        <option value="noincomecriterio">Παρακαλώ επιλέξτε..</option>
         <option value="Γονέας/Κηδεμόνας">Γονέας/Κηδεμόνας</option>
         <option value="Μαθητής">Μαθητής</option>
     </select>
-        <div class="alert alert-danger" *ngIf="studentDataGroup.get('relationToStudent').touched && studentDataGroup.get('relationToStudent').hasError('required')">
+        <div class="alert alert-danger" *ngIf="studentDataGroup.get('relationtostudent').dirty && studentDataGroup.get('relationtostudent').hasError('status')">
             Η επιλογή από αυτή τη λίστα είναι απαραίτητη!
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-2 col-md-offset-4">
-            <button type="button" class="btn-primary btn-lg pull-center" (click)="saveSelected()">
-                <span class="glyphicon glyphicon-menu-left"></span>Πίσω
+    <div class="form-group">
+        <label for="telnum">Τηλέφωνο επικοινωνίας</label><input class="form-control" type="text" formControlName="telnum">
+    </div>
+    <div class="alert alert-danger" *ngIf="studentDataGroup.get('telnum').touched && studentDataGroup.get('telnum').hasError('required')">
+        Το πεδίο δεν μπορεί να αφεθεί κενό!
+    </div>
+    <div class="alert alert-danger" *ngIf="studentDataGroup.get('telnum').dirty && studentDataGroup.get('telnum').hasError('pattern')">
+        Επιτρέπονται μόνο ψηφία σε αυτό το πεδίο!
+    </div>
+
+
+    <form novalidate [formGroup]="studentCriteriaGroup">
+      <!--
+        <fieldset class="group">
+      -->
+        <legend>Εισοδηματικά κριτήρια</legend>
+
+        <!-- TEST for defining income in combolist in a redux-dynamic way
+        <select #cblsttest class="form-control" (change)="checkstatus(cblsttest)" formControlName="incometest">
+        <option *ngFor="let criter$ of criteria$   | async; let i=index" >
+          <div *ngIf="criter$.name === 'Εισόδημα' && criter$.name !== 'Απόσταση'">
+        {{criter$.name}} </div></option>
+        </select>
+      -->
+
+
+        <div class="form-group">
+
+            <label for="income">Το κατά κεφαλήν εισόδημα στο προηγούμενο φορολογικό έτος είναι:</label><br/>
+              <select #cblst class="form-control" (change)="checkstatus(cblst)" formControlName="income">
+              <option value="noincomecriterio" [selected] = "selectionIncomeId === 0" >Παρακαλώ επιλέξτε..</option>
+              <option value="<= 3000 Ευρώ" [selected] = "selectionIncomeId === 8" >μικρότερο ή ίσο των 3000 Ευρώ</option>
+              <option value="<= 6000 Ευρώ" [selected] = "selectionIncomeId === 9" >μικρότερο ή ίσο των 6000 Ευρώ</option>
+              <option value="<= 9000 Ευρώ" [selected] = "selectionIncomeId === 10" >μικρότερο ή ίσο των 9000 Ευρώ</option>
+              <option value="> 9000 Ευρώ" [selected] = "selectionIncomeId === 11" >μεγαλύτερο των 9000 Ευρώ</option>
+            </select>
+
+            <div class="alert alert-danger" *ngIf=" studentCriteriaGroup.get('income').hasError('status')">
+                  Η επιλογή από αυτή τη λίστα είναι απαραίτητη!
+            </div>
+        </div>
+
+        <div formArrayName="formArray">
+
+          <legend>Κοινωνικά κριτήρια</legend>
+          <p style="margin-top: 15px; line-height: 1.5em;">Επιλέξτε όσα από τα παρακάτω κριτήρια πληρούνται για εσάς.
+            Οι επιλογές σας επέχουν θέση υπέυθυνης δήλωσης.
+            Θα πρέπει να προσκομίσετε τα αντίστοιχα δικαιολογητικά στο σχολείο εγγραφής σας, όταν σας ζητηθεί.
+          </p>
+
+          <div *ngFor="let criter$ of criteria$   | async; let i=index">
+            <div class="row" *ngIf="criter$.name !== 'Εισόδημα' && criter$.name !== 'Απόσταση'">
+              <div class="col-md-1">
+                  <input #cb type="checkbox" (change)="checkcriteria(cb, criter$.mutual_disabled_id)" formControlName={{i}}>
+              </div>
+              <div class="col-md-11 pull-left">
+                  {{criter$.name}}
+              </div>
+            </div>
+          </div>
+
+      <div class="row">
+      </div>
+
+      <!--
+      </fieldset>
+    -->
+    </div>
+
+    </form>
+
+    <div class="row" style="margin-top: 20px;" *ngIf="(criteria$ | async).size > 0">
+        <div class="col-md-6">
+            <button type="button" class="btn-primary btn-lg pull-left" (click)="navigateBack()">
+                <i class="fa fa-backward"></i>
             </button>
         </div>
-        <div class="col-md-2">
-            <button type="button" class="btn-primary btn-lg pull-center" (click)="submitSelected()">
-                Αποστολή<span class="glyphicon glyphicon-menu-right"></span>
+        <div class="col-md-6">
+            <button type="button" class="btn-primary btn-lg pull-right" (click)="submitSelected()" [disabled]="studentDataGroup.invalid || (studentCriteriaGroup.invalid || selectionIncomeId === 0)" >
+                <i class="fa fa-forward"></i>
             </button>
         </div>
+
     </div>
 
   </form>
-</div>
-
-<div class="col-md-4">
-  <application-preview-select></application-preview-select>
-</div>

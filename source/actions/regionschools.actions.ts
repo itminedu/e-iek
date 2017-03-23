@@ -1,4 +1,4 @@
-import { REGIONSCHOOLS_RECEIVED, REGIONSCHOOLS_SELECTED_SAVE } from '../constants';
+import { REGIONSCHOOLS_RECEIVED, REGIONSCHOOLS_SELECTED_SAVE,  REGIONSCHOOLS_ORDER_SAVE, REGIONSCHOOLS_INIT } from '../constants';
 import { Injectable } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../store';
@@ -10,10 +10,10 @@ export class RegionSchoolsActions {
     private _ngRedux: NgRedux<IAppState>,
     private _hds: HelperDataService) {}
 
-  getRegionSchools = () => {
+  getRegionSchools = (classActive,courseActive, reload) => {
     const { regions } = this._ngRedux.getState();
-    if (regions.size === 0) {
-        return this._hds.getRegionsWithSchools().then(regions => {
+    if (reload === true || (reload === false && regions.size === 0)) {
+        return this._hds.getRegionsWithSchools(classActive,courseActive).then(regions => {
             return this._ngRedux.dispatch({
                 type: REGIONSCHOOLS_RECEIVED,
                 payload: {
@@ -24,11 +24,46 @@ export class RegionSchoolsActions {
     }
   };
 
-  saveRegionSchoolsSelected = (regionSchoolsSelected) => {
+  initRegionSchools = () => {
+      return this._ngRedux.dispatch({
+          type: REGIONSCHOOLS_INIT,
+          payload: {
+          }
+      });
+  };
+
+  /*
+  getRegionSchools_Reload = (courseActive) => {
+    const { regions } = this._ngRedux.getState();
+    //if (regions.size === 0) {
+        return this._hds.getRegionsWithSchools(courseActive).then(regions => {
+            return this._ngRedux.dispatch({
+                type: REGIONSCHOOLS_RECEIVED,
+                payload: {
+                    regions
+                }
+            });
+        });
+    //}
+  };
+  */
+
+  saveRegionSchoolsSelected = (checked, i, j) => {
       return this._ngRedux.dispatch({
         type: REGIONSCHOOLS_SELECTED_SAVE,
         payload: {
-          regionSchoolsSelected
+          checked: checked,
+          rIndex: i,
+          sIndex: j
+        }
+      });
+  };
+
+  saveRegionSchoolsOrder = (regionSchoolsOrder) => {
+      return this._ngRedux.dispatch({
+        type: REGIONSCHOOLS_ORDER_SAVE,
+        payload: {
+          regionSchoolsOrder
         }
       });
   };

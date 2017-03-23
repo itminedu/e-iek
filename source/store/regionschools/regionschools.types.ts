@@ -3,14 +3,15 @@ import { List } from 'immutable';
 export interface IRegion {
     region_id: string;
     region_name: string;
-    ieks: IRegionSchool[];
+    epals: IRegionSchool[];
 }
 
 export interface IRegionSchool {
-    iek_id: string;
-    iek_name: string;
+    epal_id: string;
+    epal_name: string;
     globalIndex: number;
     selected: boolean;
+    order_id: number;
 }
 
 export type IRegions = List<IRegion>;
