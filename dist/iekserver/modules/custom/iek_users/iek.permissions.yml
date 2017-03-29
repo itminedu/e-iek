@@ -1,0 +1,25 @@
+
+add iek users entities:
+  title: 'Create new Iek users entities'
+
+administer iek users entities:
+  title: 'Administer Iek users entities'
+  description: 'Allow to access the administration form to configure Iek users entities.'
+  restrict access: true
+
+delete iek users entities:
+  title: 'Delete Iek users entities'
+
+edit iek users entities:
+  title: 'Edit Iek users entities'
+
+access iek users overview:
+  title: 'Access the Iek users overview page'
+
+view published iek users entities:
+  title: 'View published Iek users entities'
+
+view unpublished iek users entities:
+  title: 'View unpublished Iek users entities'
+add iek student sector field entities:
+  title: 'Create new Iek student sector field entities'
