@@ -21,5 +21,3 @@ view published iek users entities:
 
 view unpublished iek users entities:
   title: 'View unpublished Iek users entities'
-add iek student sector field entities:
-  title: 'Create new Iek student sector field entities'
