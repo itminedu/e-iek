@@ -97,21 +97,43 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
   }
 
 
-  public function getStudent_id() {
-    return $this->get('student_id')->value;
+
+  public function getSchool() {
+    return $this->get('iek_id')->entity;
   }
 
-  public function setStudent_id($student_id) {
-    $this->set('student_id', $student_id);
+  public function getSchoolId() {
+    return $this->get('iek_id')->value;
+  }
+
+  public function setSchoolId($studentId) {
+    $this->set('iek_id', $studentId);
     return $this;
   }
 
 
-  public function getEidikotita_id() {
+  public function getStudent() {
+    return $this->get('student_id')->entity;
+  }
+
+  public function getStudentId() {
+    return $this->get('student_id')->value;
+  }
+
+  public function setStudentId($student_id) {
+    $this->set('student_id', $student_id);
+    return $this;
+  }
+
+  public function getEidikotita() {
+    return $this->get('eidikotita_id')->entity;
+  }
+
+  public function getEidikotitaId() {
     return $this->get('eidikotita_id')->value;
   }
 
-  public function setEidikotita_id($eidikotita_id) {
+  public function setEidikotitaId($eidikotita_id) {
     $this->set('eidikotita_id', $eidikotita_id);
     return $this;
   }
@@ -143,16 +165,65 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
     return $this;
   }
 
-  public function getRegion_id() {
+  public function getRegion() {
+    return $this->get('region_id')->entity;
+  }
+
+  public function getRegionId() {
     return $this->get('region_id')->value;
   }
 
-  public function setRegion_id($region_id) {
+  public function setRegionId($region_id) {
     $this->set('region_id', $region_id);
     return $this;
   }
 
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getState() {
+    return $this->get('state')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setState($state) {
+    $this->set('state', $state);
+    return $this;
+  }
+
+
+    /**
+   * {@inheritdoc}
+   */
+  public function getFlagiek() {
+    return $this->get('flagiek')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setFlagiek($flagiek) {
+    $this->set('flagiek', $flagiek);
+    return $this;
+  }
+
+      /**
+   * {@inheritdoc}
+   */
+  public function getFlagbank() {
+    return $this->get('flagbank')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setFlagbank($flagbank) {
+    $this->set('flagbank', $flagbank);
+    return $this;
+  }
 
 
   /**
@@ -427,7 +498,54 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+     $fields['state'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Κατάσταση Αίτησης'))
+      ->setDescription(t('Κατάσταση Αίτησης'))
+      ->setRequired(TRUE)
+      ->setSettings(array(
+         'max_length' => 16,
+         'default_value' => 'Draft',
+         'allowed_values' => array(
+            'Draft' => 'Draft',
+            'Pending' => 'Pending',
+            'Ready' => 'Ready',
+            ),
+        ))
+      ->setDisplayOptions('view', array(
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -4,
+      ))
+     ->setDisplayOptions('form', array(
+        'type' => 'options_select',
+        'weight' => -17,
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
+    $fields['flagiek'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Έλεγχος υπεύθυνου ΙΕΚ'))
+      ->setDefaultValue(FALSE)
+      ->setDisplayOptions('form', array(
+        'type' => 'boolean_checkbox',
+        'settings' => array(
+          'display_label' => TRUE,
+        ),
+        'weight' => -18,
+      ))
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['flagbank'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Έλεγχος υπεύθυνου τράπεζας'))
+      ->setDefaultValue(FALSE)
+      ->setDisplayOptions('form', array(
+        'type' => 'boolean_checkbox',
+        'settings' => array(
+          'display_label' => TRUE,
+        ),
+        'weight' => -18,
+      ))
+      ->setDisplayConfigurable('form', TRUE);
 
 
     $fields['status'] = BaseFieldDefinition::create('boolean')

@@ -19,11 +19,18 @@ interface AitisiEntityInterface extends RevisionableInterface, RevisionLogInterf
   // Add get/set methods for your configuration properties here.
 
 
-  public function getStudent_id();
-  public function setStudent_id($student_id);
+  public function getSchool();
+  public function getSchoolId();
+  public function setSchoolId($studentId);
 
-  public function getEidikotita_id();
-  public function setEidikotita_id($eidikotita_id);
+  public function getStudent();
+  public function getStudentId();
+  public function setStudentId($student_id);
+
+  public function getEidikotita();
+  public function getEidikotitaId();
+  public function setEidikotitaId($eidikotita_id);
+
 
   public function getPrabek();
   public function setPrabek($prabek);
@@ -34,8 +41,9 @@ interface AitisiEntityInterface extends RevisionableInterface, RevisionLogInterf
   public function getRegno();
   public function setRegno($regno);
 
-  public function getRegion_id();
-  public function setRegion_id($region_id);
+  public function getRegion();
+  public function getRegionId();
+  public function setRegionId($region_id);
 
   /**
    * Gets the Aitisi entity creation timestamp.
