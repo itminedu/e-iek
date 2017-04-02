@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 /*
 function entitychanger_entity_base_field_info(EntityTypeInterface $entity_type) {
-  
+
   if ($entity_type->id() === 'student_entity') {
 
     $fields['iekbek'] = BaseFieldDefinition::create('string')
@@ -70,16 +70,16 @@ function entitychanger_entity_base_field_info(EntityTypeInterface $entity_type) 
  * Implements hook_help().
  */
 function entitychanger_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    // Main module help for the entitychanger module.
-    case 'help.page.entitychanger':
-      $output = '';
-      $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('My Awesome Module') . '</p>';
-      return $output;
+    switch ($route_name) {
+        // Main module help for the entitychanger module.
+        case 'help.page.entitychanger':
+            $output = '';
+            $output .= '<h3>' . t('About') . '</h3>';
+            $output .= '<p>' . t('My Awesome Module') . '</p>';
+            return $output;
 
-    default:
-  }
+        default:
+    }
 }
 
 
@@ -89,189 +89,199 @@ function entitychanger_help($route_name, RouteMatchInterface $route_match) {
 
 function entitychanger_install() {
 
-  $entity_manager = \Drupal::entityManager();
-  $entity_storage_student = $entity_manager->getStorage('student_entity');
-  $entity_storage_eidikotita = $entity_manager->getStorage('eidikotita_entity');
-  $entity_storage_request = $entity_manager->getStorage('aitisi_entity');
-  $entity_storage_regions = $entity_manager->getStorage('region_entity');
-  $entity_storage_iek = $entity_manager->getStorage('school_entity');
-
-  
-  //------------------------------------------------------------------------------------------------//
-  //-------------------------------CREATE STUDENT ENTITIES------------------------------------------//
-  //------------------------------------------------------------------------------------------------//
-  $arr_students = array();
-
-  $arr_students[] = array('last'=>'ΝΑΚΟΥ', 'first'=>'ΜΑΡΙΑ','fname'=>'ΓΙΩΡΓΟΣ','mname'=>'ΕΛΕΝΗ','idno' => 'Χ664666', 'sex' => 'female', 'birthdate' => '2000-01-01', 'birthplace'=>'ΓΑΛΑΤΣΙ ΑΤΤΙΚΗΣ', 'email'=>'ach@yahoo.gr', 'telephone'=>'2102525096', 'afm' => '067335676');
-  $arr_students[] = array('last'=>'ΝΕΟΧΩΡΛΗ', 'first'=>'ΕΛΕΝΗ','fname'=>'ΚΩΝΣΤΑΝΤΙΝΟΣ','mname'=>'ΣΤΑΥΡΟΥΛΑ','idno' => 'ΖΔ111111', 'sex' => 'female', 'birthdate' => '1992-11-01', 'birthplace'=>'ΦΙΛΑΔΕΛΦΕΙΑ ΑΤΤΙΚΗΣ', 'email'=>'ach@yahoo.gr', 'telephone'=>'2102520755', 'afm' => '077335676');
-  $arr_students[] = array('last'=>'ΒΛΑΧΟΔΗΜΟΣ', 'first'=>'ΝΙΚΟΣ','fname'=>'ΜΑΡΙΟΣ','mname'=>'ΜΑΡΙΑ','idno' => 'Ψ664666', 'sex' => 'male', 'birthdate' => '1995-05-22', 'birthplace'=>'ΙΛΙΟΝ ΑΤΤΙΚΗΣ', 'email'=>'ach@yahoo.gr', 'telephone'=>'2106565755', 'afm' => '087335676');
-  $arr_students[] = array('last'=>'ΤΡΙΑΝΤΑΦΥΛΛΟΥ', 'first'=>'ΓΙΩΡΓΟΣ','fname'=>'ΣΤΑΥΡΟΣ','mname'=>'ΧΑΡΟΥΛΑ','idno' => 'Τ664666', 'sex' => 'male', 'birthdate' => '1984-12-26', 'birthplace'=>'ΠΕΙΡΑΙΑΣ ΑΤΤΙΚΗΣ', 'email'=>'ach@yahoo.gr', 'telephone'=>'2102525096', 'afm' => '067335676');
-  $arr_students[] = array('last'=>'ΔΕΛΗΓΙΑΝΝΗΣ', 'first'=>'ΧΑΡΗΣ','fname'=>'ΓΙΩΡΓΟΣ','mname'=>'ΕΥΓΕΝΙΑ','idno' => 'Ζ664666', 'sex' => 'male', 'birthdate' => '1994-02-10', 'birthplace'=>'ΘΕΣΣΑΛΟΝΙΚΗ', 'email'=>'ach@yahoo.gr', 'telephone'=>'2310454545', 'afm' => '067335666');
+    $entity_manager = \Drupal::entityManager();
+    $entity_storage_student = $entity_manager->getStorage('student_entity');
+    $entity_storage_eidikotita = $entity_manager->getStorage('eidikotita_entity');
+    $entity_storage_request = $entity_manager->getStorage('aitisi_entity');
+    $entity_storage_regions = $entity_manager->getStorage('region_entity');
+    $entity_storage_iek = $entity_manager->getStorage('school_entity');
 
 
-  
-  //save demo STUDENTS
-  $created_student_ids = array();
-  foreach ($arr_students as $key => $value) {
-     $entity_object = $entity_storage_student->create($value);
-     $entity_storage_student->save($entity_object);
-     $created_student_ids[] = $entity_object->id();
-  }
+    //------------------------------------------------------------------------------------------------//
+    //-------------------------------CREATE STUDENT ENTITIES------------------------------------------//
+    //------------------------------------------------------------------------------------------------//
+    $arr_students = array();
+
+    $arr_students[] = array('last'=>'ΝΑΚΟΥ', 'first'=>'ΜΑΡΙΑ','fname'=>'ΓΙΩΡΓΟΣ','mname'=>'ΕΛΕΝΗ','idno' => 'Χ664666', 'sex' => 'female', 'birthdate' => '2000-01-01', 'birthplace'=>'ΓΑΛΑΤΣΙ ΑΤΤΙΚΗΣ', 'email'=>'ach@yahoo.gr', 'telephone'=>'2102525096', 'afm' => '067335676');
+    $arr_students[] = array('last'=>'ΝΕΟΧΩΡΛΗ', 'first'=>'ΕΛΕΝΗ','fname'=>'ΚΩΝΣΤΑΝΤΙΝΟΣ','mname'=>'ΣΤΑΥΡΟΥΛΑ','idno' => 'ΖΔ111111', 'sex' => 'female', 'birthdate' => '1992-11-01', 'birthplace'=>'ΦΙΛΑΔΕΛΦΕΙΑ ΑΤΤΙΚΗΣ', 'email'=>'ach@yahoo.gr', 'telephone'=>'2102520755', 'afm' => '077335676');
+    $arr_students[] = array('last'=>'ΒΛΑΧΟΔΗΜΟΣ', 'first'=>'ΝΙΚΟΣ','fname'=>'ΜΑΡΙΟΣ','mname'=>'ΜΑΡΙΑ','idno' => 'Ψ664666', 'sex' => 'male', 'birthdate' => '1995-05-22', 'birthplace'=>'ΙΛΙΟΝ ΑΤΤΙΚΗΣ', 'email'=>'ach@yahoo.gr', 'telephone'=>'2106565755', 'afm' => '087335676');
+    $arr_students[] = array('last'=>'ΤΡΙΑΝΤΑΦΥΛΛΟΥ', 'first'=>'ΓΙΩΡΓΟΣ','fname'=>'ΣΤΑΥΡΟΣ','mname'=>'ΧΑΡΟΥΛΑ','idno' => 'Τ664666', 'sex' => 'male', 'birthdate' => '1984-12-26', 'birthplace'=>'ΠΕΙΡΑΙΑΣ ΑΤΤΙΚΗΣ', 'email'=>'ach@yahoo.gr', 'telephone'=>'2102525096', 'afm' => '067335676');
+    $arr_students[] = array('last'=>'ΔΕΛΗΓΙΑΝΝΗΣ', 'first'=>'ΧΑΡΗΣ','fname'=>'ΓΙΩΡΓΟΣ','mname'=>'ΕΥΓΕΝΙΑ','idno' => 'Ζ664666', 'sex' => 'male', 'birthdate' => '1994-02-10', 'birthplace'=>'ΘΕΣΣΑΛΟΝΙΚΗ', 'email'=>'ach@yahoo.gr', 'telephone'=>'2310454545', 'afm' => '067335666');
 
 
-  //------------------------------------------------------------------------------------------------//
-  //-------------------------------CREATE EIDIKOTITES ENTITIES------------------------------------------//
-  //------------------------------------------------------------------------------------------------//
-  $arr_eidikotites = array ();
-  $arr_eidikotites[] = array('name'=>'ΕΙΔΙΚΟΣ ΕΦΑΡΜΟΓΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ', 'eidcode' => '010101');
-  $arr_eidikotites[] = array('name'=>'ΤΕΧΝΙΚΟΣ ΒΙΟΜΗΧΑΝΙΚΟΥ ΛΟΓΙΣΜΙΚΟΥ', 'eidcode' => '010103');
-  $arr_eidikotites[] = array('name'=>'ΕΙΔΙΚΟΣ ΓΕΩΓΡΑΦΙΚΩΝ ΣΥΣΤΗΜΑΤΩΝ ΠΛΗΡΟΦΟΡΙΩΝ (G.I.S.)', 'eidcode' => '010104');
-  $arr_eidikotites[] = array('name'=>'ΤΕΧΝΙΚΟΣ ΤΗΛΕΠΛΗΡΟΦΟΡΙΚΗΣ', 'eidcode' => '010105');
-  $arr_eidikotites[] = array('name'=>'ΤΕΧΝΙΚΟΣ ΕΦΑΡΜΟΓΩΝ ΙΑΤΡΙΚΗΣ ΠΛΗΡΟΦΟΡΙΚΗΣ', 'eidcode' => '010106');
-
-  //create demo eidikotites
-  $created_eidikotites_ids = array();
-  foreach ($arr_eidikotites as $key => $value) {
-     $entity_object = $entity_storage_eidikotita->create($value);
-     $entity_storage_eidikotita->save($entity_object);
-     $created_eidikotites_ids[] = $entity_object->id();
-  }
 
 
-  //------------------------------------------------------------------------------------------------//
-  //-------------------------------CREATE REGIONS ENTITIES------------------------------------------//
-  //------------------------------------------------------------------------------------------------//
-  $arr_regions = array();
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΑΤΤΙΚΗΣ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΒΟΡΕΙΟΥ ΑΙΓΑΙΟΥ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ-ΘΡΑΚΗΣ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΘΕΣΣΑΛΙΑΣ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΗΠΕΙΡΟΥ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΚΡΗΤΗΣ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΙΟΝΙΩΝ ΝΗΣΩΝ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΠΕΛΟΠΟΝΝΗΣΟΥ');
-  $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ');
-
-  //save regions
-  $created_regions_ids = array();
-  foreach ($arr_regions as $key => $value) {
-     $entity_object = $entity_storage_regions->create($value);
-     $entity_storage_regions->save($entity_object);
-     $created_regions_ids[] = $entity_object->id();
-  }
-
-  
-  //------------------------------------------------------------------------------------------------//
-  //-------------------------------CREATE SCHOOL(IEK) ENTITIES------------------------------------------//
-  //------------------------------------------------------------------------------------------------//
-  $arr_iek = array();
-  $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'ΣΙΒΙΤΑΝΙΔΕΙΟΣ', 'iekcode'=>'00530', 'iektype' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'Ο.Α.Ε.Δ. - ΥΜΗΤΤΟΥ', 'iekcode'=>'00506', 'iektype' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'TechnoGrafico', 'iekcode'=>'01002', 'iektype' => 'private');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[8], 'name'=> 'Ο.Α.Ε.Δ. - ΗΡΑΚΛΕΙΟΥ ΚΡΗΤΗΣ', 'iekcode'=>'01701', 'iektype' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[1], 'name'=> 'ΧΙΟΥ', 'iekcode'=>'00075', 'iektype' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[11], 'name'=> 'ΣΠΑΡΤΗΣ', 'iekcode'=>'00058', 'iektype' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[12],'name'=> 'ΧΑΛΚΙΔΑΣ', 'iekcode'=>'00049', 'iektype' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[11], 'name'=> 'ΠΥΡΓΟΥ', 'iekcode'=>'00054', 'iektype' => 'public');
-  $arr_iek[] = array('region_id'=> $created_regions_ids[10], 'name'=> 'ΚΕΡΚΥΡΑΣ', 'iekcode'=>'00052', 'iektype' => 'public');
+    //save demo STUDENTS
+    $created_student_ids = array();
+    foreach ($arr_students as $key => $value) {
+        $entity_object = $entity_storage_student->create($value);
+        $entity_storage_student->save($entity_object);
+        $created_student_ids[] = $entity_object->id();
+    }
 
 
-  //save iek entities
-  $created_iek_ids = array();
-  foreach ($arr_iek as $key => $value) {
-     $entity_object = $entity_storage_iek->create($value);
-     $entity_storage_iek->save($entity_object);
-     $created_iek_ids[] = $entity_object->id();
-  }
-  
+    //------------------------------------------------------------------------------------------------//
+    //-------------------------------CREATE EIDIKOTITES ENTITIES------------------------------------------//
+    //------------------------------------------------------------------------------------------------//
+    $arr_eidikotites = array ();
+    $arr_eidikotites[] = array('name'=>'ΕΙΔΙΚΟΣ ΕΦΑΡΜΟΓΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ', 'eidcode' => '010101');
+    $arr_eidikotites[] = array('name'=>'ΤΕΧΝΙΚΟΣ ΒΙΟΜΗΧΑΝΙΚΟΥ ΛΟΓΙΣΜΙΚΟΥ', 'eidcode' => '010103');
+    $arr_eidikotites[] = array('name'=>'ΕΙΔΙΚΟΣ ΓΕΩΓΡΑΦΙΚΩΝ ΣΥΣΤΗΜΑΤΩΝ ΠΛΗΡΟΦΟΡΙΩΝ (G.I.S.)', 'eidcode' => '010104');
+    $arr_eidikotites[] = array('name'=>'ΤΕΧΝΙΚΟΣ ΤΗΛΕΠΛΗΡΟΦΟΡΙΚΗΣ', 'eidcode' => '010105');
+    $arr_eidikotites[] = array('name'=>'ΤΕΧΝΙΚΟΣ ΕΦΑΡΜΟΓΩΝ ΙΑΤΡΙΚΗΣ ΠΛΗΡΟΦΟΡΙΚΗΣ', 'eidcode' => '010106');
 
-  //------------------------------------------------------------------------------------------------//
-  //-------------------------------CREATE AITISEIS ENTITIES------------------------------------------//
-  //------------------------------------------------------------------------------------------------//
-  $arr_aitiseis = array();
-  $arr_aitiseis[] = array('prabek'=> '22/10-1-2017', 'numbek'=> '123','regno'=> '010');
-  $arr_aitiseis[] = array('prabek'=> '65/9-1-2017', 'numbek'=> '77','regno'=> '066');
-  $arr_aitiseis[] = array('prabek'=> '10/10-2-2017', 'numbek'=> '65','regno'=> '045');
-  $arr_aitiseis[] = array('prabek'=> '9/9-2-2017', 'numbek'=> '17','regno'=> '023');
-  
-  for ($i=0; $i <=3; $i++) { 
-    $arr_aitiseis[$i]['eidikotita_id'] = $created_eidikotites_ids[$i];
-    $arr_aitiseis[$i]['student_id'] = $created_student_ids[$i];
-    $arr_aitiseis[$i]['region_id'] = $created_regions_ids[$i];
-    $arr_aitiseis[$i]['iek_id'] = $created_iek_ids[$i];
-  }
+    //create demo eidikotites
+    $created_eidikotites_ids = array();
+    foreach ($arr_eidikotites as $key => $value) {
+        $entity_object = $entity_storage_eidikotita->create($value);
+        $entity_storage_eidikotita->save($entity_object);
+        $created_eidikotites_ids[] = $entity_object->id();
+    }
 
 
-  foreach ($arr_aitiseis as $key => $value) {
-     $entity_object = $entity_storage_request->create($value);
-     $entity_storage_request->save($entity_object);
-  }
+    //------------------------------------------------------------------------------------------------//
+    //-------------------------------CREATE REGIONS ENTITIES------------------------------------------//
+    //------------------------------------------------------------------------------------------------//
+    $arr_regions = array();
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΑΤΤΙΚΗΣ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΒΟΡΕΙΟΥ ΑΙΓΑΙΟΥ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ-ΘΡΑΚΗΣ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΘΕΣΣΑΛΙΑΣ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΗΠΕΙΡΟΥ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΚΡΗΤΗΣ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΙΟΝΙΩΝ ΝΗΣΩΝ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΠΕΛΟΠΟΝΝΗΣΟΥ');
+    $arr_regions[] = array('name'=>'ΔΙΟΙΚ. ΠΕΡΙΦ. ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ');
+
+    //save regions
+    $created_regions_ids = array();
+    foreach ($arr_regions as $key => $value) {
+        $entity_object = $entity_storage_regions->create($value);
+        $entity_storage_regions->save($entity_object);
+        $created_regions_ids[] = $entity_object->id();
+    }
+
+
+    //------------------------------------------------------------------------------------------------//
+    //-------------------------------CREATE SCHOOL(IEK) ENTITIES------------------------------------------//
+    //------------------------------------------------------------------------------------------------//
+    $arr_iek = array();
+    $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'ΣΙΒΙΤΑΝΙΔΕΙΟΣ', 'iekcode'=>'0053076', 'iektype' => 'public');
+    $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'Ο.Α.Ε.Δ. - ΥΜΗΤΤΟΥ', 'iekcode'=>'0050665', 'iektype' => 'public');
+    $arr_iek[] = array('region_id'=> $created_regions_ids[0], 'name'=> 'TechnoGrafico', 'iekcode'=>'0100221', 'iektype' => 'private');
+    $arr_iek[] = array('region_id'=> $created_regions_ids[8], 'name'=> 'Ο.Α.Ε.Δ. - ΗΡΑΚΛΕΙΟΥ ΚΡΗΤΗΣ', 'iekcode'=>'0170102', 'iektype' => 'public');
+    $arr_iek[] = array('region_id'=> $created_regions_ids[1], 'name'=> 'ΧΙΟΥ', 'iekcode'=>'0007545', 'iektype' => 'public');
+    $arr_iek[] = array('region_id'=> $created_regions_ids[11], 'name'=> 'ΣΠΑΡΤΗΣ', 'iekcode'=>'0005823', 'iektype' => 'public');
+    $arr_iek[] = array('region_id'=> $created_regions_ids[12],'name'=> 'ΧΑΛΚΙΔΑΣ', 'iekcode'=>'0004911', 'iektype' => 'public');
+    $arr_iek[] = array('region_id'=> $created_regions_ids[11], 'name'=> 'ΠΥΡΓΟΥ', 'iekcode'=>'0005423', 'iektype' => 'public');
+    $arr_iek[] = array('region_id'=> $created_regions_ids[10], 'name'=> 'ΚΕΡΚΥΡΑΣ', 'iekcode'=>'0005210', 'iektype' => 'public');
+
+
+    //save iek entities
+    $created_iek_ids = array();
+    foreach ($arr_iek as $key => $value) {
+        $entity_object = $entity_storage_iek->create($value);
+        $entity_storage_iek->save($entity_object);
+        $created_iek_ids[] = $entity_object->id();
+    }
+
+
+    //------------------------------------------------------------------------------------------------//
+    //-------------------------------CREATE AITISEIS ENTITIES------------------------------------------//
+    //------------------------------------------------------------------------------------------------//
+    $arr_aitiseis = array();
+    //$arr_aitiseis[] = array('prabek'=> '22/10-1-2017', 'numbek'=> '123','regno'=> '010');
+    //$arr_aitiseis[] = array('prabek'=> '65/9-1-2017', 'numbek'=> '77','regno'=> '066');
+    //$arr_aitiseis[] = array('prabek'=> '10/10-2-2017', 'numbek'=> '65','regno'=> '045');
+    //$arr_aitiseis[] = array('prabek'=> '9/9-2-2017', 'numbek'=> '17','regno'=> '023');
+
+
+
+
+    for ($i=0; $i <=249; $i++) {
+        $arr_aitiseis[$i]['eidikotita_id'] = $created_eidikotites_ids[rand(0,4)];
+        $arr_aitiseis[$i]['student_id'] = $created_student_ids[rand(0,4)];
+        $arr_aitiseis[$i]['region_id'] = $created_regions_ids[rand(0,12)];
+        $arr_aitiseis[$i]['iek_id'] = $created_iek_ids[rand(0,8)];
+        $arr_aitiseis[$i]['prabek'] = '123/45';
+        $arr_aitiseis[$i]['numbek'] = '18';
+        $arr_aitiseis[$i]['regno'] = '181';
+        $arr_aitiseis[$i]['state'] = 'DRAFT';
+    }
+
+
+    foreach ($arr_aitiseis as $key => $value) {
+        $entity_object = $entity_storage_request->create($value);
+        $entity_storage_request->save($entity_object);
+    }
 
 }
 
 
 function entitychanger_uninstall() {
-  //delete all student and eidikotites
-  $entity_manager = \Drupal::entityManager();
-  $entity_storage_student = $entity_manager->getStorage('student_entity');
-  $entity_storage_eidikotita = $entity_manager->getStorage('eidikotita_entity');
-  $entity_storage_region = $entity_manager->getStorage('region_entity');
-  $entity_storage_school = $entity_manager->getStorage('school_entity');
-  $entity_storage_aitisi = $entity_manager->getStorage('aitisi_entity');
+    //delete all student and eidikotites
+    $entity_manager = \Drupal::entityManager();
+    $entity_storage_student = $entity_manager->getStorage('student_entity');
+    $entity_storage_eidikotita = $entity_manager->getStorage('eidikotita_entity');
+    $entity_storage_region = $entity_manager->getStorage('region_entity');
+    $entity_storage_school = $entity_manager->getStorage('school_entity');
+    $entity_storage_aitisi = $entity_manager->getStorage('aitisi_entity');
 
-  //delete all aitiseis
-  $all_aitiseis = $entity_storage_aitisi->loadMultiple(NULL);
-  $entity_storage_aitisi->delete($all_aitiseis);
+    //delete all aitiseis
+    $all_aitiseis = $entity_storage_aitisi->loadMultiple(NULL);
+    $entity_storage_aitisi->delete($all_aitiseis);
 
-  //delete all student entities
-  $all_students = $entity_storage_student->loadMultiple(NULL);
-  $entity_storage_student->delete($all_students);
-  
-  //delete all eidikotita entities
-  $all_eidikotites = $entity_storage_eidikotita->loadMultiple(NULL);
-  $entity_storage_eidikotita->delete($all_eidikotites);
+    //delete all student entities
+    $all_students = $entity_storage_student->loadMultiple(NULL);
+    $entity_storage_student->delete($all_students);
 
-  //delete all region entities
-  $all_regions = $entity_storage_region->loadMultiple(NULL);
-  $entity_storage_region->delete($all_regions);
+    //delete all eidikotita entities
+    $all_eidikotites = $entity_storage_eidikotita->loadMultiple(NULL);
+    $entity_storage_eidikotita->delete($all_eidikotites);
 
-  //delete all school emtities
-  $all_eidikotites = $entity_storage_school->loadMultiple(NULL);
-  $entity_storage_school->delete($all_eidikotites);
+    //delete all region entities
+    $all_regions = $entity_storage_region->loadMultiple(NULL);
+    $entity_storage_region->delete($all_regions);
 
-
+    //delete all school emtities
+    $all_eidikotites = $entity_storage_school->loadMultiple(NULL);
+    $entity_storage_school->delete($all_eidikotites);
 
 
-  
+
+
+
 }
 
 /*
  * Implements hook_user_login().
  */
 function entitychanger_user_login($account){
+    $path = '';
 
+    // Get User Role(s).
+    $roles  = $account->getRoles();
+    if(isset($roles) && is_array($roles)) {
+        if(in_array('diaxeiristis_iek', $roles)) {
+            $path ='datacenter/aitiseis/iek';
+        } else if(in_array('diaxeiristis_eoppep', $roles)) {
+            $path = 'node/51';
+        } else if(in_array('aiton', $roles)) {
+            $path = 'maincustomform/form/multistep_one';
+        } else if(in_array('administrator', $roles)) {
+            $path = 'maincustomform/form/multistep_one';
+        }
 
-  // Get User Role(s).
-  $roles  = $account->getRoles();
-  if(isset($roles) && is_array($roles)) {
-    if(in_array('diaxeiristis_iek', $roles)) {
-    $path ='aitiseis';
-  } else if(in_array('diaxeiristis_eoppep', $roles)) {
-    $path = 'node/51';
-  } else if(in_array('aiton', $roles)) {
-    $path = 'node/7';
-  }
+        $url_object = \Drupal::service('path.validator')->getUrlIfValid($path);
+        $url_object->setAbsolute();
+        $url = $url_object->toString();
+        $response = new RedirectResponse($url);
+        $response->send();
+    }
 
-   $url_object = \Drupal::service('path.validator')->getUrlIfValid($path);
-   $url_object->setAbsolute();
-   $url = $url_object->toString();
-   $response = new RedirectResponse($url);
-   $response->send();
-  }
-  
 
 }

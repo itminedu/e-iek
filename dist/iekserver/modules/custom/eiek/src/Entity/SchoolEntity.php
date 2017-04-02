@@ -87,7 +87,7 @@ class SchoolEntity extends ContentEntityBase implements SchoolEntityInterface {
    * {@inheritdoc}
    */
   public function getIekcode() {
-    return $this->get('iek_code')->value;
+    return $this->get('iekcode')->value;
   }
 
   /**

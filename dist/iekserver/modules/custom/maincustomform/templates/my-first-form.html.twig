@@ -1,0 +1,33 @@
+{{ attach_library('maincustomform/entitysaver') }}
+{%
+  set classes = [
+    'first-form',
+    'f0'
+  ]
+%}
+<form{{ attributes.addClass(classes) }}>
+  {{ form.form_build_id }}
+  {{ form.form_token }}
+  {{ form.form_id }}
+{% include 'common-part.html.twig' %}
+  <h2 class="form-title">Ταυτοποίηση Χρήστη</h2>
+  <div class="row">
+    <div class="col-md-6">
+     {{ form.amkauser }}
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      {{ form.last }}
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <div class="row">
+     <div class="col-md-offset-9 col-md-3">
+      {{ form.actions.next }}
+    </div>
+  </div>
+  </form>

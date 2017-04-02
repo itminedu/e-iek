@@ -1,0 +1,27 @@
+entitysaver:
+  version: 1.x
+  css:
+    theme:
+      assets/css/maincustomform.css: {}
+  js:
+    assets/js/entitysaver.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+changeSecondPage:
+  version: 1.x
+  js:
+    assets/js/progressline-second-page.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+changeThirdPage:
+  version: 1.x
+  js:
+    assets/js/progressline-third-page.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
