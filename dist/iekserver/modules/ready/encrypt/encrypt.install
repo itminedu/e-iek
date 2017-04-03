@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * Update keys defined with the "aes_encryption" key type to "encryption".
+ */
+function encrypt_update_8001() {
+  $config_factory = \Drupal::configFactory();
+  $updated = FALSE;
+
+  foreach ($config_factory->listAll('key.key.') as $key_config_name) {
+    $key = $config_factory->getEditable($key_config_name);
+    if ($key->get('key_type') == 'aes_encryption') {
+      $key->set('key_type', 'encryption');
+      $key->save(TRUE);
+      $updated = TRUE;
+    }
+  }
+
+  if ($updated) {
+    return t('Changed key type from "aes_encryption" to "encryption" for existing keys.');
+  }
+  else {
+    return t('No changes to existing keys were made because there were no keys defined with the "aes_encryption" key type.');
+  }
+}
