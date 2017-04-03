@@ -1,0 +1,13 @@
+name: 'Encrypt Test module'
+type: module
+description: 'Test module for Encrypt'
+# core: 8.x
+package: Testing
+dependencies:
+  - encrypt
+
+# Information added by Drupal.org packaging script on 2016-12-24
+version: '8.x-3.0-alpha2'
+core: '8.x'
+project: 'encrypt'
+datestamp: 1482621487
