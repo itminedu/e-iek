@@ -1,0 +1,24 @@
+user_data:
+  path: '/iek/userdata'
+  options:
+    _auth: [ 'basic_auth' ]
+  defaults:
+    _controller: '\Drupal\iek\Controller\CurrentUser::getIekUserData'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+current_user:
+  path: '/iek/curuser'
+  options:
+    _auth: [ 'basic_auth' ]
+  defaults:
+    _controller: '\Drupal\iek\Controller\CurrentUser::getLoginInfo'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+iek.application_submit:
+  path: '/iek/appsubmit'
+  options:
+    _auth: [ 'basic_auth' ]
+  defaults:
+    _controller: '\Drupal\iek\Controller\ApplicationSubmit::appSubmit'
+  requirements:
+    _user_is_logged_in: 'TRUE'

@@ -4,9 +4,9 @@ export function deimmutifyRegionSchools(state: IRegions): IRegion[] {
     let fetchedRegions =  new Array<IRegion>();
     let i = 0;
     state.forEach(region => {
-        fetchedRegions.push(<IRegion>{region_id: region.region_id, region_name: region.region_name, ieks: Array<IRegionSchool>()});
-        region.ieks.forEach(iek => {
-            fetchedRegions[i].ieks.push(<IRegionSchool>{iek_id: iek.iek_id, iek_name: iek.iek_name, globalIndex: iek.globalIndex, selected: iek.selected})
+        fetchedRegions.push(<IRegion>{region_id: region.region_id, region_name: region.region_name, epals: Array<IRegionSchool>()});
+        region.epals.forEach(epal => {
+            fetchedRegions[i].epals.push(<IRegionSchool>{epal_id: epal.epal_id, epal_name: epal.epal_name, globalIndex: epal.globalIndex, selected: epal.selected, order_id: epal.order_id })
         });
         i++;
     });

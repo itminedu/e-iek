@@ -1,0 +1,7 @@
+langcode: el
+status: true
+dependencies: {  }
+id: applicant
+label: applicant
+weight: 3
+is_admin: null

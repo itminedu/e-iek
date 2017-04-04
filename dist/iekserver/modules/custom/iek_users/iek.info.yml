@@ -1,0 +1,6 @@
+name: iek
+type: module
+description: IEK user table
+core: 8.x
+package: IEK
+dependencies:

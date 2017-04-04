@@ -1,4 +1,4 @@
-<div class="nav-wrapper">
+<div class="nav-wrapper" class="content">
 <div class="container">
 <nav class="navbar navbar-toggleable-sm">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,9 +8,29 @@
           <img src="../myschool/assets/images/myschool_logo.png" alt="Αρχική" />
   </a>
   <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
+      <div *ngFor="let loginInfoToken$ of loginInfo$ | async; let i=index"></div>
     <ul class="navbar-nav">
+          <div *ngFor="let username$ of loginInfo$ | async;">
+             
+                  <b>Όνομα Χρήστη:</b> {{username$.cu_name}}
+             
+
+       &nbsp;&nbsp;
+        <div *ngIf="authToken">
+                <button type="button" class="btn-primary btn-sm pull-right" (click)="oauthSignOut()">
+               <i class="fa fa-sign-out"></i>
+                </button>
+        </div>
+</div>
+    <!--
       <li class="nav-item" [ngClass]="{active: path=='application-preview'}">
         <a class="nav-link" [routerLink]="['/application-preview']" [routerLinkActive]="['active']">Προεπισκόπηση</a>
+      </li>
+      <li class="nav-item" [ngClass]="{active: path=='amka-fill'}">
+        <a class="nav-link" [routerLink]="['/amka-fill']" [routerLinkActive]="['active']">ΑΜΚΑ ΜΑΘΗΤΗ</a>
+      </li>
+      <li class="nav-item" [ngClass]="{active: path=='epal-class-select'}">
+        <a class="nav-link" [routerLink]="['/epal-class-select']" [routerLinkActive]="['active']">Τάξη</a>
       </li>
       <li class="nav-item" [ngClass]="{active: path=='sector-fields-select'}">
         <a class="nav-link" [routerLink]="['/sector-fields-select']" [routerLinkActive]="['active']">Τομεας</a>
@@ -24,15 +44,16 @@
       <li class="nav-item" [ngClass]="{active: path=='student-application-form-main'}">
         <a class="nav-link" [routerLink]="['/student-application-form-main']" [routerLinkActive]="['active']">Αιτηση</a>
       </li>
+        -->
+
+      <!--
+      <li class="nav-item" [ngClass]="{active: path=='schools-order-select'}">
+        <a class="nav-link" [routerLink]="['/schools-order-select']" [routerLinkActive]="['active']">Σειρά επιλογής</a>
+      </li>
+    -->
+
     </ul>
   </div>
 </nav>
    </div>
 </div>
-
-
-
-
-
-
-
