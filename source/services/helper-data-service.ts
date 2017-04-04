@@ -273,7 +273,7 @@ export class HelperDataService {
         this.createAuthorizationHeader(headers);
         let options = new RequestOptions({ headers: headers });
            return new Promise((resolve, reject) => {
-            this.http.get(`${AppSettings.API_ENDPOINT}/epal/curuser`, options)
+            this.http.get(`${AppSettings.API_ENDPOINT}/${AppSettings.DRUPAL_MODULE}/curuser`, options)
             .map(response => response.json())
             .subscribe(data => {
                 resolve(this.transformUserSchema(data, oauthtoken, oauthrole));
