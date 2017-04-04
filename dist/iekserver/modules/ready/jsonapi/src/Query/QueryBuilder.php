@@ -4,6 +4,7 @@ namespace Drupal\jsonapi\Query;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\jsonapi\Exception\SerializableHttpException;
 use Drupal\jsonapi\Routing\Param\OffsetPage;
 use Drupal\jsonapi\Routing\Param\Filter;
 use Drupal\jsonapi\Routing\Param\JsonApiParamInterface;
@@ -168,7 +169,8 @@ class QueryBuilder {
             break;
 
           default:
-            throw new BadRequestHttpException(
+            throw new SerializableHttpException(
+              400,
               sprintf('Invalid syntax in the filter parameter: %s.', $filter_index)
             );
         };

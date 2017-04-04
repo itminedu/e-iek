@@ -87,32 +87,17 @@ services:
   access_check.jsonapi.custom_query_parameter_names:
     class: Drupal\jsonapi\Access\CustomQueryParameterNamesAccessCheck
     tags:
-      - { name: access_check, applies_to: _jsonapi_custom_query_parameter_names, needs_incoming_request: TRUE }
+      - { name: access_check, applies_to: _jsonapi_custom_query_parameter_names }
   paramconverter.jsonapi.entity_uuid:
     class: Drupal\jsonapi\ParamConverter\EntityUuidConverter
     tags:
       # Priority 10, to ensure it runs before @paramconverter.entity.
       - { name: paramconverter, priority: 10 }
     arguments: ['@entity.manager']
+  jsonapi.error_handler:
+    class: Drupal\jsonapi\Error\ErrorHandler
   jsonapi.exception_subscriber:
     class: Drupal\jsonapi\EventSubscriber\DefaultExceptionSubscriber
     tags:
       - { name: event_subscriber }
     arguments: ['@serializer', '%serializer.formats%']
-  jsonapi.http_middleware.format_setter:
-    class: Drupal\jsonapi\StackMiddleware\FormatSetter
-    tags:
-      # Set priority to 201 so it happens right before the page cache
-      # middleware (priority 200)has the opportunity to respond.
-      - { name: http_middleware, priority: 201 }
-
-  logger.channel.jsonapi:
-    parent: logger.channel_base
-    arguments: ['jsonapi']
-
-  # Event subscribers.
-  jsonapi.resource_response.subscriber:
-    class: Drupal\jsonapi\EventSubscriber\ResourceResponseSubscriber
-    tags:
-      - { name: event_subscriber }
-    arguments: ['@serializer', '@renderer', '@logger.channel.jsonapi']

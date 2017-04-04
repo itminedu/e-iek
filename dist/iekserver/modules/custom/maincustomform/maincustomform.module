@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Contains maincustomform.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function maincustomform_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the maincustomform module.
+    case 'help.page.maincustomform':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('My main custom form') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+function maincustomform_theme() {
+  return [
+    'my_first_form' => [
+      'render element' => 'form',
+    ],
+    'my_second_form' => [
+      'render element' => 'form',
+    ],
+    'my_third_form' => [
+      'render element' => 'form',
+    ],
+    'common_part' => [
+      'render element' => 'children',
+    ],   
+  ];
+}

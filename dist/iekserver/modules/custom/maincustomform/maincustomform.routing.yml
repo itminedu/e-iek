@@ -1,0 +1,33 @@
+
+maincustomform.multistep_form_base:
+  path: '/maincustomform/form/multistep_form_base'
+  defaults:
+    _form: '\Drupal\maincustomform\Form\MultistepFormBase'
+    _title: 'MultistepFormBase'
+  requirements:
+    _access: 'TRUE'
+  
+
+maincustomform.multistep_one_form:
+  path: '/maincustomform/form/multistep_one'
+  defaults:
+    _form: '\Drupal\maincustomform\Form\MultistepOneForm'
+  requirements:
+    _access: 'TRUE'
+  
+
+maincustomform.multistep_two_form:
+  path: '/maincustomform/form/multistep_two'
+  defaults:
+    _form: '\Drupal\maincustomform\Form\MultistepTwoForm'
+  requirements:
+    _access: 'TRUE'
+  
+
+maincustomform.multistep_three_form:
+  path: '/maincustomform/form/multistep_three'
+  defaults:
+    _form: '\Drupal\maincustomform\Form\MultistepThreeForm'
+  requirements:
+    _access: 'TRUE'
+  

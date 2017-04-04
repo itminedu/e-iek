@@ -9,10 +9,10 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\EntityReferenceFieldItemList;
 use Drupal\jsonapi\Normalizer\Value\EntityNormalizerValue;
 use Drupal\jsonapi\ResourceType\ResourceType;
+use Drupal\jsonapi\Exception\SerializableHttpException;
 use Drupal\jsonapi\LinkManager\LinkManager;
 use Drupal\jsonapi\Normalizer\Value\NullFieldNormalizerValue;
 use Drupal\jsonapi\ResourceType\ResourceTypeRepository;
-use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
@@ -131,7 +131,7 @@ class EntityNormalizer extends NormalizerBase implements DenormalizerInterface {
    */
   public function denormalize($data, $class, $format = NULL, array $context = array()) {
     if (empty($context['resource_type']) || !$context['resource_type'] instanceof ResourceType) {
-      throw new PreconditionFailedHttpException('Missing context during denormalization.');
+      throw new SerializableHttpException(412, 'Missing context during denormalization.');
     }
     /* @var \Drupal\jsonapi\ResourceType\ResourceType $resource_type */
     $resource_type = $context['resource_type'];
@@ -190,7 +190,7 @@ class EntityNormalizer extends NormalizerBase implements DenormalizerInterface {
    * @return Value\FieldNormalizerValueInterface
    *   The normalized value.
    */
-  protected function serializeField($field, array $context, $format) {
+  protected function serializeField($field, $context, $format) {
     /* @var \Drupal\Core\Field\FieldItemListInterface|\Drupal\jsonapi\Normalizer\Relationship $field */
     // Continue if the current user does not have access to view this field.
     $access = $field->access('view', $context['account'], TRUE);

@@ -3,23 +3,11 @@
 namespace Drupal\jsonapi\Exception;
 
 use Drupal\Core\Entity\EntityConstraintViolationListInterface;
-use Drupal\Core\DependencyInjection\DependencySerializationTrait;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
- * A class to represent a 422 - Unprocessable Entity Exception.
- *
- * The HTTP 422 status code is used when the server sees:-
- *
- *  The content type of the request is correct.
- *  The syntax of the request is correct.
- *  BUT was unable to process the contained instruction.
- *
  * @internal
  */
-class UnprocessableHttpEntityException extends HttpException {
-
-  use DependencySerializationTrait;
+class UnprocessableHttpEntityException extends SerializableHttpException {
 
   /**
    * The constraint violations associated with this exception.
@@ -31,12 +19,10 @@ class UnprocessableHttpEntityException extends HttpException {
   /**
    * UnprocessableHttpEntityException constructor.
    *
+   * @param array $violations
    * @param \Exception|null $previous
-   *    The pervious error, if any, associated with the request.
    * @param array $headers
-   *    The headers associated with the request.
    * @param int $code
-   *    The HTTP status code associated with the request. Defaults to zero
    */
   public function __construct(\Exception $previous = NULL, array $headers = array(), $code = 0) {
     parent::__construct(422, "Unprocessable Entity: validation failed.", $previous, $headers, $code);
@@ -46,7 +32,6 @@ class UnprocessableHttpEntityException extends HttpException {
    * Gets the constraint violations associated with this exception.
    *
    * @return \Drupal\Core\Entity\EntityConstraintViolationListInterface
-   *    The constraint violations.
    */
   public function getViolations() {
     return $this->violations;

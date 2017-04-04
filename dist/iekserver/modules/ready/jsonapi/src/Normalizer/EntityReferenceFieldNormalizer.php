@@ -9,9 +9,9 @@ use Drupal\Core\Field\FieldTypePluginManagerInterface;
 use Drupal\Core\Field\TypedData\FieldItemDataDefinition;
 use Drupal\jsonapi\ResourceType\ResourceTypeRepository;
 use Drupal\jsonapi\Resource\EntityCollection;
+use Drupal\jsonapi\Exception\SerializableHttpException;
 use Drupal\jsonapi\LinkManager\LinkManager;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Normalizer class specific for entity reference field objects.
@@ -85,16 +85,12 @@ class EntityReferenceFieldNormalizer extends FieldNormalizer implements Denormal
     $cardinality = $definition
       ->getFieldStorageDefinition()
       ->getCardinality();
-    $entity_list = array_filter($field->getIterator()->getArrayCopy(), function ($item) {
-      return (bool) $item->get('entity')->getValue();
-    });
-    $entity_list = array_map(function ($item) {
+    $entity_collection = new EntityCollection(array_map(function ($item) {
       // Get the referenced entity.
       $entity = $item->get('entity')->getValue();
       // And get the translation in the requested language.
       return $this->entityRepository->getTranslationFromContext($entity);
-    }, $entity_list);
-    $entity_collection = new EntityCollection($entity_list);
+    }, (array) $field->getIterator()));
     $relationship = new Relationship($this->resourceTypeRepository, $field->getName(), $cardinality, $entity_collection, $field->getEntity(), $main_property);
     return $this->serializer->normalize($relationship, $format, $context);
   }
@@ -112,7 +108,7 @@ class EntityReferenceFieldNormalizer extends FieldNormalizer implements Denormal
       $resource_type->getBundle()
     );
     if (empty($context['related']) || empty($field_definitions[$context['related']])) {
-      throw new BadRequestHttpException('Invalid or missing related field.');
+      throw new SerializableHttpException(400, 'Invalid or missing related field.');
     }
     /* @var \Drupal\field\Entity\FieldConfig $field_definition */
     $field_definition = $field_definitions[$context['related']];
@@ -127,7 +123,7 @@ class EntityReferenceFieldNormalizer extends FieldNormalizer implements Denormal
       // Make sure that the provided type is compatible with the targeted
       // resource.
       if (!in_array($value['type'], $target_resources)) {
-        throw new BadRequestHttpException(sprintf(
+        throw new SerializableHttpException(400, sprintf(
           'The provided type (%s) does not mach the destination resource types (%s).',
           $value['type'],
           implode(', ', $target_resources)
@@ -156,17 +152,17 @@ class EntityReferenceFieldNormalizer extends FieldNormalizer implements Denormal
    * @return array
    *   The massaged data array.
    */
-  protected function massageRelationshipInput(array $data, $is_multiple) {
+  protected function massageRelationshipInput($data, $is_multiple) {
     if ($is_multiple) {
       if (!is_array($data['data'])) {
-        throw new BadRequestHttpException('Invalid body payload for the relationship.');
+        throw new SerializableHttpException(400, 'Invalid body payload for the relationship.');
       }
       // Leave the invalid elements.
       $invalid_elements = array_filter($data['data'], function ($element) {
         return empty($element['type']) || empty($element['id']);
       });
       if ($invalid_elements) {
-        throw new BadRequestHttpException('Invalid body payload for the relationship.');
+        throw new SerializableHttpException(400, 'Invalid body payload for the relationship.');
       }
     }
     else {
@@ -175,7 +171,7 @@ class EntityReferenceFieldNormalizer extends FieldNormalizer implements Denormal
         return ['data' => []];
       }
       if (empty($data['data']['type']) || empty($data['data']['id'])) {
-        throw new BadRequestHttpException('Invalid body payload for the relationship.');
+        throw new SerializableHttpException(400, 'Invalid body payload for the relationship.');
       }
       $data['data'] = [$data['data']];
     }

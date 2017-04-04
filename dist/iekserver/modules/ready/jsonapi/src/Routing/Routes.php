@@ -75,26 +75,6 @@ class Routes implements ContainerInjectionInterface {
   }
 
   /**
-   * Provides the entry point route.
-   */
-  public function entryPoint() {
-    $collection = new RouteCollection();
-
-    $route_collection = (new Route('/jsonapi', [
-      RouteObjectInterface::CONTROLLER_NAME => '\Drupal\jsonapi\Controller\EntryPoint::index',
-    ]))
-      ->setRequirement('_permission', 'access jsonapi resource list')
-      ->setMethods(['GET']);
-    $route_collection->addOptions([
-      '_auth' => $this->authProviderList(),
-      '_is_jsonapi' => TRUE,
-    ]);
-    $collection->add('jsonapi.resource_list', $route_collection);
-
-    return $collection;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function routes() {
@@ -119,6 +99,7 @@ class Routes implements ContainerInjectionInterface {
         ->setRequirement('_entity_type', $resource_type->getEntityTypeId())
         ->setRequirement('_bundle', $resource_type->getBundle())
         ->setRequirement('_permission', 'access content')
+        ->setRequirement('_format', 'api_json')
         ->setRequirement('_jsonapi_custom_query_parameter_names', 'TRUE')
         ->setOption('serialization_class', JsonApiDocumentTopLevel::class)
         ->setMethods(['GET', 'POST']);
@@ -132,6 +113,7 @@ class Routes implements ContainerInjectionInterface {
         ->setRequirement('_entity_type', $resource_type->getEntityTypeId())
         ->setRequirement('_bundle', $resource_type->getBundle())
         ->setRequirement('_permission', 'access content')
+        ->setRequirement('_format', 'api_json')
         ->setRequirement('_jsonapi_custom_query_parameter_names', 'TRUE')
         ->setOption('parameters', $parameters)
         ->setOption('_auth', $this->authProviderList())
@@ -145,6 +127,7 @@ class Routes implements ContainerInjectionInterface {
         ->setRequirement('_entity_type', $resource_type->getEntityTypeId())
         ->setRequirement('_bundle', $resource_type->getBundle())
         ->setRequirement('_permission', 'access content')
+        ->setRequirement('_format', 'api_json')
         ->setRequirement('_jsonapi_custom_query_parameter_names', 'TRUE')
         ->setOption('parameters', $parameters)
         ->setOption('_auth', $this->authProviderList())
@@ -157,6 +140,7 @@ class Routes implements ContainerInjectionInterface {
         ->setRequirement('_entity_type', $resource_type->getEntityTypeId())
         ->setRequirement('_bundle', $resource_type->getBundle())
         ->setRequirement('_permission', 'access content')
+        ->setRequirement('_format', 'api_json')
         ->setRequirement('_jsonapi_custom_query_parameter_names', 'TRUE')
         ->setOption('parameters', $parameters)
         ->setOption('_auth', $this->authProviderList())

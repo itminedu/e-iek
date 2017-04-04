@@ -52,7 +52,7 @@ class SortTest extends UnitTestCase {
   /**
    * @covers ::get
    * @dataProvider getFailProvider
-   * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+   * @expectedException \Drupal\jsonapi\Exception\SerializableHttpException
    */
   public function testGetFail($input) {
     $sort = new Sort($input);

@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @internal
  */
-class ResourceResponse extends Response implements CacheableResponseInterface {
+class ResourceResponse extends Response implements CacheableResponseInterface, ResourceResponseInterface {
 
   use CacheableResponseTrait;
 

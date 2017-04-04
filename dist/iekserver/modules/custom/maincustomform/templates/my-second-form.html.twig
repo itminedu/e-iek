@@ -1,0 +1,58 @@
+{{ attach_library('maincustomform/entitysaver') }}
+{{ attach_library('maincustomform/changeSecondPage') }}
+<form{{ attributes }}>
+  {{ form.form_build_id }}
+  {{ form.form_token }}
+  {{ form.form_id }}
+{% include 'common-part.html.twig' %}
+  <h2 class="form-title">Προσωπικά Στοιχεία</h2>                  
+  <div class="row">
+    <div class="col-md-6">
+      {{ form.last }}
+    </div>
+    <div class="col-md-6">
+      {{ form.first }}
+    </div>
+    <div class="col-md-6">
+    {{ form.fname }}
+    </div>
+    <div class="col-md-6">
+      {{ form.mname }}
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md-6">
+      {{ form.idno }}
+    </div>
+    <div class="col-md-6">
+      {{ form.afm }}
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md-6">
+      {{ form.birth_date }}
+    </div>
+    <div class="col-md-6">
+      {{ form.birth_place }}
+    </div>
+    </div>
+   <div class="row">
+    <div class="col-md-6">
+      {{ form.email }}
+    </div>
+    <div class="col-md-6">
+      {{ form.telephone }}
+    </div>
+    <div class="col-md-12">
+      {{ form.sex }}
+    </div>
+  </div>
+    <div class="row">
+     <div class="col-md-offset-11 col-md-1">
+      {{ form.actions.next }}
+    </div>
+  </div>
+  </form>
+
+
+  

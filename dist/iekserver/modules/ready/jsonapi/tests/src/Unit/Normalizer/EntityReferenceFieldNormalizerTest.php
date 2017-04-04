@@ -130,7 +130,7 @@ class EntityReferenceFieldNormalizerTest extends UnitTestCase {
 
   /**
    * @covers ::denormalize
-   * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+   * @expectedException \Drupal\jsonapi\Exception\SerializableHttpException
    * @dataProvider denormalizeInvalidResourceProvider
    */
   public function testDenormalizeInvalidResource($data, $field_name) {

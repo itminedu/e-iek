@@ -4,16 +4,13 @@ namespace Drupal\jsonapi;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceModifierInterface;
-use Drupal\Core\DependencyInjection\ServiceProviderInterface;
-use Drupal\jsonapi\DependencyInjection\Compiler\RemoveJsonapiFormatCompilerPass;
-use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 
 /**
- * Adds 'api_json' as known format and prevents its use in the REST module.
+ * Adds api_json as known format.
  *
  * @internal
  */
-class JsonapiServiceProvider implements ServiceModifierInterface, ServiceProviderInterface {
+class JsonapiServiceProvider implements ServiceModifierInterface {
 
   /**
    * {@inheritdoc}
@@ -29,13 +26,6 @@ class JsonapiServiceProvider implements ServiceModifierInterface, ServiceProvide
           ['application/vnd.api+json'],
         ]);
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function register(ContainerBuilder $container) {
-    $container->addCompilerPass(new RemoveJsonapiFormatCompilerPass(), PassConfig::TYPE_REMOVE);
   }
 
 }

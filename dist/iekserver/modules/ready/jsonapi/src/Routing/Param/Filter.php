@@ -1,8 +1,7 @@
 <?php
 
 namespace Drupal\jsonapi\Routing\Param;
-
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Drupal\jsonapi\Exception\SerializableHttpException;
 
 /**
  * @internal
@@ -69,7 +68,7 @@ class Filter extends JsonApiParamBase {
   protected function expand() {
     // We should always get an array for the filter.
     if (!is_array($this->original)) {
-      throw new BadRequestHttpException('Incorrect value passed to the filter parameter.');
+      throw new SerializableHttpException(400, 'Incorrect value passed to the filter parameter.');
     }
 
     $expanded = [];

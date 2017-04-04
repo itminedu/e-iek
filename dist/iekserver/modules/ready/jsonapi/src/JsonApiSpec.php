@@ -6,8 +6,6 @@ namespace Drupal\jsonapi;
  * Defines constants used for compliance with the JSON API specification.
  *
  * @see http://jsonapi.org/format
- *
- * @internal
  */
 class JsonApiSpec {
 
@@ -77,7 +75,7 @@ class JsonApiSpec {
    *
    * @todo When D8 requires PHP >= 5.6, convert to an array.
    */
-  const RESERVED_QUERY_PARAMETERS = 'filter|sort|page|fields|include';
+  const RESERVED_QUERY_PARAMETERS = 'sort|page|filter';
 
   /**
    * Gets the reserved (official) JSON API query parameters.

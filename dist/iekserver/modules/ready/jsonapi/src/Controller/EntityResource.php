@@ -20,6 +20,7 @@ use Drupal\jsonapi\Exception\EntityAccessDeniedHttpException;
 use Drupal\jsonapi\Resource\EntityCollection;
 use Drupal\jsonapi\Resource\JsonApiDocumentTopLevel;
 use Drupal\jsonapi\ResourceType\ResourceType;
+use Drupal\jsonapi\Exception\SerializableHttpException;
 use Drupal\jsonapi\Exception\UnprocessableHttpEntityException;
 use Drupal\jsonapi\Query\QueryBuilder;
 use Drupal\jsonapi\Context\CurrentContext;
@@ -28,11 +29,6 @@ use Drupal\jsonapi\Routing\Param\JsonApiParamBase;
 use Drupal\jsonapi\Routing\Param\OffsetPage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 /**
  * @see \Drupal\jsonapi\Controller\RequestHandler
@@ -135,7 +131,7 @@ class EntityResource {
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity object.
    *
-   * @throws \Drupal\jsonapi\Exception\EntityAccessDeniedHttpException
+   * @throws \Drupal\jsonapi\Exception\SerializableHttpException
    *   If validation errors are found.
    */
   protected function validate(EntityInterface $entity) {
@@ -203,7 +199,7 @@ class EntityResource {
     $body = Json::decode($request->getContent());
     $data = $body['data'];
     if ($data['id'] != $entity->uuid()) {
-      throw new BadRequestHttpException(sprintf(
+      throw new SerializableHttpException(400, sprintf(
         'The selected entity (%s) does not match the ID in the payload (%s).',
         $entity->uuid(),
         $data['id']
@@ -254,8 +250,7 @@ class EntityResource {
     // Instantiate the query for the filtering.
     $entity_type_id = $this->resourceType->getEntityTypeId();
 
-    $route_params = $request->attributes->get('_route_params');
-    $params = isset($route_params['_json_api_params']) ? $route_params['_json_api_params'] : [];
+    $params = $request->attributes->get('_route_params[_json_api_params]', NULL, TRUE);
     $query = $this->getCollectionQuery($entity_type_id, $params);
 
     $results = $query->execute();
@@ -300,7 +295,7 @@ class EntityResource {
   public function getRelated(EntityInterface $entity, $related_field, Request $request) {
     /* @var $field_list \Drupal\Core\Field\FieldItemListInterface */
     if (!($field_list = $entity->get($related_field)) || !$this->isRelationshipField($field_list)) {
-      throw new NotFoundHttpException(sprintf('The relationship %s is not present in this resource.', $related_field));
+      throw new SerializableHttpException(404, sprintf('The relationship %s is not present in this resource.', $related_field));
     }
     $is_multiple = $field_list
       ->getDataDefinition()
@@ -350,7 +345,7 @@ class EntityResource {
    */
   public function getRelationship(EntityInterface $entity, $related_field, Request $request, $response_code = 200) {
     if (!($field_list = $entity->get($related_field)) || !$this->isRelationshipField($field_list)) {
-      throw new NotFoundHttpException(sprintf('The relationship %s is not present in this resource.', $related_field));
+      throw new SerializableHttpException(404, sprintf('The relationship %s is not present in this resource.', $related_field));
     }
     $response = $this->buildWrappedResponse($field_list, $response_code);
     return $response;
@@ -388,7 +383,7 @@ class EntityResource {
       ->getFieldStorageDefinition()
       ->isMultiple();
     if (!$is_multiple) {
-      throw new ConflictHttpException(sprintf('You can only POST to to-many relationships. %s is a to-one relationship.', $related_field));
+      throw new SerializableHttpException(409, sprintf('You can only POST to to-many relationships. %s is a to-one relationship.', $related_field));
     }
 
     $field_access = $field_list->access('edit', NULL, TRUE);
@@ -454,7 +449,7 @@ class EntityResource {
    */
   protected function doPatchIndividualRelationship(EntityInterface $entity, EntityReferenceFieldItemListInterface $parsed_field_list) {
     if ($parsed_field_list->count() > 1) {
-      throw new BadRequestHttpException(sprintf('Provide a single relationship so to-one relationship fields (%s).', $parsed_field_list->getName()));
+      throw new SerializableHttpException(400, sprintf('Provide a single relationship so to-one relationship fields (%s).', $parsed_field_list->getName()));
     }
     $this->doPatchMultipleRelationship($entity, $parsed_field_list);
   }
@@ -501,7 +496,7 @@ class EntityResource {
     }
     if ($parsed_field_list instanceof Request) {
       // This usually means that there was not body provided.
-      throw new BadRequestHttpException(sprintf('You need to provide a body for DELETE operations on a relationship (%s).', $related_field));
+      throw new SerializableHttpException(400, sprintf('You need to provide a body for DELETE operations on a relationship (%s).', $related_field));
     }
     /* @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $parsed_field_list */
     $this->relationshipAccess($entity, $related_field);
@@ -517,7 +512,7 @@ class EntityResource {
       ->getFieldStorageDefinition()
       ->isMultiple();
     if (!$is_multiple) {
-      throw new ConflictHttpException(sprintf('You can only DELETE from to-many relationships. %s is a to-one relationship.', $related_field));
+      throw new SerializableHttpException(409, sprintf('You can only DELETE from to-many relationships. %s is a to-one relationship.', $related_field));
     }
 
     // Compute the list of current values and remove the ones in the payload.
@@ -635,7 +630,7 @@ class EntityResource {
       throw new EntityAccessDeniedHttpException($entity, $entity_access, $related_field, 'The current user is not allowed to update the selected resource.');
     }
     if (!($field_list = $entity->get($related_field)) || !$this->isRelationshipField($field_list)) {
-      throw new NotFoundHttpException(sprintf('The relationship %s is not present in this resource.', $related_field));
+      throw new SerializableHttpException(404, sprintf('The relationship %s is not present in this resource.', $related_field));
     }
   }
 
@@ -657,7 +652,7 @@ class EntityResource {
         $destination_field_list = $destination->get($field_name);
       }
       catch (\Exception $e) {
-        throw new BadRequestHttpException(sprintf('The provided field (%s) does not exist in the entity with ID %s.', $field_name, $destination->uuid()));
+        throw new SerializableHttpException(400, sprintf('The provided field (%s) does not exist in the entity with ID %s.', $field_name, $destination->uuid()));
       }
 
       $origin_field_list = $origin->get($field_name);
@@ -674,7 +669,7 @@ class EntityResource {
       $destination->set($field_name, $origin->get($field_name));
     }
     else {
-      throw new BadRequestHttpException('The serialized entity and the destination entity are of different types.');
+      throw new SerializableHttpException(400, 'The serialized entity and the destination entity are of different types.');
     }
   }
 

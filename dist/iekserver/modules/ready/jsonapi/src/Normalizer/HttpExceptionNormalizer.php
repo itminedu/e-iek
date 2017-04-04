@@ -6,6 +6,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\jsonapi\Normalizer\Value\FieldItemNormalizerValue;
 use Drupal\jsonapi\Normalizer\Value\HttpExceptionNormalizerValue;
+use Drupal\serialization\Normalizer\NormalizerBase as SerializationNormalizerBase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -15,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  *
  * @see http://jsonapi.org/format/#error-objects
  */
-class HttpExceptionNormalizer extends NormalizerBase {
+class HttpExceptionNormalizer extends SerializationNormalizerBase {
 
   /**
    * The interface or class that this Normalizer supports.

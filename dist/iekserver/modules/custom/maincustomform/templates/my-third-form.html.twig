@@ -1,0 +1,70 @@
+{{ attach_library('maincustomform/entitysaver') }}
+{{ attach_library('maincustomform/changeThirdPage') }}
+<form{{ attributes }}>
+  {{ form.form_build_id }}
+  {{ form.form_token }}
+  {{ form.form_id }}
+<div class="progressbar-wrapper">
+  <div class="f1-steps">
+    <div class="f1-progress">
+<div class="f1-progress-line" data-now-value="66.66" data-number-of-steps="3" style="width: 66.65555555555%;"></div>
+    </div>
+     <div class="f1-step activated">
+        <div class="f1-step-icon"><i class="fa fa-key"></i></div>
+        <p>Ταυτοποίηση</p>
+    </div>
+    <div class="f1-step active">
+      <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+      <p>Προσωπικά Στοιχεία</p>
+    </div>
+    <div class="f1-step">
+      <div class="f1-step-icon"><i class="fa fa-graduation-cap"></i>
+    </div>
+      <p>Στοιχεία ΒΕΚ</p>
+    </div>
+</div>
+</div>
+  <h2 class="form-title">Στοιχεία ΒΕΚ</h2>
+  <div class="row">
+    <div class="col-md-6">
+      {{ form.prabek }}
+    </div>
+    <div class="col-md-6">
+      {{ form.numbek }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      {{ form.regno }}
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      {{ form.iek_select }}
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      {{ form.eidikotita_select }}
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      {{ form.region_select }}
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+  <div class="row">
+     <div class="col-md-offset-9 col-md-3">
+      {{ form.back }}
+      {{ form.submit }}
+    </div>
+  </div>
+  </form>

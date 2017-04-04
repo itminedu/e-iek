@@ -2,9 +2,8 @@
 
 namespace Drupal\jsonapi\EventSubscriber;
 
+use Drupal\jsonapi\Exception\SerializableHttpException;
 use Drupal\serialization\EventSubscriber\DefaultExceptionSubscriber as SerializationDefaultExceptionSubscriber;
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -34,11 +33,12 @@ class DefaultExceptionSubscriber extends SerializationDefaultExceptionSubscriber
   public function onException(GetResponseForExceptionEvent $event) {
     /** @var \Symfony\Component\HttpKernel\Exception\HttpException $exception */
     $exception = $event->getException();
-    if (!$this->isJsonApiFormatted($event->getRequest())) {
+    $format = $event->getRequest()->getRequestFormat();
+    if (!$this->serializer->supportsEncoding($format)) {
       return;
     }
     if (!$exception instanceof HttpException) {
-      $exception = new HttpException(500, $exception->getMessage(), $exception);
+      $exception = new SerializableHttpException(500, $exception->getMessage(), $exception);
       $event->setException($exception);
     }
 
@@ -51,30 +51,13 @@ class DefaultExceptionSubscriber extends SerializationDefaultExceptionSubscriber
   protected function setEventResponse(GetResponseForExceptionEvent $event, $status) {
     /** @var \Symfony\Component\HttpKernel\Exception\HttpException $exception */
     $exception = $event->getException();
-    if (!$this->isJsonApiFormatted($event->getRequest())) {
+    $format = $event->getRequest()->getRequestFormat();
+    if (!$this->serializer->supportsNormalization($exception, $format)) {
       return;
     }
-    $encoded_content = $this->serializer->serialize($exception, 'api_json', ['data_wrapper' => 'errors']);
+    $encoded_content = $this->serializer->serialize($exception, $format, ['data_wrapper' => 'errors']);
     $response = new Response($encoded_content, $status);
-    $response->headers->set('Content-Type', 'application/vnd.api+json');
     $event->setResponse($response);
-  }
-
-  /**
-   * Check if the error should be formatted using JSON API.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The failed request.
-   *
-   * @return bool
-   *   TRUE if it needs to be formated using JSON API. FALSE otherwise.
-   */
-  protected function isJsonApiFormatted(Request $request) {
-    $route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT);
-    $format = $request->getRequestFormat();
-    // The JSON API format is supported if the format is explicitly set or the
-    // request is for a known JSON API route.
-    return $format === 'api_json' || ($route && $route->getOption('_is_jsonapi'));
   }
 
 }

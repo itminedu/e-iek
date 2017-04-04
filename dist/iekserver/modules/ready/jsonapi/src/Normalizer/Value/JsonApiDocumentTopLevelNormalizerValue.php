@@ -5,7 +5,7 @@ namespace Drupal\jsonapi\Normalizer\Value;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
 use Drupal\Core\Cache\RefinableCacheableDependencyTrait;
-use Drupal\jsonapi\JsonApiSpec;
+use Drupal\jsonapi\RequestCacheabilityDependency;
 
 /**
  * @internal
@@ -74,9 +74,7 @@ class JsonApiDocumentTopLevelNormalizerValue implements ValueExtractorInterface,
     $this->values = $values;
     array_walk($values, [$this, 'addCacheableDependency']);
     // Make sure that different sparse fieldsets are cached differently.
-    $this->addCacheContexts(array_map(function ($query_parameter_name) {
-      return sprintf('url.query_args:%s', $query_parameter_name);
-    }, JsonApiSpec::getReservedQueryParameters()));
+    $this->addCacheableDependency(new RequestCacheabilityDependency());
 
     $this->context = $context;
     $this->isCollection = $is_collection;

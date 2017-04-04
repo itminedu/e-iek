@@ -4,10 +4,10 @@ namespace Drupal\jsonapi\LinkManager;
 
 use Drupal\Core\Routing\UrlGeneratorInterface;
 use Drupal\jsonapi\ResourceType\ResourceType;
+use Drupal\jsonapi\Exception\SerializableHttpException;
 use Drupal\jsonapi\Routing\Param\OffsetPage;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
 
 /**
@@ -57,6 +57,7 @@ class LinkManager {
   public function getEntityLink($entity_id, ResourceType $resource_type, array $route_parameters, $key) {
     $route_parameters += [
       $resource_type->getEntityTypeId() => $entity_id,
+      '_format' => 'api_json',
     ];
     $route_key = sprintf('jsonapi.%s.%s', $resource_type->getTypeName(), $key);
     return $this->urlGenerator->generateFromRoute($route_key, $route_parameters, ['absolute' => TRUE]);
@@ -96,7 +97,7 @@ class LinkManager {
    * @param array $link_context
    *   An associative array with extra data to build the links.
    *
-   * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+   * @throws \Drupal\jsonapi\Exception\SerializableHttpException
    *   When the offset and size are invalid.
    *
    * @return string[]
@@ -117,7 +118,7 @@ class LinkManager {
       $size = OffsetPage::$maxSize;
     }
     if ($size <= 0) {
-      throw new BadRequestHttpException(sprintf('The page size needs to be a positive integer.'));
+      throw new SerializableHttpException(400, sprintf('The page size needs to be a positive integer.'));
     }
     $query = (array) $request->query->getIterator();
     $links = [];
@@ -149,7 +150,7 @@ class LinkManager {
    * @return array
    *   The pagination query param array.
    */
-  protected function getPagerQueries($link_id, $offset, $size, array $query = []) {
+  protected function getPagerQueries($link_id, $offset, $size, $query = []) {
     $extra_query = [];
     switch ($link_id) {
       case 'next':
