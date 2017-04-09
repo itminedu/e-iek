@@ -6,3 +6,6 @@ package: Custom
 dependencies:
   - eiek
   - entitychanger
+  - key
+  - encrypt
+  - real_aes

@@ -207,10 +207,11 @@ function entitychanger_install() {
         $arr_aitiseis[$i]['student_id'] = $created_student_ids[rand(0,4)];
         $arr_aitiseis[$i]['region_id'] = $created_regions_ids[rand(0,12)];
         $arr_aitiseis[$i]['iek_id'] = $created_iek_ids[rand(0,8)];
-        $arr_aitiseis[$i]['prabek'] = '123/45';
-        $arr_aitiseis[$i]['numbek'] = '18';
-        $arr_aitiseis[$i]['regno'] = '181';
+        $arr_aitiseis[$i]['prabek'] = rand(101,200);
+        $arr_aitiseis[$i]['numbek'] = rand(1,100);
+        $arr_aitiseis[$i]['regno'] = rand(250,1000);
         $arr_aitiseis[$i]['state'] = 'DRAFT';
+        $arr_aitiseis[$i]['pedio'] = 'both';
     }
 
 
@@ -265,22 +266,31 @@ function entitychanger_user_login($account){
 
     // Get User Role(s).
     $roles  = $account->getRoles();
+    
     if(isset($roles) && is_array($roles)) {
         if(in_array('diaxeiristis_iek', $roles)) {
-            $path ='datacenter/aitiseis/iek';
+            $path ='/data/aitiseis/iek';
+            $url_object = \Drupal\Core\Url::fromUserInput($path);
         } else if(in_array('diaxeiristis_eoppep', $roles)) {
-            $path = 'node/51';
+            $path = '/data/aitiseis/eoppep';
+            $url_object = \Drupal\Core\Url::fromUserInput($path);
         } else if(in_array('aiton', $roles)) {
             $path = 'maincustomform/form/multistep_one';
+            $url_object = \Drupal::service('path.validator')->getUrlIfValid($path);
+            $url_object->setAbsolute();
         } else if(in_array('administrator', $roles)) {
             $path = 'maincustomform/form/multistep_one';
-        }
+            $url_object = \Drupal::service('path.validator')->getUrlIfValid($path);
+            $url_object->setAbsolute();
+           
 
-        $url_object = \Drupal::service('path.validator')->getUrlIfValid($path);
-        $url_object->setAbsolute();
+        }
         $url = $url_object->toString();
         $response = new RedirectResponse($url);
         $response->send();
+        
+        
+
     }
 
 

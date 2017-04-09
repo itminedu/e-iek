@@ -1,0 +1,8 @@
+
+d8views.edit_iek_form:
+  path: '/iek/aitisi/{aid}/edit'
+  defaults:
+    _form: '\Drupal\d8views\Form\EditIekForm'
+    _title: 'EditIekForm'
+  requirements:
+    _access: 'TRUE'

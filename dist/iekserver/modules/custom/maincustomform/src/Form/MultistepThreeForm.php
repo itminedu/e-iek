@@ -74,6 +74,16 @@ class MultistepThreeForm extends MultistepFormBase {
     '#options' => $iek_options,
     );
 
+    $form['pedio'] = array(
+    '#type' => 'select',
+    '#title' => 'Τύπος Εξέτασης',
+    '#options' =>  [
+    'practical' => $this->t('Πρακτικό μέρος'),
+    'theoretical' => $this->t('Θεωρητικό μέρος'),
+    'both' => $this->t('Και τα δύο'),
+     ],
+    );
+
     /*$form['#attached']['drupalSettings']['previousFormValues'] = array(
       'first' => $this->store->get('first'),
       'last' => $this->store->get('last'),
@@ -117,6 +127,7 @@ class MultistepThreeForm extends MultistepFormBase {
     $this->store->set('eidikotita_select', $form_state->getValue('eidikotita_select'));
     $this->store->set('iek_select', $form_state->getValue('iek_select'));
     $this->store->set('region_select', $form_state->getValue('region_select'));
+    $this->store->set('pedio', $form_state->getValue('pedio'));
   }
 
   /**

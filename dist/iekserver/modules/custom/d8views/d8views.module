@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Contains d8views.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function d8views_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the d8views module.
+    case 'help.page.d8views':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('d8 Views Changer') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function d8views_theme() {
+  return [
+    'd8views' => [
+      'template' => 'd8views',
+      'render element' => 'children',
+    ],
+    'edit_iek_form' => [
+      'render element' => 'form',
+    ],
+  ];
+}
