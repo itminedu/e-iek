@@ -45,6 +45,17 @@ interface AitisiEntityInterface extends RevisionableInterface, RevisionLogInterf
   public function getRegionId();
   public function setRegionId($region_id);
 
+  public function getPedio();
+  public function setPedio($pedio);
+
+
+  public function getFlagiek();
+  public function setFlagiek($flagiek);
+
+  public function getFlagbank();
+  public function setFlagbank($flagbank);
+
+
   /**
    * Gets the Aitisi entity creation timestamp.
    *
