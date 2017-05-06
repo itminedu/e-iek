@@ -1,0 +1,14 @@
+
+# Iek users menu items definition
+entity.iek_users.collection:
+  title: 'Iek users list'
+  route_name: entity.iek_users.collection
+  description: 'List Iek users entities'
+  parent: system.admin_structure
+  weight: 100
+
+iek_users.admin.structure.settings:
+  title: Iek users settings
+  description: 'Configure Iek users entities'
+  route_name: iek_users.settings
+  parent: system.admin_structure

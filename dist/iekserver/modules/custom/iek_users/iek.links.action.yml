@@ -1,0 +1,5 @@
+entity.iek_users.add_form:
+  route_name: entity.iek_users.add_form
+  title: 'Add Iek users'
+  appears_on:
+    - entity.iek_users.collection

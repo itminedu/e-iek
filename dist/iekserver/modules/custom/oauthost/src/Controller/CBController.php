@@ -1,0 +1,267 @@
+<?php
+
+namespace Drupal\oauthost\Controller;
+
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Controller\ControllerBase;
+use OAuth;
+use OAuthException;
+use Drupal\user\Entity\User;
+use Drupal\Core\Database\Connection;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\user\UserInterface;
+
+class CBController extends ControllerBase
+{
+    protected $entity_query;
+    protected $entityTypeManager;
+    protected $logger;
+    protected $connection;
+
+    protected $consumer_key = '';
+    protected $consumer_secret = '';
+    protected $request_token_url;
+    protected $user_authorization_url;
+    protected $access_token_url;
+    protected $signature_method;
+    protected $api_url;
+    protected $callback_url;
+    protected $logout_url;
+    protected $redirect_url;
+
+    protected $requestToken;
+    protected $requestTokenSecret;
+    protected $oauthostSession;
+
+    protected $user;
+
+    public function __construct(
+    EntityTypeManagerInterface $entityTypeManager,
+    QueryFactory $entity_query,
+    Connection $connection,
+    LoggerChannelFactoryInterface $loggerChannel)
+    {
+        $this->entityTypeManager = $entityTypeManager;
+        $this->entity_query = $entity_query;
+        $this->connection = $connection;
+        $this->logger = $loggerChannel->get('oauthost');
+    }
+
+    public static function create(ContainerInterface $container)
+    {
+        return new static(
+          $container->get('entity_type.manager'),
+          $container->get('entity.query'),
+          $container->get('database'),
+          $container->get('logger.factory')
+      );
+    }
+
+    public function loginCB(Request $request)
+    {
+
+        $ostauthConfigs = $this->entityTypeManager->getStorage('oauthost_config')->loadByProperties(array('name' => 'oauthost_taxisnet_config'));
+        $ostauthConfig = reset($ostauthConfigs);
+        if ($ostauthConfig) {
+            $this->consumer_key = $ostauthConfig->consumer_key->value;
+            $this->consumer_secret = $ostauthConfig->consumer_secret->value;
+            $this->request_token_url = $ostauthConfig->request_token_url->value;
+            $this->user_authorization_url = $ostauthConfig->user_authorization_url->value;
+            $this->access_token_url = $ostauthConfig->access_token_url->value;
+            $this->signature_method = $ostauthConfig->signature_method->value;
+            $this->api_url = $ostauthConfig->api_url->value;
+            $this->callback_url = $ostauthConfig->callback_url->value;
+            $this->logout_url = $ostauthConfig->logout_url->value;
+            $this->redirect_url = $ostauthConfig->redirect_url->value;
+        } else {
+            $response = new Response();
+            $response->setContent('forbidden11');
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $oauthostSessions = $this->entityTypeManager->getStorage('oauthost_session')->loadByProperties(array('name' => $request->query->get('sid_ost')));
+        $this->oauthostSession = reset($oauthostSessions);
+        if ($this->oauthostSession) {
+            $this->requestToken = $this->oauthostSession->request_token->value;
+            $this->requestTokenSecret = $this->oauthostSession->request_token_secret->value;
+        } else {
+            $response = new Response();
+            $response->setContent('forbidden');
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $authToken = $request->query->get('oauth_token');
+        $authVerifier = $request->query->get('oauth_verifier');
+//        $this->logger->notice('authToken='.$authToken.'***authVerifier='.$authVerifier);
+
+        $iekToken = $this->authenticatePhase2($request, $authToken, $authVerifier);
+        if ($iekToken) {
+            //create session 
+            //------------------------------//
+
+           \Drupal::currentUser()->setAccount($this->user);
+           \Drupal::logger('user')->notice('Session opened for %name.', array('%name' => $this->user->getUsername()));
+           // Update the user table timestamp noting user has logged in.
+           // This is also used to invalidate one-time login links.
+           $this->user->setLastLoginTime(REQUEST_TIME);
+           \Drupal::entityManager()->getStorage('user')->updateLastLoginTimestamp($this->user);
+
+          // Regenerate the session ID to prevent against session fixation attacks.
+          // This is called before hook_user_login() in case one of those functions
+          // fails or incorrectly does a redirect which would leave the old session
+          // in place.
+          \Drupal::service('session')->migrate();
+          \Drupal::service('session')->set('uid', $this->user->id());
+
+            //---------------------------------//
+
+            return new RedirectResponse($this->redirect_url, 302, []);
+        } else {
+            $response = new Response();
+            $response->setContent('forbidden');
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+    }
+
+    public function authenticatePhase2($request, $authToken, $authVerifier)
+    {
+    global $base_url;
+    $taxis_userid = null;
+    $trx = $this->connection->startTransaction();
+    try {
+        $oauth = new OAuth($this->consumer_key, $this->consumer_secret, OAUTH_SIG_METHOD_PLAINTEXT, OAUTH_AUTH_TYPE_URI);
+        $oauth->disableSSLChecks();
+        $oauth->enableDebug();
+        $oauth->setToken($authToken, $this->requestTokenSecret);
+        $accessToken = $oauth->getAccessToken($this->access_token_url, '', $authVerifier);
+        $oauth->setToken($accessToken['oauth_token'], $accessToken['oauth_token_secret']);
+        $oauth->fetch($this->api_url);
+
+        $this->logger->warning($oauth->getLastResponse());
+        $taxis_userid = $this->xmlParse($oauth->getLastResponse(), 'messageText');
+
+        $currentTime = time();
+        $iekUsers = $this->entityTypeManager->getStorage('iek_users')->loadByProperties(array('taxis_userid' => $taxis_userid));
+        $iekUser = reset($iekUsers);
+
+        $iekToken = md5(uniqid(mt_rand(), true));
+        if ($iekUser) {
+            $user = $this->entityTypeManager->getStorage('user')->load($iekUser->user_id->target_id);
+            if ($user) {
+                $aitiseis = $this->entityTypeManager->getStorage('aitisi_entity')->loadByProperties(array('user_id' => $iekUser->user_id->target_id));
+                $existing_aitisi = reset($aitiseis);
+                //ean o xristis exei kanei aitisi giati mporei na exei kanei apla login 
+                //kai na min exei ypobalei aitisi
+                if($existing_aitisi) {
+                    $aitisi_id = $existing_aitisi->id();
+                    $this->redirect_url = $base_url.'/aitisi/'.$aitisi_id;
+                }
+               
+  
+                $this->user = $user;
+                $user->setPassword($iekToken);
+                $user->setUsername($iekToken);
+                $user->save();
+                $iekUser->set('authtoken', $iekToken);
+                $iekUser->set('accesstoken', $accessToken['oauth_token']);
+                $iekUser->set('accesstoken_secret', $accessToken['oauth_token_secret']);
+                $iekUser->set('requesttoken',$this->requestToken);
+                $iekUser->set('requesttoken_secret', $this->requestTokenSecret);
+                $iekUser->set('timelogin', $currentTime);
+                $iekUser->set('userip', $request->getClientIp());
+
+                $iekUser->save();
+
+                //user_login_finalize($user);
+                 
+
+            }
+        }
+
+        if ($iekUser === null || !$iekUser) {
+
+            //Create a User
+            $user = User::create();
+            //Mandatory settings
+            $unique_id = uniqid('####');
+            $user->setPassword($iekToken);
+            $user->enforceIsNew();
+            $user->setEmail($unique_id);
+            $user->setUsername($iekToken); //This username must be unique and accept only a-Z,0-9, - _ @ .
+            $user->activate();
+            $user->set('init', $unique_id);
+
+            //Set Language
+            $language_interface = \Drupal::languageManager()->getCurrentLanguage();
+            $user->set('langcode', $language_interface->getId());
+            $user->set('preferred_langcode', $language_interface->getId());
+            $user->set('preferred_admin_langcode', $language_interface->getId());
+
+            //Adding default user role
+            $user->addRole('aiton');
+            $user->save();
+            $this->user = $user;
+
+
+            $users = $this->entityTypeManager->getStorage('user')->loadByProperties(array('mail' => $unique_id));
+            $user = reset($users);
+            if ($user) {
+                $this->logger->warning('userid 190='.$user->id().'*** name='.$user->name->value);
+
+                $iekUser = $this->entityTypeManager()->getStorage('iek_users')->create(array(
+            //    'langcode' => $language_interface->getId(),
+                'langcode' => 'el',
+                'user_id' => $user->id(),
+                'drupaluser_id' => $user->id(),
+                'taxis_userid' => $taxis_userid,
+                'taxis_taxid' => $unique_id,
+                'name' => $unique_id,
+                'accesstoken' => $accessToken['oauth_token'],
+                'accesstoken_secret' => $accessToken['oauth_token_secret'],
+                'authtoken' => $iekToken,
+                'requesttoken' => $this->requestToken,
+                'requesttoken_secret' => $this->requestTokenSecret,
+                'timelogin' => $currentTime,
+                'timeregistration' => $currentTime,
+                'timetokeninvalid' => 0,
+                'userip' => $request->getClientIp(),
+                'status' => 1
+            ));
+            $iekUser->save();
+              //  user_login_finalize($user);
+            } else {
+                return false;
+            }
+
+        }
+        $this->oauthostSession->delete();
+        return $iekToken;
+    } catch (OAuthException $e) {
+        $this->logger->warning($e->getMessage());
+        $trx->rollback();
+        return false;
+    } catch (\Exception $ee) {
+        $this->logger->warning($ee->getMessage());
+        $trx->rollback();
+        return false;
+    }
+
+        return false;
+    }
+
+    public function xmlParse($xmlText, $token){
+        return '12345';
+    }
+}

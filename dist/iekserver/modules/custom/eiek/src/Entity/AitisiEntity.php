@@ -226,6 +226,21 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
   }
 
 
+      /**
+   * {@inheritdoc}
+   */
+  public function getPedio() {
+    return $this->get('pedio')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPedio($pedio) {
+    $this->set('pedio', $pedio);
+    return $this;
+  }
+
   /**
    * {@inheritdoc}
    */
@@ -494,6 +509,32 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
       ))
       ->setDisplayOptions('form', array(
         'type' => 'entity_reference_autocomplete',
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+
+      $fields['pedio'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Πεδίο ενδιαφέροντος'))
+      ->setDescription(t('Πεδίο ενδιαφέροντος'))
+      ->setRequired(TRUE)
+      ->setSettings(array(
+         'max_length' => 16,
+         'default_value' => 'both',
+         'allowed_values' => array(
+            'practical' => t('Πρακτικό'),
+            'theoretical' => t('Θεωρητικό'),
+            'both' => t('Και τα δύο'),
+            ),
+        ))
+      ->setDisplayOptions('view', array(
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -4,
+      ))
+     ->setDisplayOptions('form', array(
+        'type' => 'options_select',
+        'weight' => -17,
       ))
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);

@@ -328,7 +328,7 @@ class StudentEntity extends ContentEntityBase implements StudentEntityInterface 
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['last'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Last Name'))
+      ->setLabel(t('Επίθετο'))
       ->setDescription(t('The last name of the Student entity entity.'))
       ->setRequired(TRUE)
       ->setSettings(array(
@@ -350,7 +350,7 @@ class StudentEntity extends ContentEntityBase implements StudentEntityInterface 
 
 
     $fields['first'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('First Name'))
+      ->setLabel(t('Όνομα'))
       ->setDescription(t('The first name of the Student entity entity.'))
       ->setRequired(TRUE)
       ->setSettings(array(
@@ -372,7 +372,7 @@ class StudentEntity extends ContentEntityBase implements StudentEntityInterface 
 
 
       $fields['fname'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Father Name'))
+      ->setLabel(t('Όνομα πατέρα'))
       ->setDescription(t('The father name of the Student entity entity.'))
       ->setRequired(TRUE)
       ->setSettings(array(
@@ -393,7 +393,7 @@ class StudentEntity extends ContentEntityBase implements StudentEntityInterface 
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['mname'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Mother Name'))
+      ->setLabel(t('Όνομα μητέρας'))
       ->setDescription(t('The father name of the Student entity entity.'))
       ->setRequired(TRUE)
       ->setSettings(array(

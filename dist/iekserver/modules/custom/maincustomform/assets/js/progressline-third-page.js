@@ -5,17 +5,72 @@
     attach: function (context, settings) {
 
 
+            //get all available regions
+     jQuery.ajax({
+        url: Drupal.url('/jsonapi/region_entity/region_entity?_format=api_json&fields[region_entity--region_entity]=id,name'),   
+        method: 'GET',
+        success: function(data, status, xhr) {
+            var arrObjects = data["data"];
+            var sel = $("#edit-region-select");
+            sel.empty();
+            sel.append('<option value="0">---Επιλέξτε ---</option>');
+            arrObjects.forEach( function (arrayItem)
+            {
+               var attributes = arrayItem['attributes'];
+               sel.append('<option value="' + attributes['id'] + '">' + attributes['name'] + '</option>');
+            })
+            
+        }
+     });
+
+     //select iek
+     jQuery.ajax({
+        url: Drupal.url('/jsonapi/school_entity/school_entity?_format=api_json&fields[school_entity--school_entity]=id,name'),
+        method: 'GET',
+        success: function(data, status, xhr) {
+            var arrObjects = data["data"];
+            var sel = $("#edit-iek-select");
+            sel.empty();
+            sel.append('<option value="0">---Επιλέξτε ---</option>');
+            arrObjects.forEach( function (arrayItem)
+            {
+               var attributes = arrayItem['attributes'];
+               sel.append('<option value="' + attributes['id'] + '">' + attributes['name'] + '</option>');
+            })
+            
+        }
+     });
+
+     //select eidikotita
+     jQuery.ajax({  
+        url: Drupal.url('/jsonapi/eidikotita_entity/eidikotita_entity?_format=api_json&fields[eidikotita_entity--eidikotita_entity]=id,name'),
+        method: 'GET',
+        success: function(data, status, xhr) {
+            var arrObjects = data["data"];
+            var sel = $("#edit-eidikotita-select");
+            sel.empty();
+            sel.append('<option value="0">---Επιλέξτε ---</option>');
+            arrObjects.forEach( function (arrayItem)
+            {
+               var attributes = arrayItem['attributes'];
+               sel.append('<option value="' + attributes['id'] + '">' + attributes['name'] + '</option>');
+            })
+            
+        }
+     });
+
+
     //	var parent_fieldset = $(this).parents('fieldset');
     	var next_step = true;
     	// navigation steps / progress steps
-    	var current_active_step = $('form.multistep-three-form').find('.f1-step.active');
+    	var current_active_step = $(context).find('.f1-step.active');
 
-    	var progress_line = $('form.multistep-three-form').find('.f1-progress-line');
+    	var progress_line = $(context).find('.f1-progress-line');
 
     	if( next_step ) {
                 // alert(progress_line);
     			// change icons
-    			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
+    			current_active_step.once('progresslinelast').removeClass('active').addClass('activated').next().addClass('active');
     			// progress bar
     			bar_progress(progress_line, 'right');
     	}

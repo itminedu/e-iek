@@ -1,0 +1,9 @@
+name: d8views
+type: module
+description: d8 Views Changer
+core: 8.x
+package: Custom
+dependencies:
+  - eiek
+  - entitychanger
+

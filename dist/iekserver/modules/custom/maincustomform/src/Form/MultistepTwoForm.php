@@ -112,29 +112,29 @@ class MultistepTwoForm extends MultistepFormBase {
      ),
     );
 
-    $form['birth_date'] = array(
+    $form['birthdate'] = array(
     '#type' => 'date',
     '#title' => t('Ημερομηνία Γέννησης'),
-    '#default_value' => $this->store->get('birth_date') ? $this->store->get('birth_date') : '',
+    '#default_value' => $this->store->get('birthdate') ? $this->store->get('birthdate') : '',
     '#states' => array(
     'disabled' => array(
-        'input[name="birth_date"]' => array('filled' => TRUE),
+        'input[name="birthdate"]' => array('filled' => TRUE),
       ),
      //'#default_value' => array('year' => 2020, 'month' => 2, 'day' => 15,)
    // '#default_value' => '2016-01-27'
     ),
     );
 
-    $form['birth_place'] = array(
+    $form['birthplace'] = array(
       '#type' => 'textfield',
       '#title' => t('Τοποθεσία Γέννησης'),
       '#size' => 60,
       '#maxlength' => 120,
       '#required' => TRUE,
-      '#default_value' => $this->store->get('birth_place') ? $this->store->get('birth_place') : '',
+      '#default_value' => $this->store->get('birthplace') ? $this->store->get('birthplace') : '',
       '#states' => array(
       'disabled' => array(
-        'input[name="birth_place"]' => array('filled' => TRUE),
+        'input[name="birthplace"]' => array('filled' => TRUE),
       ),
       ),
     );
@@ -212,8 +212,8 @@ class MultistepTwoForm extends MultistepFormBase {
     $this->store->set('mname', $form_state->getValue('mname'));
     $this->store->set('idno', $form_state->getValue('idno'));
     $this->store->set('sex', $form_state->getValue('sex'));
-    $this->store->set('birth_date', $form_state->getValue('birth_date'));
-    $this->store->set('birth_place', $form_state->getValue('birth_place'));
+    $this->store->set('birthdate', $form_state->getValue('birthdate'));
+    $this->store->set('birthplace', $form_state->getValue('birthplace'));
     $this->store->set('email', $form_state->getValue('email'));
     $this->store->set('telephone', $form_state->getValue('telephone'));
     $this->store->set('afm', $form_state->getValue('afm'));

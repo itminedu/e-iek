@@ -151,6 +151,7 @@ abstract class MultistepFormBase extends FormBase  {
         
 
         //get the student id and insert into aitisi entity
+        //save state
         $aitisi = array(
            'prabek'=> $this->store->get('prabek'), 
            'numbek'=> $this->store->get('numbek'), 
@@ -159,6 +160,8 @@ abstract class MultistepFormBase extends FormBase  {
            'student_id'=> $created_student_id, 
            'iek_id'=> $this->store->get('iek_select'), 
            'region_id'=> $this->store->get('region_select'), 
+           'pedio' => $this->store->get('pedio'),
+           'state' => 'DRAFT'
         );
         
 

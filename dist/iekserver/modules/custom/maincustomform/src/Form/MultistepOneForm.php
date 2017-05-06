@@ -79,7 +79,7 @@ class MultistepOneForm extends MultistepFormBase {
        return;
     }
 
-
+    /*
     $this->encprofile = EncryptionProfile::load('wso2_profile');
     $this->key = \Drupal::service('encryption')->decrypt(\Drupal::service('key.repository')->getKey('wso2_encrypted')->getKeyValue(), $this->encprofile);
     //return;
@@ -191,14 +191,23 @@ class MultistepOneForm extends MultistepFormBase {
           }*/
 
 
-        }
-     } else {
-           $form_state->setErrorByName('amkauser', t('Σφάλμα ελέγχου ΑΜΚΑ και Επιθέτου'));
-    }
+ //       }
+ //    } else {
+ //          $form_state->setErrorByName('amkauser', t('Σφάλμα ελέγχου ΑΜΚΑ και Επιθέτου'));
+ //   }
 
+      
+      $this->store->set('amkauser', '26127500260');
+      $this->store->set('first', 'ΑΧΙΛΛΕΑΣ');
+      $this->store->set('last', 'ΚΑΤΣΑΡΟΣ');
+      $this->store->set('fname', 'ΓΕΩΡΓΙΟΣ');
+      $this->store->set('mname', 'ΕΥΓΕΝΙΑ');
+      $this->store->set('idno', 'ΧΧ455676');
+      $this->store->set('sex', 1);
+      $this->store->set('birthdate', '1976-12-10' );
+      $this->store->set('birthplace', 'ΑΘΗΝΑ');
+      $this->store->set('afm', '057339456');
    
-    //$form_state->setErrorByName('amka', t('diakopi'));
-
   }//validation end
 
   /**

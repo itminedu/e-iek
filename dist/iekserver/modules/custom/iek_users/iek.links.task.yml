@@ -1,0 +1,22 @@
+
+# Iek users routing definition
+iek_users.settings_tab:
+  route_name: iek_users.settings
+  title: 'Settings'
+  base_route: iek_users.settings
+
+entity.iek_users.canonical:
+  route_name: entity.iek_users.canonical
+  base_route: entity.iek_users.canonical
+  title: 'View'
+
+entity.iek_users.edit_form:
+  route_name: entity.iek_users.edit_form
+  base_route: entity.iek_users.canonical
+  title: 'Edit'
+
+entity.iek_users.delete_form:
+  route_name:  entity.iek_users.delete_form
+  base_route:  entity.iek_users.canonical
+  title: Delete
+  weight: 10

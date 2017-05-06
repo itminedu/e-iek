@@ -1,0 +1,14 @@
+{
+  "name": "drupal/d8views",
+  "type": "drupal-module",
+  "description": "d8 Views Changer",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/d8views",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/d8views",
+    "source": "http://cgit.drupalcode.org/d8views"
+  },
+  "require": { }
+}

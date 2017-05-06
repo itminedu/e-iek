@@ -1,0 +1,40 @@
+eiek.user.send_verification_code:
+  path: '/eiek/user/sendvercode'
+  options:
+    _auth: [ 'basic_auth' ]
+  defaults:
+    _controller: '\Drupal\iek\Controller\CurrentUser::sendVerificationCode'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+eiek.user.verify_verification_code:
+  path: '/eiek/user/verifyvercode'
+  options:
+    _auth: [ 'basic_auth' ]
+  defaults:
+    _controller: '\Drupal\iek\Controller\CurrentUser::verifyVerificationCode'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+eiek.user.save_profile:
+  path: '/eiek/user/save'
+  options:
+    _auth: [ 'basic_auth' ]
+  defaults:
+    _controller: '\Drupal\iek\Controller\CurrentUser::saveUserProfile'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+eiek.user.get_data:
+  path: '/eiek/userdata'
+  options:
+    _auth: [ 'basic_auth' ]
+  defaults:
+    _controller: '\Drupal\iek\Controller\CurrentUser::getEiekUserData'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+eiek.current_user:
+  path: '/eiek/curuser'
+  options:
+    _auth: [ 'basic_auth' ]
+  defaults:
+    _controller: '\Drupal\iek\Controller\CurrentUser::getLoginInfo'
+  requirements:
+    _user_is_logged_in: 'TRUE'
