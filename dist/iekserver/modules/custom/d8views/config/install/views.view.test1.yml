@@ -2,6 +2,7 @@ langcode: el
 status: true
 dependencies:
   config:
+    - system.menu.main
     - user.role.administrator
     - user.role.aiton
     - user.role.diaxeiristis_eoppep
@@ -12,7 +13,7 @@ dependencies:
     - options
     - user
 _core:
-  default_config_hash: ydoWWedQpcFchSKjigiTbiPk2Q9yteXJ-pEWdo_crbs
+  default_config_hash: nPtUcnOvP5zc9D4jN9MXA8-2Sl6UpZa2W28diO6JM98
 id: test1
 label: 'Aitiseis Administration'
 module: views
@@ -61,7 +62,7 @@ display:
           items_per_page: 10
           offset: 0
           id: 0
-          total_pages: 4
+          total_pages: null
           tags:
             previous: ‹‹
             next: ››
@@ -88,17 +89,32 @@ display:
           summary: ''
           description: ''
           columns:
-            edit_aitisi_entity: edit_aitisi_entity
+            id: id
+            baseurlvalue: baseurlvalue
+            id_1: id_1
             last: last
             first: first
-            fname: fname
-            mname: mname
             iek_id: iek_id
             flagbank: flagbank
             flagiek: flagiek
             state: state
+            nothing: nothing
           info:
-            edit_aitisi_entity:
+            id:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            baseurlvalue:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            id_1:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -106,7 +122,7 @@ display:
               empty_column: false
               responsive: ''
             last:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -119,22 +135,8 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            fname:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            mname:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             iek_id:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -155,6 +157,13 @@ display:
               empty_column: false
               responsive: ''
             state:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nothing:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -738,8 +747,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: ''
-          exclude: true
+          label: 'Αίτηση ID'
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -797,8 +806,74 @@ display:
           entity_type: aitisi_entity
           entity_field: id
           plugin_id: field
-        nothing:
-          id: nothing
+        id_1:
+          id: id_1
+          table: student_entity
+          field: id
+          relationship: student_id
+          group_type: group
+          admin_label: ''
+          label: ID
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: student_entity
+          entity_field: id
+          plugin_id: field
+        nothing_1:
+          id: nothing_1
           table: views
           field: nothing
           relationship: none
@@ -808,7 +883,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<a href=\"{{ baseurlvalue }}/iek/aitisi/{{ id }}/edit\"><i class=\"fa fa-edit fa-2x text-primary\" aria-hidden=\"true\"></i></a>\n\n"
+            text: '<a class="use-ajax" data-dialog-type="modal"  href="{{ baseurlvalue }}/iek/aitisi/{{ id }}/edit"><i class="fa fa-edit fa-2x text-primary" aria-hidden="true"></i></a>'
             make_link: false
             path: ''
             absolute: false
@@ -1314,7 +1389,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ last }} {{ first }}'
+            text: '<a class="use-ajax" data-dialog-type="modal"  href="{{ baseurlvalue }}/admin/structure/student_entity/{{ id_1 }}">{{ last }} {{ first }}</a>'
             make_link: false
             path: ''
             absolute: false
@@ -1354,61 +1429,12 @@ display:
           text: προβολή
           entity_type: student_entity
           plugin_id: entity_link
-        rendered_entity:
-          id: rendered_entity
-          table: student_entity
-          field: rendered_entity
-          relationship: student_id
-          group_type: group
-          admin_label: ''
-          label: 'Απεικονιζόμενη οντότητα'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          view_mode: default
-          entity_type: student_entity
-          plugin_id: rendered_entity
       defaults:
         fields: false
         filters: false
         filter_groups: false
+        sorts: false
+        use_ajax: false
       filters:
         iekcode:
           id: iekcode
@@ -1452,6 +1478,22 @@ display:
         operator: AND
         groups:
           1: AND
+      sorts:
+        id:
+          id: id
+          table: aitisi_entity
+          field: id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          entity_type: aitisi_entity
+          entity_field: id
+          plugin_id: standard
+      use_ajax: false
     cache_metadata:
       max-age: 0
       contexts:
@@ -1476,8 +1518,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: ''
-          exclude: true
+          label: Αρ.Αίτησης
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -1585,6 +1627,72 @@ display:
           hide_alter_empty: true
           entity_type: aitisi_entity
           plugin_id: baseurlvalue
+        id_1:
+          id: id_1
+          table: student_entity
+          field: id
+          relationship: student_id
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: student_entity
+          entity_field: id
+          plugin_id: field
         nothing:
           id: nothing
           table: views
@@ -1596,7 +1704,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<a href="{{ baseurlvalue }}/admin/structure/aitisi_entity/{{ id }}/edit"><i class="fa fa-edit fa-2x text-primary" aria-hidden="true"></i></a>'
+            text: '<a  href="{{ baseurlvalue }}/eoppep/aitisi/{{ id }}/edit"><i class="fa fa-edit fa-2x text-primary" aria-hidden="true"></i></a>'
             make_link: false
             path: ''
             absolute: false
@@ -1641,8 +1749,8 @@ display:
           relationship: student_id
           group_type: group
           admin_label: ''
-          label: 'Last Name'
-          exclude: true
+          label: Επίθετο
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -1674,7 +1782,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1706,10 +1814,10 @@ display:
           relationship: student_id
           group_type: group
           admin_label: ''
-          label: Ονοματεπώνυπο
+          label: Όνομα
           exclude: false
           alter:
-            alter_text: true
+            alter_text: false
             text: '{{ last }} {{ first }}'
             make_link: false
             path: ''
@@ -1739,7 +1847,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1763,136 +1871,6 @@ display:
           field_api_classes: false
           entity_type: student_entity
           entity_field: first
-          plugin_id: field
-        fname:
-          id: fname
-          table: student_entity
-          field: fname
-          relationship: student_id
-          group_type: group
-          admin_label: ''
-          label: Πατρώνυμο
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: student_entity
-          entity_field: fname
-          plugin_id: field
-        mname:
-          id: mname
-          table: student_entity
-          field: mname
-          relationship: student_id
-          group_type: group
-          admin_label: ''
-          label: 'Όνομα μητέρας'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: student_entity
-          entity_field: mname
           plugin_id: field
         iek_id:
           id: iek_id
@@ -2104,7 +2082,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{%  if state =='DRAFT' %}\n   <i class=\"fa fa-circle-o fa-2x fa-fw text-muted\" aria-hidden=\"true\"></i>&nbsp;Αρχική\n{% elseif state =='Pending' %}\n<i class=\"fa fa-circle-o-notch fa-2x fa-spin fa-fw text-warning\" aria-hidden=\"true\"></i>&nbsp;Υπο επεξεργασία\n{% else %}\n<i class=\"fa fa-circle fa-2x fa-fw text-success\" aria-hidden=\"true\"></i>&nbsp;Έτοιμη\n{% endif %}"
+            text: "{%  if state =='DRAFT' %}\n   <i class=\"fa fa-circle-o fa-2x fa-fw text-muted\" aria-hidden=\"true\"></i>&nbsp;Αρχική\n{% elseif state =='PENDING' %}\n<i class=\"fa fa-circle-o-notch fa-2x fa-spin fa-fw text-warning\" aria-hidden=\"true\"></i>&nbsp;Υπο επεξεργασία\n{% else %}\n<i class=\"fa fa-circle fa-2x fa-fw text-success\" aria-hidden=\"true\"></i>&nbsp;Έτοιμη\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -2160,12 +2138,41 @@ display:
       defaults:
         fields: false
         access: false
+        filters: false
+        filter_groups: false
+        exposed_form: false
+        title: false
       access:
         type: role
         options:
           role:
             administrator: administrator
             diaxeiristis_eoppep: diaxeiristis_eoppep
+      filters: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      title: 'Κατάλογος αιτήσεων'
+      menu:
+        type: normal
+        title: 'Κατάλογος Αιτήσεων'
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 20
+        context: '0'
+        menu_name: main
     cache_metadata:
       max-age: 0
       contexts:
@@ -2189,6 +2196,9 @@ display:
         row: false
         fields: false
         access: false
+        filters: false
+        filter_groups: false
+        header: false
       path: aitisi/%
       arguments:
         id:
@@ -2350,7 +2360,7 @@ display:
             html: false
           element_type: ''
           element_class: ''
-          element_label_type: h3
+          element_label_type: div
           element_label_class: ''
           element_label_colon: true
           element_wrapper_type: ''
@@ -2415,7 +2425,7 @@ display:
             html: false
           element_type: ''
           element_class: ''
-          element_label_type: h3
+          element_label_type: div
           element_label_class: ''
           element_label_colon: true
           element_wrapper_type: ''
@@ -2480,7 +2490,7 @@ display:
             html: false
           element_type: ''
           element_class: ''
-          element_label_type: h3
+          element_label_type: div
           element_label_class: ''
           element_label_colon: true
           element_wrapper_type: ''
@@ -2545,7 +2555,7 @@ display:
             html: false
           element_type: ''
           element_class: ''
-          element_label_type: h3
+          element_label_type: div
           element_label_class: ''
           element_label_colon: true
           element_wrapper_type: ''
@@ -2610,7 +2620,7 @@ display:
             html: false
           element_type: ''
           element_class: ''
-          element_label_type: h3
+          element_label_type: div
           element_label_class: ''
           element_label_colon: true
           element_wrapper_type: ''
@@ -2675,7 +2685,7 @@ display:
             html: false
           element_type: ''
           element_class: ''
-          element_label_type: h3
+          element_label_type: div
           element_label_class: ''
           element_label_colon: true
           element_wrapper_type: ''
@@ -2740,7 +2750,7 @@ display:
             html: false
           element_type: ''
           element_class: ''
-          element_label_type: h3
+          element_label_type: div
           element_label_class: ''
           element_label_colon: false
           element_wrapper_type: ''
@@ -2805,7 +2815,7 @@ display:
             html: false
           element_type: ''
           element_class: ''
-          element_label_type: h3
+          element_label_type: div
           element_label_class: ''
           element_label_colon: true
           element_wrapper_type: ''
@@ -2843,7 +2853,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{%  if state =='DRAFT' %}\n   Αρχική\n{% elseif state =='Pending' %}\nΥπο επεξεργασία\n{% else %}\nΈτοιμη\n{% endif %}"
+            text: "{%  if state =='DRAFT' %}\r\n   Αρχική\r\n{% elseif state =='Pending' %}\r\nΥπο επεξεργασία\r\n{% else %}\r\nΈτοιμη\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -2870,7 +2880,7 @@ display:
             html: false
           element_type: ''
           element_class: ''
-          element_label_type: h3
+          element_label_type: div
           element_label_class: ''
           element_label_colon: true
           element_wrapper_type: ''
@@ -2902,6 +2912,66 @@ display:
           role:
             administrator: administrator
             aiton: aiton
+      filters:
+        user_id:
+          id: user_id
+          table: aitisi_entity
+          field: user_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: test
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: aitisi_entity
+          entity_field: user_id
+          plugin_id: numeric
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: '<span class="legend">Η αίτηση μου</span>'
+            format: full_html
+          plugin_id: text
     cache_metadata:
       max-age: -1
       contexts:

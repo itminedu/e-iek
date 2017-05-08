@@ -6,3 +6,12 @@ d8views.edit_iek_form:
     _title: 'EditIekForm'
   requirements:
     _access: 'TRUE'
+
+d8views.edit_eoppep_form:
+  path: '/eoppep/aitisi/{aid}/edit'
+  defaults:
+    _form: '\Drupal\d8views\Form\EditEoppepForm'
+    _title: 'EditEoppepForm'
+  requirements:
+    _access: 'TRUE'
+  

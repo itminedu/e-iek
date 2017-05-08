@@ -62,6 +62,9 @@ class EditIekForm extends FormBase {
 
             $form['#theme'] = 'edit_iek_form';
 
+            //keep the current flagiek value from object
+            $currentFlagIek = $this->entityObject->getFlagiek();
+
             $form['numbek'] = [
               '#type' => 'textfield',
               '#title' => t('Αριθμός ΒΕΚ'),
@@ -70,6 +73,7 @@ class EditIekForm extends FormBase {
              '#states' => array(
               'disabled' => array(
                    'input[name="flagiek"]' => array('value' => 1),
+                   $currentFlagIek => array('value' => 1),
                   ),
               )
             ];
@@ -80,7 +84,7 @@ class EditIekForm extends FormBase {
               '#required' => TRUE,
               '#default_value' => $this->entityObject->getPrabek() ? $this->entityObject->getPrabek() : '',
                '#states' => array(
-              'disabled' => array(
+               'disabled' => array(
                    'input[name="flagiek"]' => array('value' => 1),
                   ),
               )
@@ -98,18 +102,17 @@ class EditIekForm extends FormBase {
               )
             ];
 
-            $form['flagiek'] = array(
+            if(!$this->entityObject->getFlagiek()) {
+
+              $form['flagiek'] = array(
               '#type' => 'radios',
-              '#title' => t('Έλεγχος ΙΕΚ'),
-              '#default_value' => 0,
+              '#title' => t('Έλεγχος ΙΕΚ'),             
               '#options' => array(0 => t('Αρχική'), 1 => t('Έλεγχος ολοκληρώθηκε')),
               '#default_value' => $this->entityObject->getFlagiek() ? $this->entityObject->getFlagiek() : '',
-              '#states' => array(
-              'disabled' => array(
-                   'input[name="flagiek"]' => array('value' => 1),
-                  ),
-              )
             );
+
+            }
+         
 
 
             $form['submit'] = [
@@ -135,6 +138,8 @@ class EditIekForm extends FormBase {
     */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
+
+
   }
 
   /**
@@ -142,14 +147,27 @@ class EditIekForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Display result.
-    foreach ($form_state->getValues() as $key => $value) {
-        drupal_set_message($key . ': ' . $value);
-    }
+    //foreach ($form_state->getValues() as $key => $value) {
+    //    drupal_set_message($key . ': ' . $value);
+    //}
 
     $this->entityObject->setNumbek($form_state->getValue('numbek'));
     $this->entityObject->setPrabek($form_state->getValue('prabek'));
     $this->entityObject->setRegno($form_state->getValue('regno'));
-    $this->entityObject->setFlagiek($form_state->getValue('flagiek'));
+
+    //get 
+    $initial = $this->entityObject->getFlagiek();
+    if(!$initial) {
+      $this->entityObject->setFlagiek(1);
+        if($this->entityObject->getState() == 'DRAFT') {
+         $this->entityObject->setState('PENDING');
+      } else if($this->entityObject->getState() == 'PENDING') {
+         $this->entityObject->setState('READY');
+      } 
+    }
+
+
+    
     $this->entityObject->save();
 
     $url = Url::fromUserInput('/data/aitiseis/iek');

@@ -23,6 +23,12 @@ function d8views_help($route_name, RouteMatchInterface $route_match) {
   }
 }
 
+function d8views_preprocess_html(&$variables) {
+  $variables['page']['#attached']['library'][] = 'd8views/modal';
+  $variables['page']['#attached']['library'][] = 'core/drupal.ajax';
+}
+
+
 /**
  * Implements hook_theme().
  */
@@ -33,6 +39,9 @@ function d8views_theme() {
       'render element' => 'children',
     ],
     'edit_iek_form' => [
+      'render element' => 'form',
+    ],
+    'edit_eoppep_form' => [
       'render element' => 'form',
     ],
   ];
