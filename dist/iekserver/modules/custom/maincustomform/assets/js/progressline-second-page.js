@@ -5,9 +5,24 @@
     attach: function (context, settings) {
 
 
+      //alert('loaded 2');
+
+       var next_step = true;
+        // navigation steps / progress steps
+
+        //.once('myCustomBehavior').
+        var current_active_step = $(context).find('.f1-step.active');
+        var progress_line = $(context).find('.f1-progress-line');
+
+        if( next_step ) {
+                // change icons
+                current_active_step.once('progressline').removeClass('active').addClass('activated').next().addClass('active');
+                // progress bar
+                bar_progress(progress_line, 'right');
+        }
 
         //	var parent_fieldset = $(this).parents('fieldset');
-    	var next_step = true;
+    	/*var next_step = true;
     	// navigation steps / progress steps
     	var current_active_step = $('.multistep-two-form').find('.f1-step.active');
     	var progress_line = $('.multistep-two-form').find('.f1-progress-line');
@@ -17,7 +32,7 @@
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
     			// progress bar
     			bar_progress(progress_line, 'right');
-    	}
+    	}*/
 
     // previous step
     /*
