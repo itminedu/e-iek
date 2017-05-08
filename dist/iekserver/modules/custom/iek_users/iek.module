@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Contains iek.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function iek_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the iek module.
+    case 'help.page.iek':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('IEK Registration') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function iek_theme() {
+  return [
+    'iek' => [
+      'template' => 'iek',
+      'render element' => 'children',
+    ],
+  ];
+}
+
+function iek_mail($key, &$message, $params) {
+    $options = array(
+      'langcode' => $message['langcode'],
+    );
+
+    switch ($key) {
+      case 'send_verification_code':
+        $message['from'] = \Drupal::config('system.site')->get('mail');
+        $message['subject'] = t('Email Confirmation Needed', $options);
+        $message['body'][] = $params['message'];
+        break;
+    }
+}
