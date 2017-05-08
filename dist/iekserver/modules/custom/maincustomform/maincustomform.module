@@ -38,5 +38,27 @@ function maincustomform_theme() {
     'common_part' => [
       'render element' => 'children',
     ],   
+    'maincustomform_block' => [
+      'variables' => [
+        'url_out' => null,
+        'url_in' => null,
+        'name' => null,
+        'role' => null,
+        // define defaults for any variables you want in the twig file
+        'attributes' => [
+           'class' => ['my-module-class'],
+         ], //etc
+      ],
+    ],
   ];
+}
+
+function maincustomform_preprocess_region(array &$variables) {
+  $block_manager = \Drupal::service('plugin.manager.block');
+  $block_config = [];
+  $block_plugin = $block_manager->createInstance('main_form_block', $block_config);
+  $block_build = $block_plugin->build();
+  $block_content = render($block_build);
+  $variables['my_custom_user_info_block'] = $block_content;
+
 }

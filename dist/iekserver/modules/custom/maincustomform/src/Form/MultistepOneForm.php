@@ -204,8 +204,8 @@ class MultistepOneForm extends MultistepFormBase {
       $this->store->set('mname', 'ΕΥΓΕΝΙΑ');
       $this->store->set('idno', 'ΧΧ455676');
       $this->store->set('sex', 1);
-      $this->store->set('birth_date', '1976-12-10' );
-      $this->store->set('birth_place', 'ΑΘΗΝΑ');
+      $this->store->set('birthdate', '1976-12-10' );
+      $this->store->set('birthplace', 'ΑΘΗΝΑ');
       $this->store->set('afm', '057339456');
    
   }//validation end

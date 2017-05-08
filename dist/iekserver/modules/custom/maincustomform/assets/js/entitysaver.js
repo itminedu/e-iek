@@ -4,56 +4,7 @@
   Drupal.behaviors.logInForm = {
     attach: function (context, settings) {
 
-    //get all available regions
-     jQuery.ajax({
-     	url: Drupal.url('/jsonapi/region_entity/region_entity?_format=api_json&fields[region_entity--region_entity]=id,name'),	 
-	    method: 'GET',
-	    success: function(data, status, xhr) {
-            var arrObjects = data["data"];
-            var sel = $("#edit-region-select");
-            sel.empty();
-            arrObjects.forEach( function (arrayItem)
-            {
-               var attributes = arrayItem['attributes'];
-               sel.append('<option value="' + attributes['id'] + '">' + attributes['name'] + '</option>');
-            })
-            
-        }
-	 });
 
-     //select iek
-     jQuery.ajax({
-	    url: Drupal.url('/jsonapi/school_entity/school_entity?_format=api_json&fields[school_entity--school_entity]=id,name'),
-	    method: 'GET',
-	    success: function(data, status, xhr) {
-            var arrObjects = data["data"];
-            var sel = $("#edit-iek-select");
-            sel.empty();
-            arrObjects.forEach( function (arrayItem)
-            {
-               var attributes = arrayItem['attributes'];
-               sel.append('<option value="' + attributes['id'] + '">' + attributes['name'] + '</option>');
-            })
-            
-        }
-	 });
-
-	 //select eidikotita
-     jQuery.ajax({	
-	    url: Drupal.url('/jsonapi/eidikotita_entity/eidikotita_entity?_format=api_json&fields[eidikotita_entity--eidikotita_entity]=id,name'),
-	    method: 'GET',
-	    success: function(data, status, xhr) {
-            var arrObjects = data["data"];
-            var sel = $("#edit-eidikotita-select");
-            sel.empty();
-            arrObjects.forEach( function (arrayItem)
-            {
-               var attributes = arrayItem['attributes'];
-               sel.append('<option value="' + attributes['id'] + '">' + attributes['name'] + '</option>');
-            })
-            
-        }
-	 });
 
 
 

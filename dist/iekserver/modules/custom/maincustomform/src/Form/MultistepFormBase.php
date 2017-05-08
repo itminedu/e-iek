@@ -160,6 +160,7 @@ abstract class MultistepFormBase extends FormBase  {
            'student_id'=> $created_student_id, 
            'iek_id'=> $this->store->get('iek_select'), 
            'region_id'=> $this->store->get('region_select'), 
+           'pedio' => $this->store->get('pedio'),
            'state' => 'DRAFT'
         );
         

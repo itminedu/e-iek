@@ -78,9 +78,9 @@ class MultistepThreeForm extends MultistepFormBase {
     '#type' => 'select',
     '#title' => 'Τύπος Εξέτασης',
     '#options' =>  [
-    'practical' => $this->t('Πρακτικό μέρος'),
-    'theoretical' => $this->t('Θεωρητικό μέρος'),
-    'both' => $this->t('Και τα δύο'),
+    'practical' => t('Πρακτικό μέρος'),
+    'theoretical' => t('Θεωρητικό μέρος'),
+    'both' => t('Και τα δύο'),
      ],
     );
 
@@ -102,7 +102,7 @@ class MultistepThreeForm extends MultistepFormBase {
       '#type' => 'link',
       '#title' => $this->t('Προηγούμενο'),
       '#attributes' => array(
-        'class' => array('button'),
+        'class' => array('btn'),
       ),
       '#weight' => 0,
       '#url' => Url::fromRoute('maincustomform.multistep_two_form'),
@@ -110,7 +110,7 @@ class MultistepThreeForm extends MultistepFormBase {
 
     $form['submit'] = [
         '#type' => 'submit',
-        '#value' => $this->t('Submit'),
+        '#value' => $this->t('Καταχώρηση'),
     ];
 
     return $form;
@@ -121,6 +121,21 @@ class MultistepThreeForm extends MultistepFormBase {
     */
   public function validateForm(array &$form, FormStateInterface $form_state) {
    // parent::validateForm($form, $form_state);
+
+    if($form_state->getValue('region_select') == 0) {
+      $form_state->setErrorByName('region_select', t('Δεν έχει γίνει επιλογή'));
+      return;
+    }
+
+    if($form_state->getValue('eidikotita_select') == 0) {
+      $form_state->setErrorByName('eidikotita_select', t('Δεν έχει γίνει επιλογή'));
+      return;
+    }
+
+    if($form_state->getValue('iek_select') == 0) {
+      $form_state->setErrorByName('iek_select', t('Δεν έχει γίνει επιλογή'));
+      return;
+    }
     $this->store->set('prabek', $form_state->getValue('prabek'));
     $this->store->set('numbek', $form_state->getValue('numbek'));
     $this->store->set('regno', $form_state->getValue('regno'));
