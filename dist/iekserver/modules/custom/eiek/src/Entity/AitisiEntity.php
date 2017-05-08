@@ -520,7 +520,7 @@ class AitisiEntity extends RevisionableContentEntityBase implements AitisiEntity
       ->setRequired(TRUE)
       ->setSettings(array(
          'max_length' => 16,
-         'default_value' => 'Draft',
+         'default_value' => 'both',
          'allowed_values' => array(
             'practical' => t('Πρακτικό'),
             'theoretical' => t('Θεωρητικό'),
