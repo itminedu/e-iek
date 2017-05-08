@@ -1,0 +1,10 @@
+modal:
+  css:
+    theme:
+      assets/css/d8viewscustomform.css: {}
+  js:
+    js/crutch.js: {}
+  dependencies:
+   - core/jquery
+   - core/ajax
+
