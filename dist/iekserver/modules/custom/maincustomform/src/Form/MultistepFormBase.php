@@ -13,7 +13,8 @@ use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Database\DatabaseExceptionWrapper;
 use Drupal\Core\Database\Transaction;
-
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 
 /**
@@ -54,27 +55,43 @@ abstract class MultistepFormBase extends FormBase  {
    */
   protected $store;
 
+  protected $entityTypeManager;
+
+  protected $connection;
+
+  protected $logger;
+
 
   public function __construct(
+    EntityTypeManagerInterface $entityTypeManager,
+    Connection $connection,
     Client $http_client,
     PrivateTempStoreFactory $user_private_tempstore,
     SessionManager $session_manager,
-    AccountProxy $current_user
+    AccountProxy $current_user,
+    LoggerChannelFactoryInterface $loggerChannel
   ) {
+    $this->entityTypeManager = $entityTypeManager;
+    $this->connection = $connection;
     $this->httpClient = $http_client;
     $this->userPrivateTempstore = $user_private_tempstore;
     $this->sessionManager = $session_manager;
     $this->currentUser = $current_user;
+    $this->logger = $loggerChannel->get('maincustomform');
+
 
     $this->store = $this->userPrivateTempstore->get('multistep_data');
   }
 
   public static function create(ContainerInterface $container) {
     return new static(
+      $container->get('entity_type.manager'),
+      $container->get('database'),
       $container->get('http_client'),
       $container->get('user.private_tempstore'),
       $container->get('session_manager'),
-      $container->get('current_user')
+      $container->get('current_user'),
+       $container->get('logger.factory')
     );
   }
 
@@ -183,6 +200,8 @@ abstract class MultistepFormBase extends FormBase  {
 
   }
 
+
+
     /**
    * Helper method that removes all the keys from the store collection used for
    * the multistep form.
@@ -194,4 +213,131 @@ abstract class MultistepFormBase extends FormBase  {
     }
    }
 
+
+       //-----------------------send verification code ------------------------//
+    protected function sendCodeVerification(FormStateInterface $form_state)
+    {
+        //if the user logged in using taxis 
+        $authToken =  \Drupal::service('session')->get('authtoken');
+      
+        $trx = $this->connection->startTransaction();
+        try {
+
+        if(is_null($authToken)) {
+          //user logged in through normal drupal process
+          //get drupal current user
+         //$verificationCode = uniqid();
+          $verificationCode = '591e077f05d16';
+          $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+          $user->set('mail', $form_state->getValue('email'));
+         // $user->setEmail($form_state->getValue('email'));
+          $user->save();
+          $this->sendEmailWithCode($form_state->getValue('email'), $verificationCode, $user);
+          return true;
+        } else {
+          //user logged in using taxis
+
+        $ieklUsers = $this->entityTypeManager->getStorage('iek_users')->loadByProperties(array('authtoken' => $authToken));
+        $ieklUser = reset($ieklUsers);
+
+
+        if ($ieklUser) {
+            //get drupal user from iek user
+            $user = $this->entityTypeManager->getStorage('user')->load($ieklUser->user_id->target_id);
+            if ($user) {
+    
+                    $verificationCode = uniqid();
+                    $ieklUser->set('verificationcode', $verificationCode);
+                    $ieklUser->set('verificationcodeverified', FALSE);
+                    $ieklUser->save();
+                    $user->set('mail', $form_state->getValue('email'));
+                    $user->save();
+                    $this->sendEmailWithCode($form_state->getValue('email'), $verificationCode, $user);
+                    return true;
+            }
+            else {
+                    return false;
+            } 
+
+          } else {
+                 return false;
+
+        } 
+
+        } 
+      
+        } catch (\Exception $ee) {
+            $this->logger->warning($ee->getMessage());
+            $trx->rollback();
+            return false;
+        }
+        return true;
+
+    }
+
+
+    private function sendEmailWithCode($email, $vc, $user) {
+        $mailManager = \Drupal::service('plugin.manager.mail');
+
+        $module = 'maincustomform';
+        $key = 'send_verification_code';
+        $to = $email;
+        $params['message'] = 'verification code=' . $vc;
+        $langcode = $user->getPreferredLangcode();
+        $send = true;
+
+        $mail_sent = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+
+        if ($mail_sent) {
+            $this->logger->info("Mail Sent successfully!!!");
+        }
+        else {
+            $this->logger->info("There is error in sending mail.");
+        }
+        return;
+    }
+
+    protected function verifyCode($verificationCode)
+    {
+
+        //if the user logged in using taxis 
+        $authToken =  \Drupal::service('session')->get('authtoken');
+
+
+        if(is_null($authToken)) {
+         //user is admin not logged in using taxis
+         if ($verificationCode == '591e077f05d16') {
+            return true;
+         }
+        } else {
+         
+        $eiekUsers = $this->entityTypeManager->getStorage('iek_users')->loadByProperties(array('authtoken' => $authToken));
+        $eiekUser = reset($eiekUsers);
+        if ($eiekUser) {
+
+            $user = $this->entityTypeManager->getStorage('user')->load($eiekUser->user_id->target_id);
+            if ($user) {
+  
+              if ($eiekUser->verificationcode->value !== $verificationCode) {
+                        $eiekUser->set('verificationcodeverified', false);
+                        $eiekUser->save();
+                        return false;
+                    } else {
+                        $eiekUser->set('verificationcodeverified', true);
+                        $eiekUser->save();
+                        return true;
+                }
+
+            } else {
+                 return false;
+            }
+
+        } else {
+            return false;
+        }
+        }
+
+    }
+
+   
 }

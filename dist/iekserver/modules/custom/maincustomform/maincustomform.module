@@ -62,3 +62,16 @@ function maincustomform_preprocess_region(array &$variables) {
   $variables['my_custom_user_info_block'] = $block_content;
 
 }
+
+function maincustomform_mail($key, &$message, $params) {
+    $options = array(
+      'langcode' => $message['langcode'],
+    );
+  switch ($key) {
+  case 'send_verification_code':
+    $message['from'] = \Drupal::config('system.site')->get('mail');
+    $message['subject'] = t('Σύστημα υποβολής αιτήσεων εγγραφής σε ΕΠΑΛ: Επιβεβαίωση e-mail', $options);
+    $message['body'][] = $params['message'];
+      break;
+  }
+}
