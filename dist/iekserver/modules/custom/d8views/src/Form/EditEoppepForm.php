@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityManager;
 use Drupal\Core\Url;
 
+
 /**
  * Class EditEoppepForm.
  *
@@ -259,6 +260,14 @@ class EditEoppepForm extends FormBase {
             $form['submit'] = [
                 '#type' => 'submit',
                 '#value' => $this->t('Submit'),
+            ];
+            
+
+            $form['delete_aitisi'] = [
+                '#title' => $this->t('Delete'),
+                '#type' => 'link',
+                '#attributes' => array('class' => array('button')),
+                '#url' => Url::fromRoute('d8views.aitiseis_controller_deleteAitisi',array('aid' => $aid)),
             ];
 
 

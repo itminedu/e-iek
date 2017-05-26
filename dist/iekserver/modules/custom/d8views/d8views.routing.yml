@@ -14,4 +14,10 @@ d8views.edit_eoppep_form:
     _title: 'EditEoppepForm'
   requirements:
     _access: 'TRUE'
-  
+d8views.aitiseis_controller_deleteAitisi:
+  path: '/d8views/eoppep/aitisi/{aid}/delete'
+  defaults:
+    _controller: '\Drupal\d8views\Controller\AitiseisController::deleteAitisi'
+    _title: 'deleteAitisi'
+  requirements:
+    _permission: 'access content'
